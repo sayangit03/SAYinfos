@@ -227,7 +227,7 @@
   <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-    <form action="/login" method="post" role="form" class="php-email-form" id="loginForm">
+    <form action="/mylogin" method="post" role="form" class="php-email-form" id="loginForm">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Login</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -260,6 +260,9 @@
       <div class="sent-message1" id = "myDIVLogin">Please wait. You will be redirected to your home page. </div></br>
         <input type="button" class="btn-primary1" onclick="myFunctionLogin()" id="submitLogin" value="Login">
       </div>
+      <div class="modal-footer d-flex justify-content-center">
+      <a href="/ssoLogin">Login With Google</a>
+      </div>
       </form>
     </div>
   </div>
@@ -270,6 +273,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <form action="/registration" method="post" role="form" class="php-email-form" id="signupForm">
+    <!-- <fieldset disabled="disabled"> -->
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -333,6 +337,7 @@
         <!-- <button class="btn-primary1" onclick="myFunction()" id="submitSignup" >Sign up</button> -->
         <input type="button" class="btn-primary1" onclick="myFunction()" id="submitSignup" value="Sign Up">
       </div>
+      <!-- </fieldset> -->
       </form>
     </div>
   </div>
@@ -350,23 +355,24 @@
         <div class="row content" data-aos="fade-up">
           <div class="col-lg-6">
             <p>
-              We are SAYinfos - a non-profit and open source website.
+              Welcome to SAYinfos - a non-profit/non-commercial and open/crowd source website.
             </p>
-            <p style="font: italic; color: #ef6603;">**We use cookies only to track the user session while logged in. Cookies expire when the browsing session ends**</p>
+            
             <ul>
               <li><i class="ri-check-double-line"></i> Interview Oriented Q&A</li>
               <li><i class="ri-check-double-line"></i> Cooking Recipes</li>
               <li><i class="ri-check-double-line"></i> Check COVID19 updates</li>
               <li><i class="ri-check-double-line"></i> Read Daily News</li>
               <li><i class="ri-check-double-line"></i> Get Weather Forecasts</li>
-              <li><i class="ri-check-double-line"></i> Contribute Q&A Upon Signup</li>
-              <li><i class="ri-check-double-line"></i> Contribute Recipes Upon Signup</li>
+              <li><i class="ri-check-double-line"></i> Contribute Q&A Upon Login</li>
+              <li><i class="ri-check-double-line"></i> Contribute Recipes Upon Login</li>
             </ul>
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0">
             <p>
-              This website is made out of sheer interest towards learning something new. The source code is available on GIT. <a href="https://github.com/sayangit03" target="_blank">Click here</a> to access it. We would love to have your contributions here.</br> Reach us for more details.
+              This website is made out of sheer interest towards learning something new. This website does not promote anything and does not contain any advertise. It is also a personal website where all the services are implemented to make a point of proof for new learnings. The source code is available on GIT. <a href="https://github.com/sayangit03" target="_blank">Click here</a> to access it. We would love to have your contributions here.</br> Reach me for more details.
             </p>
+            <p style="font: italic; color: #ef6603;">**Cookies used only to track the user session while logged in. Cookies expire when the browsing session ends**</p>
             <!-- <a href="#" class="btn-learn-more">Learn More</a> -->
           </div>
         </div>
@@ -595,6 +601,9 @@
         <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
         <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
         <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="credits">
+        <a href="/privacyPolicy">Privacy Policy</a>
       </div>
       <div class="copyright">
         &copy; Copyright <strong><span>SAYinfos</span></strong>. All Rights Reserved

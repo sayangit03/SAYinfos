@@ -72,6 +72,11 @@ public class HomeController {
 	public String happyBirthday() {
 		return "birthday";
 	}
+	
+	@RequestMapping(value = "/privacyPolicy")
+	public String privacyPolicy() {
+		return "privacy_policy";
+	}
 
 
 	/*

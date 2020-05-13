@@ -20,9 +20,9 @@ public class NewsResource {
 
 	public News getAllNews(String search){
 		System.out.println("From news resource: "+search);
-		String url = "http://newsapi.org/v2/everything?q=india&sortBy=publishedAt&apiKey="+env.getProperty("news.key");
+		String url = "https://newsapi.org/v2/everything?q=india&sortBy=publishedAt&language=en&apiKey="+env.getProperty("news.key");
 		if(search!=null && search!="")
-			url = "http://newsapi.org/v2/everything?q="+search+"&sortBy=publishedAt&apiKey="+env.getProperty("news.key");
+			url = "http://newsapi.org/v2/everything?q="+search+"&sortBy=publishedAt&language=en&apiKey="+env.getProperty("news.key");
 		//System.out.println(url);
 		News news = restTemplate.getForObject(url, News.class);
 		//System.out.println("From news service: "+news.getArticleList().get(0).getContent());

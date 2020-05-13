@@ -1,6 +1,8 @@
 package com.spring.controller;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,7 +33,7 @@ public class LoginController {
 	@Autowired
 	LoginService loginService;
 	
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "/mylogin")
 	public String performLogin(ModelMap modelMap, UserLogin user, RedirectAttributes redirectAtt,HttpSession session, HttpServletRequest req) {
 		System.out.println("Logging in user with unique name: "+user.getUniqueName()+" | "+session.getAttribute("uNm"));
 		if(session.getAttribute("uNm")!=null && session.getAttribute("pWd")!=null) {
@@ -40,12 +43,7 @@ public class LoginController {
 			}
 		}
 		boolean isOkToLoginFlag = loginService.doLogin(user);
-		List<Contribution> contriList = loginService.getContributions(user.getUniqueName());
-		if(contriList!=null && contriList.size()>0) {
-			for(int i=0; i<contriList.size(); i++) {
-				contriList.get(i).setId(i+1);
-			}
-		}
+		
 		String userFullName = null;
 		String userRole = null;
 		String userLoc = null;
@@ -69,6 +67,14 @@ public class LoginController {
 			}
 		}
 		
+		List<Contribution> contriList = loginService.getContributions(userEml);
+		if(contriList!=null && contriList.size()>0) {
+			for(int i=0; i<contriList.size(); i++) {
+				contriList.get(i).setId(i+1);
+			}
+		}
+		
+		List<Contribution> flashUserList =  loginService.getByFlashUserUniqueName();
 		
 		
 		if(userFullName!=null && userRole!=null) {
@@ -80,6 +86,7 @@ public class LoginController {
 			modelMap.addAttribute("userPhn", userPhn);
 			modelMap.addAttribute("usrRegDetails", usrRegDetails);
 			modelMap.addAttribute("contriList", contriList);
+			modelMap.addAttribute("flashUserList", flashUserList);
 			
 			
 			session.setAttribute("uNm", user.getUniqueName());
@@ -88,6 +95,7 @@ public class LoginController {
 			session.setAttribute("usrFullNameTbl", userFullName);
 			session.setAttribute("userRole", userRole);
 			session.setAttribute("userEml", userEml);
+			session.setAttribute("flashUser", false);
 		}
 		System.out.println("User Name: "+userFullName+" | User Role: "+userRole);
 		if(isOkToLoginFlag && userRole.equals("Admin")) {
@@ -101,6 +109,38 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value = "/ssoLogin")
+	public String ssoLogin(OAuth2Authentication authentication, Principal principal, HttpSession session, ModelMap modelMap) {
+		LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
+        
+        System.out.println((String) properties.get("name"));
+        System.out.println((String) properties.get("email"));
+        System.out.println(authentication.getUserAuthentication().getAuthorities().toString());
+        
+        List<Contribution> contriList = loginService.getContributions(properties.get("email").toString());
+		if(contriList!=null && contriList.size()>0) {
+			for(int i=0; i<contriList.size(); i++) {
+				contriList.get(i).setId(i+1);
+			}
+		}
+		
+        String userFullName = properties.get("name").toString();
+        session.setAttribute("usrFullName", userFullName.substring(0, userFullName.indexOf(' ')));
+        session.setAttribute("uNm", "flash-"+properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
+        session.setAttribute("usrFullNameTbl", properties.get("name").toString());
+		session.setAttribute("userRole", authentication.getUserAuthentication().getAuthorities().toString().substring(1, authentication.getUserAuthentication().getAuthorities().toString().length()-1));
+		session.setAttribute("userEml", properties.get("email").toString());
+		session.setAttribute("flashUser", true);
+		
+		modelMap.addAttribute("usrFullName", userFullName.substring(0, userFullName.indexOf(' ')));
+		modelMap.addAttribute("uNm", "flash-"+properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
+		modelMap.addAttribute("usrFullNameTbl", properties.get("name").toString());
+		modelMap.addAttribute("userRole", authentication.getUserAuthentication().getAuthorities().toString().substring(1, authentication.getUserAuthentication().getAuthorities().toString().length()-1));
+		modelMap.addAttribute("flashUser", true);
+		modelMap.addAttribute("contriList", contriList);
+		return "home_user";
+	}
+	
 	@RequestMapping(value = "/contribute")
 	public String doContribute() {
 		System.out.println("In login controller contribute method..");
@@ -108,7 +148,7 @@ public class LoginController {
 		return "home_user_contribute";
 	}
 	
-	@RequestMapping(value = "/logout")
+	@RequestMapping(value = "/mylogout")
 	public String performLogout(HttpSession session, HttpServletResponse res) {
 		session.invalidate();
 		/*

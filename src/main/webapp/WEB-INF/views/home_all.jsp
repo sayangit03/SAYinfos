@@ -86,7 +86,7 @@ if(session.getAttribute("uNm")==null){
         <ul>
           <li class="active"><a href="#mycontribution">My Contribution</a></li>
           <li class="active"><a href="/contribute">Contribute</a></li>
-          <li class="active"><a href="/logout">Logout</a></li>
+          <li class="active"><a href="/mylogout">Logout</a></li>
 
         </ul>
       </nav><!-- .nav-menu -->
@@ -127,7 +127,7 @@ if(session.getAttribute("uNm")==null){
       <tr>
         <th>Name</th>
         <th>Location</th>
-        <th>Reg. Date</th>
+        <th>Email</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -138,7 +138,7 @@ if(session.getAttribute("uNm")==null){
       <c:set var="phn" value="${ userDetails.getUserPhnNum() }"></c:set>
         <td><a href="/userContri/${ userDetails.getUserEmail() }/${userDetails.getUserName()}"><b>${ userDetails.getUserName() }</b></a></br></br>${fn:substring(phn, 0, 5)}-${fn:substring(phn, 5, fn:length(phn))} </td>
         <td></br>${ userDetails.getUserAdrs() }</td>
-        <td></br>${ regDt}</td>
+        <td style="word-break: break-all;"></br>${ userDetails.getUserEmail() }</td>
         <c:if test="${userDetails.getUserStatus() }">
         <td><b style="color: green;">Active ${ userDetails.getUserRole() }</b></br></br><a href="" data-toggle="dropdown">Remove User</a></td>
         </c:if>
@@ -155,8 +155,35 @@ if(session.getAttribute("uNm")==null){
     </c:forEach>
     </tbody>
   </table>
+      </div>
+    </section><!-- End Services Section -->
+    
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container">
+      <div class="section-title" data-aos="zoom-out">
+          <h2>Status</h2>
+          <p>Flash Users</p>
+        </div>
 
-
+<table class="table table-bordered table-stripped">
+    <thead style="background-color:#F5F5F5;">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Unique Name</th>
+      </tr>
+    </thead>
+    <tbody>
+   <c:forEach items="${flashUserList}" var="flashUserDetails"> 
+      <tr style="height: 30px;">
+        <td><a href="/userContri/${ flashUserDetails.getEmailId() }/${flashUserDetails.getUserName()}"><b>${ flashUserDetails.getUserName() }</b></a></td>
+        <td>${ flashUserDetails.getEmailId()}</td>
+        <td>${ flashUserDetails.getUserUniqueName()}</td>
+      </tr>
+    </c:forEach>
+    </tbody>
+  </table>
       </div>
     </section><!-- End Services Section -->
 

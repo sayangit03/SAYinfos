@@ -57,10 +57,19 @@ public class LoginService {
 		return Arrays.asList(regDetails.getBody());
 	}
 	
-	public List<Contribution> getContributions(String uniqueName){
+	public List<Contribution> getContributions(String emailId){
 		List<Contribution> list = new ArrayList<>();
-		list = contriRepo.findByUserUniqueName(uniqueName);
+		//list = contriRepo.findByUserUniqueName(uniqueName);
+		list = contriRepo.findByEmailId(emailId);
 		System.out.println("Total questions "+list.size());
 		return list;
 	}
+	
+	public List<Contribution> getByFlashUserUniqueName(){
+		List<Contribution> list = new ArrayList<>();
+		list = contriRepo.findByFlashUserUniqueName();
+		System.out.println(list.size());
+		return list;
+	}
+	
 }

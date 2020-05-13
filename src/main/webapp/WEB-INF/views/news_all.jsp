@@ -144,7 +144,7 @@
       <div class="container">
       <div class="section-title" data-aos="zoom-out">
           <h2>Service</h2>
-          <p>Latest News</p>
+          <p>Top Headlines</p>
         </div>
         
         <div class="containerForm">
@@ -196,16 +196,16 @@
             <li data-aos="fade-up" data-aos-delay="${article.getId() }00">
             <a data-toggle="collapse" class="" href="#f${article.getId() }">${article.getId() }. ${article.getTitle() } <i class="icofont-simple-up"></i></a>
             <div id="f${article.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
-                ${article.getDescription() }</br>
-                <a href="${article.getUrl() }" target="_blank">Full article is here.</a>
+                ${article.getDescription() }
+                <%-- </br><a href="${article.getUrl() }" target="_blank">Full article is here.</a> --%>
             </div>
             </c:when>
             <c:otherwise>
             <li data-aos="fade-up" data-aos-delay="${article.getId() }00">
             <a data-toggle="collapse" class="collapsed" href="#f${article.getId() }">${article.getId() }. ${article.getTitle() } <i class="icofont-simple-up"></i></a>
             <div id="f${article.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
-                ${article.getDescription() }</br>
-                <a href="${article.getUrl() }" target="_blank">Full article is here.</a>
+                ${article.getDescription() }
+               <%--  </br><a href="${article.getUrl() }" target="_blank">Full article is here.</a> --%>
             </div>
             </c:otherwise>
             </c:choose>

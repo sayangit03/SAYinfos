@@ -34,8 +34,10 @@ public class ContributionController {
 			contri.setContriStatus(false);
 			contriService.saveContribution(contri);
 		}
-
-		return "redirect:login";
+		if((boolean) session.getAttribute("flashUser")) {
+			return "redirect:ssoLogin";
+		}
+		return "redirect:mylogin";
 	}
 
 	@RequestMapping(value = "/userContri/{email}/{name}")

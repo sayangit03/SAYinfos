@@ -83,8 +83,8 @@ if(session.getAttribute("uNm")==null){
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="/login">Profile</a></li>
-          <li class="active"><a href="/logout">Logout</a></li>
+          <li class="active"><a href="/mylogin">Profile</a></li>
+          <li class="active"><a href="/mylogout">Logout</a></li>
           
 
         </ul>
@@ -135,6 +135,10 @@ if(session.getAttribute("uNm")==null){
     </div>
     </c:forEach>
     </div> --%>
+    
+    <c:if test="${contriList.size()<1}">
+    </br></br></br></br></br></br></br></br></br></br>
+    </c:if>
     
           <ul class="faq-list">
 <c:forEach items="${contriList}" var="contri"> 

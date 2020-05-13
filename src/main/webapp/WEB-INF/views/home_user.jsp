@@ -86,7 +86,7 @@ if(session.getAttribute("uNm")==null){
         <ul>
           <li class="active"><a href="#mycontribution">My Contribution</a></li>
           <li class="active"><a href="/contribute">Contribute</a></li>
-          <li class="active"><a href="/logout">Logout</a></li>
+          <li class="active"><a href="/mylogout">Logout</a></li>
           
 
         </ul>
@@ -134,10 +134,35 @@ if(session.getAttribute("uNm")==null){
     </thead>
     <tbody>
       <tr style="height: 30px;">
-        <td><b>${ usrFullNameTbl}</b></br></br>${fn:substring(userPhn, 0, 5)}-${fn:substring(userPhn, 5, fn:length(userPhn))}</td>
+        <td><b>${ usrFullNameTbl}</b></br></br>
+        <c:choose>
+        <c:when test="${flashUser }">
+        ${uNm }
+        </c:when>
+        <c:otherwise>
+        ${fn:substring(userPhn, 0, 5)}-${fn:substring(userPhn, 5, fn:length(userPhn))}
+        </c:otherwise>
+        </c:choose>
+        </td>
+        <c:choose>
+        <c:when test="${flashUser }">
+        <td></br>N/A</td>
+        </c:when>
+        <c:otherwise>
         <td></br>${ userLoc }</td>
+        </c:otherwise>
+        </c:choose>
         <td style="word-break: break-all;"></br>${ userEml}</td>
-        <td><b style="color: green;">Active ${ userRole }</b></br></br><a href="#">Edit Profile</a></td>
+        <td>
+        <c:choose>
+        <c:when test="${flashUser }">
+        <b style="color: green;">${ userRole }</b>
+        </c:when>
+        <c:otherwise>
+        <b style="color: green;">Active ${ userRole }</b>
+        </c:otherwise>
+        </c:choose>
+        </br></br><a href="#">Edit Profile</a></td>
       </tr>
     </tbody>
   </table>

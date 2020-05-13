@@ -3,11 +3,11 @@ package com.spring.web;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.spring.controller.MyWebApplication01Application;
+import com.spring.controller.MyWebApplication03Application;
 
 
-@SpringBootTest (classes = MyWebApplication01Application.class)
-class MyWebApplication01ApplicationTests {
+@SpringBootTest (classes = MyWebApplication03Application.class)
+class MyWebApplication03ApplicationTests {
 
 	@Test
 	void contextLoads() {

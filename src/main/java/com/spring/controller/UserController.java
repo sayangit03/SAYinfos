@@ -60,7 +60,7 @@ public class UserController {
 		}catch (Exception e) {
 			System.out.println("User approval mail not sent");
 		}
-		return "redirect:/login";
+		return "redirect:/mylogin";
 	}
 	
 	@GetMapping(value = "/approveAdmin/{email}")
@@ -72,7 +72,7 @@ public class UserController {
 		}catch (Exception e) {
 			System.out.println("Admin approval mail not sent");
 		}
-		return "redirect:/login";
+		return "redirect:/mylogin";
 	}
 	
 	
