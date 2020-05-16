@@ -108,26 +108,10 @@
         </div>
 
 
-<%--   <div class="panel-group" id="accordion">
-  <c:forEach items="${indCovidList}" var="india"> 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href='#col${india.getStatecode() }'><i class="ri-check-double-line"></i>${india.getState() }</a>
-        </h4>
-      </div>
-      <div id='col${india.getStatecode() }' class="panel-collapse collapse in">
-        <div class="panel-body" style="padding-left: 27px; white-space: pre-wrap;">${india.getStatecode() }</div>
-    </div>
-    </div>
-    </c:forEach>
-    </div> --%>
-
-
-<table class="table table-bordered" style="text-align: center;">
+<table class="table table-bordered" style="text-align: center;" data-aos="fade-left">
     <thead style="background-color:#F5F5F5;">
       <tr>
-        <th style="color: blue;">Active</th>
+        <th style="color: blue;">Total</th>
         <th style="color: red;">Deaths</th>
         <th style="color: green;">Revives</th>
       </tr>
@@ -142,7 +126,7 @@
 </table>
    
 
-<div id="accordion">
+<div id="accordion" data-aos="fade-left">
 <c:forEach items="${indCovidList}" var="india">
   <div class="card">
     <div class="card-header" id="heading-1">
@@ -153,7 +137,7 @@
    </br></br><table class="table table-bordered" style="text-align: center; font-size: 16px;">
     <thead style="background-color:#F5F5F5;">
       <tr>
-        <th style="color: blue;">Active</th>
+        <th style="color: blue;">Total</th>
         <th style="color: red;">Deaths</th>
         <th style="color: green;">Revives</th>
       </tr>

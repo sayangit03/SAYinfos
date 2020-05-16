@@ -147,8 +147,8 @@
           <p>Top Headlines</p>
         </div>
         
-        <div class="containerForm">
-        <div class="col-lg-12 mt-6 mt-lg-1" data-aos="fade-left">
+        <div class="containerForm" data-aos="fade-left">
+        <div class="col-lg-12 mt-6 mt-lg-1">
         <form action="/news" method="get" role="form" class="php-email-form" id="searchForm">
         <div class="form-row">
                 <div class="col-md-12 form-group">
@@ -164,59 +164,37 @@
         </form>
         </div>
         </div></br>
-
-<%--   <div class="panel-group" id="accordion">
-  <c:forEach items="${articleList}" var="article"> 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href='#item${article.getId() }'><i class="ri-check-double-line"></i>${article.getId() } . ${article.getTitle() }</a>
-        </h4>
-      </div>
-      <div id='item${article.getId() }' class="panel-collapse collapse in">
-      <c:choose>
-      <c:when test="${fn:containsIgnoreCase(article.getSource().getName(), 'Maharashtratimes.com')}">  
-        <div class="panel-body" style="padding-left: 27px"><p> ${article.getDescription() }</p></div></br>
-      </c:when>
-      <c:otherwise>
-      	<div class="panel-body" style="padding-left: 27px"><p> ${article.getContent() }</p></div></br>
-      </c:otherwise>
-      </c:choose>
-        <div class="panel-body" style="padding-left: 27px"><p> To read full article <a href="${article.getUrl() }" target="_blank">click here</a> </p></div></br>
-    </div>
-    </div>
-    </c:forEach>
-    </div> --%>
     
-          <ul class="faq-list">
+<div data-aos="fade-up">
+<ul class="faq-list">
 <c:forEach items="${articleList}" var="article"> 
           
             <c:choose>
             <c:when test="${article.getId()==1 }">
-            <li data-aos="fade-up" data-aos-delay="${article.getId() }00">
+            <li>
             <a data-toggle="collapse" class="" href="#f${article.getId() }">${article.getId() }. ${article.getTitle() } <i class="icofont-simple-up"></i></a>
             <div id="f${article.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
                 ${article.getDescription() }
                 <%-- </br><a href="${article.getUrl() }" target="_blank">Full article is here.</a> --%>
             </div>
+            </li>
             </c:when>
             <c:otherwise>
-            <li data-aos="fade-up" data-aos-delay="${article.getId() }00">
+            <li>
             <a data-toggle="collapse" class="collapsed" href="#f${article.getId() }">${article.getId() }. ${article.getTitle() } <i class="icofont-simple-up"></i></a>
             <div id="f${article.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
                 ${article.getDescription() }
                <%--  </br><a href="${article.getUrl() }" target="_blank">Full article is here.</a> --%>
             </div>
+            </li>
             </c:otherwise>
             </c:choose>
-          </li>
 </c:forEach>
-          </ul>
-    
+</ul>
+</div>   
 
-
-      </div>
-    </section><!-- End Services Section -->
+</div>
+</section><!-- End Services Section -->
 
 
 

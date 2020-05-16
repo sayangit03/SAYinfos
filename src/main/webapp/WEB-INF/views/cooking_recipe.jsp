@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <html lang="en">
 
 <head>
@@ -120,72 +121,103 @@
     </svg>
 </section>
 
-  <main id="main">
-   
-    <!-- ======= Services Section ======= -->
-<%--     <section id="services" class="services">
-      <div class="container">
-      <div class="section-title" data-aos="zoom-out">
-          <h2>Service</h2>
-          <p>Cooking Recipes</p>
-        </div>
+<main id="main">
 
-  <div class="panel-group" id="accordion">
-  <c:forEach items="${recipeList}" var="contri"> 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href='#col${contri.getId() }'><i class="ri-check-double-line"></i>${contri.getId() }. ${contri.getContriQuestion() } by ${contri.getUserName() }</a>
-        </h4>
-      </div>
-      <div id='col${contri.getId() }' class="panel-collapse collapse in">
-        <div class="panel-body" style="padding-left: 27px; white-space: pre-wrap;">${contri.getContriAnswer() }</div>
-    </div>
-    </div></br>
-    </c:forEach>
-    </div>
-
-      </div>
-    </section> --%>
-    <!-- End Services Section -->
-    
 <section id="faq" class="faq">
 <div class="container">
     <div class="section-title" data-aos="zoom-out">
           <h2>Service</h2>
           <p>Cooking Recipes</p>
         </div>
-      
-       <ul class="faq-list">
-<c:forEach items="${recipeList}" var="contri"> 
-          
+       
+       <ul class="nav nav-tabs row d-flex">
+          <li class="nav-item col-3" data-aos="zoom-in">
+            <a class="nav-link active show" data-toggle="tab" href="#tab-1">
+              <h4 class="d-none d-lg-block">Breakfast</h4>
+            </a>
+          </li>
+          <li class="nav-item col-3" data-aos="zoom-in">
+            <a class="nav-link" data-toggle="tab" href="#tab-2">
+              <h4 class="d-none d-lg-block">Lunch</h4>
+            </a>
+          </li>
+          <li class="nav-item col-3" data-aos="zoom-in">
+            <a class="nav-link" data-toggle="tab" href="#tab-3">
+              <h4 class="d-none d-lg-block">Snacks</h4>
+            </a>
+          </li>
+          <li class="nav-item col-3" data-aos="zoom-in">
+            <a class="nav-link" data-toggle="tab" href="#tab-4">
+              <h4 class="d-none d-lg-block">Dinner</h4>
+            </a>
+          </li>
+        </ul>
+        </br></br>
+        
+<div class="tab-content">
+<div class="tab-pane active show" id="tab-1" data-aos="fade-up">
+<div>
+<ul class="faq-list">
+<c:forEach items="${breakfastList}" var="contri"> 
             <c:choose>
             <c:when test="${contri.getId()==1 }">
-            <li data-aos="fade-up" data-aos-delay="${contri.getId() }00">
+            <li>
             <a data-toggle="collapse" class="" href="#f${contri.getId() }">${contri.getId() }. ${contri.getContriQuestion() } by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri.getContriAnswer() }
             </div>
+            </li>
             </c:when>
             <c:otherwise>
-            <li data-aos="fade-up" data-aos-delay="${contri.getId() }00">
+            <li>
             <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${contri.getId() }. ${contri.getContriQuestion() } by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri.getContriAnswer() }
             </div>
+            </li>
             </c:otherwise>
             </c:choose>
-          </li>
 </c:forEach>
-          </ul>
-          </div>
+</ul>
+</div>
+</div>
+
+<div class="tab-pane" id="tab-2" data-aos="fade-up">
+<div>
+<ul class="faq-list">
+<c:forEach items="${lunchtList}" var="contri1"> 
+            <c:choose>
+            <c:when test="${contri1.getId()==1 }">
+            <li>
+            <a data-toggle="collapse" class="" href="#f1${contri1.getId() }">${contri1.getId() }. ${contri1.getContriQuestion() } by ${contri1.getUserName() } <i class="icofont-simple-up"></i></a>
+            <div id="f1${contri1.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
+                ${contri1.getContriAnswer() }
+            </div>
+            </li>
+            </c:when>
+            <c:otherwise>
+            <li>
+            <a data-toggle="collapse" class="collapsed" href="#f1${contri1.getId() }">${contri1.getId() }. ${contri1.getContriQuestion() } by ${contri1.getUserName() } <i class="icofont-simple-up"></i></a>
+            <div id="f1${contri1.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
+                ${contri1.getContriAnswer() }
+            </div>
+            </li>
+            </c:otherwise>
+            </c:choose>
+</c:forEach>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
 </section>
 
 
 
-</br></br>
+</br></br></br></br>
 
-  </main><!-- End #main -->
+</main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">

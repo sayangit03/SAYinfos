@@ -39,6 +39,13 @@ public class ContributionController {
 		}
 		return "redirect:mylogin";
 	}
+	
+	@RequestMapping(value = "/editContribution")
+	public String editContribution(Contribution contri) {
+		boolean result = contriService.saveEditedContribution(contri);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> "+result);
+		return "redirect:mylogin";
+	}
 
 	@RequestMapping(value = "/userContri/{email}/{name}")
 	public String checkContribution(@PathVariable String email,@PathVariable String name, RedirectAttributes redirectAtt) {
@@ -57,14 +64,43 @@ public class ContributionController {
 		
 		List<Contribution> list = new ArrayList<>();
 		list = (List<Contribution>) model.asMap().get("contriList");
-		if(list!=null && list.size()>0) {
-			for(int i=0; i<list.size(); i++) {
-				list.get(i).setId(i+1);
-			}
-		}
+		/*
+		 * if(list!=null && list.size()>0) { for(int i=0; i<list.size(); i++) {
+		 * list.get(i).setId(i+1); } }
+		 */
 		String name =  model.asMap().get("name").toString();
 		modelMap.addAttribute("contriList", list);
 		modelMap.addAttribute("name", name);
 		return "user_contribution";
 	}
+	
+	@RequestMapping(value = "/approveContri/{id}")
+	public String approveContri(@PathVariable int id) {
+		System.out.println("Contri id: "+id);
+		contriService.approveContriById(id);
+		return "redirect:/redirectToLogin";
+	}
+	
+	@RequestMapping(value = "/editContri/{id}")
+	public String editContri(@PathVariable int id, RedirectAttributes redirectAtt) {
+		System.out.println("Contri id: "+id);
+		Contribution contri = contriService.editContriById(id);
+		redirectAtt.addFlashAttribute("contri", contri);
+		return "redirect:/contriById";
+	}
+	
+	@RequestMapping(value = "/contriById")
+	public String redirectToEditContriPage(Model model, ModelMap modelMap) {
+		Contribution contri = new Contribution();
+		contri = (Contribution) model.asMap().get("contri");
+		modelMap.addAttribute("contri", contri);
+		return "home_user_contribute_edit";
+	}
+	
+	@RequestMapping(value = "/redirectToLogin")
+	public String redirectAfterApproveOrEdit() {
+		System.out.println("k");
+		return "redirect:mylogin";
+	}
+	
 }

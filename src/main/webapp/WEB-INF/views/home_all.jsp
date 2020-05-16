@@ -122,7 +122,7 @@ if(session.getAttribute("uNm")==null){
           <p>Registered Users</p>
         </div>
 
-<table class="table table-bordered table-stripped">
+<table class="table table-bordered table-stripped" data-aos="fade-left">
     <thead style="background-color:#F5F5F5;">
       <tr>
         <th>Name</th>
@@ -166,7 +166,7 @@ if(session.getAttribute("uNm")==null){
           <p>Flash Users</p>
         </div>
 
-<table class="table table-bordered table-stripped">
+<table class="table table-bordered table-stripped" data-aos="fade-left">
     <thead style="background-color:#F5F5F5;">
       <tr>
         <th>Name</th>
@@ -194,36 +194,21 @@ if(session.getAttribute("uNm")==null){
           <h2>Status</h2>
           <p>My Contributions</p>
         </div>
-
-<%--   <div class="panel-group" id="accordion">
-  <c:forEach items="${contriList}" var="contri"> 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href='#col${contri.getId() }'><i class="ri-check-double-line"></i>${contri.getId() }. ${contri.getContriQuestion() }</a>
-        </h4>
-      </div>
-      <div id='col${contri.getId() }' class="panel-collapse collapse in">
-        <div class="panel-body" style="padding-left: 27px; white-space: pre-wrap;">${contri.getContriAnswer() }</div>
-    </div>
-    </div>
-    </c:forEach>
-    </div> --%>
-    
-    
-          <ul class="faq-list">
+  
+<div data-aos="fade-up">    
+<ul class="faq-list">
 <c:forEach items="${contriList}" var="contri"> 
           
             <c:choose>
             <c:when test="${contri.getId()==1 }">
-            <li data-aos="fade-up" data-aos-delay="${contri.getId() }00">
+            <li>
             <a data-toggle="collapse" class="" href="#f${contri.getId() }">${contri.getId() }. ${contri.getContriQuestion() }<i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri.getContriAnswer() }
             </div>
             </c:when>
             <c:otherwise>
-            <li data-aos="fade-up" data-aos-delay="${contri.getId() }00">
+            <li>
             <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${contri.getId() }. ${contri.getContriQuestion() } <i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri.getContriAnswer() }
@@ -232,11 +217,11 @@ if(session.getAttribute("uNm")==null){
             </c:choose>
           </li>
 </c:forEach>
-          </ul>
+</ul>
+</div>
 
-
-      </div>
-    </section><!-- End Services Section -->
+</div>
+</section><!-- End Services Section -->
 
 
 

@@ -37,10 +37,10 @@ import com.spring.resource.CovidResource;
 @Controller
 public class CovidController {
 
-	
+
 	@Autowired 
 	CovidResource cResource;
-	 
+
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -68,7 +68,7 @@ public class CovidController {
 
 		return "covid19Country_result";
 	}
-	
+
 	@GetMapping("/indiaCovid")
 	public String getIndiaCovidResult(ModelMap modelMap) {
 		List<IndiaCovid> indCovidList = cResource.getIndiaCovid();
@@ -77,9 +77,9 @@ public class CovidController {
 				dis.setDistrictId(dis.getDistrict().replaceAll("\\s", ""));
 			}
 		}
-		
+
 		IndiaCovidOther ico = cResource.getIndiaCovidOther();
-		
+
 		for(IndiaCovid ind : indCovidList) {
 			for(Regional region : ico.getData().getRegional()) {
 				if(ind.getState().equals(region.getLoc())) {
@@ -94,10 +94,18 @@ public class CovidController {
 				}
 			}
 		}
-		modelMap.addAttribute("indActive", ico.getData().getSummary().getTotal());
-		modelMap.addAttribute("indDeath", ico.getData().getSummary().getDeaths());
-		modelMap.addAttribute("indRevive", ico.getData().getSummary().getDischarged());
-		
+		if(ico.getData().getSummary().getTotal()!=null) {
+			modelMap.addAttribute("indActive", ico.getData().getSummary().getTotal());
+			modelMap.addAttribute("indDeath", ico.getData().getSummary().getDeaths());
+			modelMap.addAttribute("indRevive", ico.getData().getSummary().getDischarged());
+		}
+		else {
+			modelMap.addAttribute("indActive", ico.getData().getUnofficialSummary().get(0).getTotal());
+			modelMap.addAttribute("indDeath", ico.getData().getUnofficialSummary().get(0).getDeaths());
+			modelMap.addAttribute("indRevive", ico.getData().getUnofficialSummary().get(0).getRecovered());
+		}
+
+
 		modelMap.addAttribute("indCovidList", indCovidList);
 		return "covid19_india";
 	}

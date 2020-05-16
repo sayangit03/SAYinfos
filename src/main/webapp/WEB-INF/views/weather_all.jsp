@@ -146,8 +146,8 @@
           <p>Weather Forecast: ${city}</p>
         </div>
         
-        <div class="containerForm">
-        <div class="col-lg-12 mt-6 mt-lg-1" data-aos="fade-left">
+        <div class="containerForm" data-aos="fade-left">
+        <div class="col-lg-12 mt-6 mt-lg-1">
         <form action="/weather" method="get" role="form" class="php-email-form" id="searchForm">
         <div class="form-row">
                 <div class="col-md-12 form-group">

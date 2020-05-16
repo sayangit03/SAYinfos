@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>User Contribution</title>
+  <title>Contribution Edit</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
@@ -42,6 +42,14 @@
   .borderless td, .borderless th {
     border: none;
 }
+  .sent-message1 {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
 
 .btn-primary1
 {
@@ -61,7 +69,13 @@
 .btn-primary1:hover {
   background: #fc8129;
 }
-  </style>
+
+.containerForm {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
 </head>
 
 <body>
@@ -71,6 +85,7 @@ if(session.getAttribute("uNm")==null){
 	response.sendRedirect("/");
 }
 %>
+
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
     <div class="container d-flex align-items-center">
@@ -83,10 +98,16 @@ if(session.getAttribute("uNm")==null){
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
+        <c:choose>
+        <c:when test="${sessionScope.flashUser}">
+        <li class="active"><a href="/ssoLogin">Profile</a></li>
+        </c:when>
+        <c:otherwise>
           <li class="active"><a href="/mylogin">Profile</a></li>
+        </c:otherwise>
+        </c:choose>
           <li class="active"><a href="/mylogout">Logout</a></li>
           
-
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -112,52 +133,76 @@ if(session.getAttribute("uNm")==null){
 </section>
 
   <main id="main">
-   
-    <!-- ======= Services Section ======= -->
-    <section id="faq" class="faq">
+
+<!-- ======= Services Section ======= -->
+    <section id="services" class="services">
       <div class="container">
       <div class="section-title" data-aos="zoom-out">
-          <h2>Status</h2>
-          <p>Contribution By <c:out value="${name}" /></p>
+          <h2>Welcome <c:out value="${sessionScope.usrFullName}" /></h2>
+          <p>Contribution Edit Page</p>
         </div>
-    
-    <c:if test="${contriList.size()<1}">
-    </br></br></br></br></br></br></br></br></br></br>
-    </c:if>
-<div data-aos="fade-up"> 
-<ul class="faq-list">
-<c:forEach items="${contriList}" var="contri" varStatus="loop"> 
-          
-            <c:choose>
-            <c:when test="${loop.count==1 }">
-            <li>
-            <a data-toggle="collapse" class="" href="#f${contri.getId() }">${loop.count}. ${contri.getContriQuestion() }<i class="icofont-simple-up"></i> </a>
-            <div id="f${contri.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
-            <c:if test="${!contri.isContriStatus() }"><a href="/approveContri/${contri.getId() }">Approve</a></c:if><a href="/editContri/${contri.getId() }">Edit</a>
-                ${contri.getContriAnswer() }
+
+
+<div class="containerForm" data-aos="fade-left">
+<div class="col-lg-12 mt-6 mt-lg-1">
+
+            <form action="/editContribution" method="post" role="form" class="php-email-form" id="contributionForm">
+            <div class="form-row">
+            <div class="col-md-4 form-group">
+            <input type="text" name="id" class="form-control" id="id" value="${contri.getId()}"/>
             </div>
-            </li>
-            </c:when>
-            <c:otherwise>
-            <li>
-            <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${loop.count}. ${contri.getContriQuestion() } <i class="icofont-simple-up"></i></a>
-            <div id="f${contri.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
-            <c:if test="${!contri.isContriStatus() }"><a href="/approveContri/${contri.getId() }">Approve</a></c:if><a href="/editContri/${contri.getId() }">Edit</a> 
-                ${contri.getContriAnswer() }
+            <div class="col-md-4 form-group">
+            <input type="text" name="userUniqueName" class="form-control" id="userUniqueName" value="${contri.getUserUniqueName()}"/>
             </div>
-            </li>
-            </c:otherwise>
-            </c:choose>
-</c:forEach>
-</ul>
+            <div class="col-md-4 form-group">
+            <input type="text" name="contriStatus" class="form-control" id="contriStatus" value="${contri.isContriStatus()}"/>
+            </div>
+            </div>
+              <div class="form-row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="userName" class="form-control" id="userName" value="${contri.getUserName()}"/>
+                </div>
+                <div class="col-md-6 form-group">
+                <input type="text" name="emailId" class="form-control" id="emailId" value="${contri.getEmailId()}"/>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 form-group">
+                <input id="contriDomain" name="contriDomain" class="form-control" value="${contri.getContriDomain()}" />
+                </div>
+                <div class="col-md-6 form-group">
+                  <input type="text" class="form-control" name="contriTopic" id="contriTopic" value="${contri.getContriTopic()}"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="contriQuestion" id="contriQuestion" value="${contri.getContriQuestion()}"/>
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="contriAnswer" id="contriAnswer" rows="7" style="white-space: pre-wrap;" >${contri.getContriAnswer()}</textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="mb-3">
+                <!-- <div class="loading">Sending message..</div>
+                <div class="error-message"></div> -->
+                <div class="sent-message1" id = "myDIV1">Thank you for making an edit!</div>
+              </div>
+              <div class="text-center"><input type="button" class="btn-primary1" onclick="contribution()" value="Save"></div>
+            </form>
+
+          </div>
 </div>
 
-</div>
-</section><!-- End Services Section -->
 
 
 
-</br></br></br></br></br></br>
+      </div>
+    </section><!-- End Services Section -->
+
+
+
+
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -204,6 +249,17 @@ if(session.getAttribute("uNm")==null){
       window.history.pushState(null, "", window.location.href);
       };
   });
+  
+  function contribution(){
+	  //alert("ok");
+	  var x = document.getElementById("myDIV1");
+	  if (x.style.display === "none") {
+		  x.style.display = "none";
+	  } else {
+		  x.style.display = "block";
+	  }
+	  document.getElementById("contributionForm").submit();
+  }
   </script>
 
 </body>

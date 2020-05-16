@@ -3,6 +3,7 @@ package com.spring.service;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,12 +20,15 @@ public class UserService {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	@Autowired
+	Environment env;
+	
 	public String registerUser(User user) {
 		
 		user.setStatus(false);
 		System.out.println("ok from service "+user.getName()+" | "+user.getEmail()+" | "+user.getLocation()+" | "+user.getPhone()+" | "+user.getPassword()+" | "+user.isStatus());
 		//String url = "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/userRegistration";
-		String url = "http://ec2-52-14-32-213.us-east-2.compute.amazonaws.com:8080/user-service/userRegistration";
+		String url = env.getProperty("microservice.user.service")+"/userRegistration";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -45,7 +49,7 @@ public class UserService {
 		System.out.println("web user service approve email: "+email);
 		//String url = "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveAdmin/"+email;
 		//String url = "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveAdmin/"+email;
-		String url = "http://ec2-52-14-32-213.us-east-2.compute.amazonaws.com:8080/user-service/approveAdmin/"+email;
+		String url = env.getProperty("microservice.user.service")+"/approveAdmin/"+email;
 		
 		ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
 		System.out.println(res.getBody());
@@ -59,7 +63,7 @@ public class UserService {
 		System.out.println("web user service approve email: "+email);
 		//String url = "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveAdmin/"+email;
 		//String url = "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveUser/"+email;
-		String url = "http://ec2-52-14-32-213.us-east-2.compute.amazonaws.com:8080/user-service/approveUser/"+email;
+		String url = env.getProperty("microservice.user.service")+"/approveUser/"+email;
 		
 		ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
 		System.out.println(res.getBody());

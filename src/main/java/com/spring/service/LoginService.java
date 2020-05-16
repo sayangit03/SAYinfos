@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,14 @@ public class LoginService {
 	RestTemplate restTemplate;
 	
 	@Autowired
+	Environment env;
+	
+	@Autowired
 	ContributionRepository contriRepo;
 	
 	public boolean doLogin(UserLogin user) {
 		//String url = "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/getUserDetails/user/"+user.getUniqueName()+"/pwd/"+user.getUserPwd();
-		String url = "http://ec2-52-14-32-213.us-east-2.compute.amazonaws.com:8080/user-service/getUserDetails/user/"+user.getUniqueName()+"/pwd/"+user.getUserPwd();
+		String url = env.getProperty("microservice.user.service")+"/getUserDetails/user/"+user.getUniqueName()+"/pwd/"+user.getUserPwd();
 		ResponseEntity<Boolean> isLoginOk = restTemplate.getForEntity(url, boolean.class);
 		//System.out.println("ok from login service login>>>>>>> "+isLoginOk.getBody()+""+url);
 		return isLoginOk.getBody();
@@ -38,7 +42,7 @@ public class LoginService {
 	public List<UserDetails> getAllApprovedUserDetails() {
 		System.out.println("ok from login service");
 		//String url = "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/getUserDetails";
-		String url = "http://ec2-52-14-32-213.us-east-2.compute.amazonaws.com:8080/user-service/getUserDetails";
+		String url = env.getProperty("microservice.user.service")+"/getUserDetails";
 		
 		//restTemplate.exchange(url, HttpMethod.GET,  UserDetails[].class);
 		ResponseEntity<UserDetails[]> details = restTemplate.getForEntity(url, UserDetails[].class);
@@ -50,7 +54,7 @@ public class LoginService {
 	public List<UserRegDetails> getAllRegUserDetails() {
 		System.out.println("ok from login service");
 		//String url = "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/getRegUserDetails";
-		String url = "http://ec2-52-14-32-213.us-east-2.compute.amazonaws.com:8080/user-service/getRegUserDetails";
+		String url = env.getProperty("microservice.user.service")+"/getRegUserDetails";
 		
 		ResponseEntity<UserRegDetails[]> regDetails = restTemplate.getForEntity(url, UserRegDetails[].class);
 		
