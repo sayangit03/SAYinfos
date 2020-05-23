@@ -131,7 +131,7 @@ if(session.getAttribute("uNm")==null){
             <c:choose>
             <c:when test="${loop.count==1 }">
             <li>
-            <a data-toggle="collapse" class="" href="#f${contri.getId() }">${loop.count}. ${contri.getContriQuestion() }<i class="icofont-simple-up"></i> </a>
+            <a data-toggle="collapse" class="" href="#f${contri.getId() }">${loop.count}. ${contri.getContriQuestion() } (${contri.getContriDomain() } -> ${contri.getContriTopic() })<i class="icofont-simple-up"></i> </a>
             <div id="f${contri.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
             <c:if test="${!contri.isContriStatus() }"><a href="/approveContri/${contri.getId() }">Approve</a></c:if><a href="/editContri/${contri.getId() }">Edit</a>
                 ${contri.getContriAnswer() }
@@ -140,7 +140,7 @@ if(session.getAttribute("uNm")==null){
             </c:when>
             <c:otherwise>
             <li>
-            <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${loop.count}. ${contri.getContriQuestion() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${loop.count}. ${contri.getContriQuestion() } (${contri.getContriDomain() } -> ${contri.getContriTopic() }) <i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
             <c:if test="${!contri.isContriStatus() }"><a href="/approveContri/${contri.getId() }">Approve</a></c:if><a href="/editContri/${contri.getId() }">Edit</a> 
                 ${contri.getContriAnswer() }

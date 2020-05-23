@@ -81,6 +81,15 @@
         <ul>
           <li class="drop-down"><a href="">Services</a>
           <ul>
+              <li><a href="#">Idea Management</a></li>
+              <li class="drop-down"><a href="">Enhance Knowledge</a>
+              	<ul>
+              	<li><a href="enKnow/java/Java_Basics">Java</a></li>
+              	<li><a href="enKnow/spring/Spring_Core">Spring</a></li>
+              	<li><a href="enKnow/springAdv/Spring_Boot">Spring Advanced</a></li>
+              	<li><a href="enKnow/hibernate/Hibernate_Basics">Hibernate</a></li>
+              	</ul>
+              </li>
               <li class="drop-down"><a href="">Covid-19 Updates</a>
               	<ul>
               	<li><a href="/indiaCovid"">India & States</a></li>
@@ -88,8 +97,6 @@
               	<li><a href="/worldCovid"">Whole World</a></li>
               	</ul>
               </li>
-              <li><a href="#">Idea Management</a></li>
-              <li><a href="#">Enhance Knowledge</a></li>
               <li><a href="/weather">Weather Updates</a></li>
               <li><a href="/news">Latest News</a></li>
               <li><a href="/cooking">Cooking Recipes</a></li>
@@ -123,7 +130,7 @@
 
 <main id="main">
 
-<section id="faq" class="faq">
+<section id="features" class="features">
 <div class="container">
     <div class="section-title" data-aos="zoom-out">
           <h2>Service</h2>
@@ -133,27 +140,33 @@
        <ul class="nav nav-tabs row d-flex">
           <li class="nav-item col-3" data-aos="zoom-in">
             <a class="nav-link active show" data-toggle="tab" href="#tab-1">
-              <h4 class="d-none d-lg-block">Breakfast</h4>
+              <i style="font-size: 16px; font-style: normal;">Breakfast</i>
+              <h4 class="d-none d-lg-block"></h4>
             </a>
           </li>
           <li class="nav-item col-3" data-aos="zoom-in">
             <a class="nav-link" data-toggle="tab" href="#tab-2">
-              <h4 class="d-none d-lg-block">Lunch</h4>
+            <i style="font-size: 16px; font-style: normal;">Lunch</i>
+              <h4 class="d-none d-lg-block"></h4>
             </a>
           </li>
           <li class="nav-item col-3" data-aos="zoom-in">
             <a class="nav-link" data-toggle="tab" href="#tab-3">
-              <h4 class="d-none d-lg-block">Snacks</h4>
+            <i style="font-size: 16px; font-style: normal;">Snacks</i>
+              <h4 class="d-none d-lg-block"></h4>
             </a>
           </li>
           <li class="nav-item col-3" data-aos="zoom-in">
             <a class="nav-link" data-toggle="tab" href="#tab-4">
-              <h4 class="d-none d-lg-block">Dinner</h4>
+            <i style="font-size: 16px; font-style: normal;">Dinner</i>
+              <h4 class="d-none d-lg-block"></h4>
             </a>
           </li>
         </ul>
-        </br></br>
-        
+</div>
+</section>
+<section id="faq" class="faq">
+<div class="container">
 <div class="tab-content">
 <div class="tab-pane active show" id="tab-1" data-aos="fade-up">
 <div>
@@ -208,15 +221,66 @@
 </ul>
 </div>
 </div>
+
+<div class="tab-pane" id="tab-3" data-aos="fade-up">
+<div>
+<ul class="faq-list">
+<c:forEach items="${snacksList}" var="contri2"> 
+            <c:choose>
+            <c:when test="${contri2.getId()==1 }">
+            <li>
+            <a data-toggle="collapse" class="" href="#f2${contri2.getId() }">${contri2.getId() }. ${contri2.getContriQuestion() } by ${contri2.getUserName() } <i class="icofont-simple-up"></i></a>
+            <div id="f2${contri2.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
+                ${contri2.getContriAnswer() }
+            </div>
+            </li>
+            </c:when>
+            <c:otherwise>
+            <li>
+            <a data-toggle="collapse" class="collapsed" href="#f2${contri2.getId() }">${contri2.getId() }. ${contri2.getContriQuestion() } by ${contri2.getUserName() } <i class="icofont-simple-up"></i></a>
+            <div id="f2${contri2.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
+                ${contri2.getContriAnswer() }
+            </div>
+            </li>
+            </c:otherwise>
+            </c:choose>
+</c:forEach>
+</ul>
+</div>
+</div>
+
+<div class="tab-pane" id="tab-4" data-aos="fade-up">
+<div>
+<ul class="faq-list">
+<c:forEach items="${dinnerList}" var="contri3"> 
+            <c:choose>
+            <c:when test="${contri3.getId()==1 }">
+            <li>
+            <a data-toggle="collapse" class="" href="#f3${contri3.getId() }">${contri3.getId() }. ${contri3.getContriQuestion() } by ${contri3.getUserName() } <i class="icofont-simple-up"></i></a>
+            <div id="f3${contri3.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
+                ${contri3.getContriAnswer() }
+            </div>
+            </li>
+            </c:when>
+            <c:otherwise>
+            <li>
+            <a data-toggle="collapse" class="collapsed" href="#f3${contri3.getId() }">${contri3.getId() }. ${contri3.getContriQuestion() } by ${contri3.getUserName() } <i class="icofont-simple-up"></i></a>
+            <div id="f3${contri3.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
+                ${contri3.getContriAnswer() }
+            </div>
+            </li>
+            </c:otherwise>
+            </c:choose>
+</c:forEach>
+</ul>
+</div>
+</div>
 </div>
 
 </div>
 </section>
 
-
-
-</br></br></br></br>
-
+</br></br>
 </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

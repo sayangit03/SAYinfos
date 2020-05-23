@@ -14,6 +14,7 @@ public interface ContributionRepository extends JpaRepository<Contribution, Inte
 	List<Contribution> findByUserUniqueName(String uniqueName);
 	List<Contribution> findByEmailId(String emailId);
 	List<Contribution> findByContriDomain(String contriDomain);
+	List<Contribution> findByContriTopic(String contriTopic);
 	
 	@Query("select c from Contribution c where userUniqueName like 'flash-%' group by userUniqueName")
 	List<Contribution> findByFlashUserUniqueName();

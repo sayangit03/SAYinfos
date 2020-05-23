@@ -1,6 +1,7 @@
 package com.spring.beans;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tbl_contribution")
@@ -51,6 +53,9 @@ public class Contribution {
 	
 	@Column(name = "contri_status")
 	private boolean contriStatus;
+	
+	@Transient
+	private List<Comment> cmntList;
 
 	public Contribution() {
 		
@@ -150,6 +155,14 @@ public class Contribution {
 
 	public void setContriStatus(boolean contriStatus) {
 		this.contriStatus = contriStatus;
+	}
+
+	public List<Comment> getCmntList() {
+		return cmntList;
+	}
+
+	public void setCmntList(List<Comment> cmntList) {
+		this.cmntList = cmntList;
 	}
 	
 }

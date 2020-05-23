@@ -105,15 +105,22 @@
           <li><a href="#about">About</a></li>
           <li class="drop-down"><a href="">Services</a>
           <ul>
+              <li><a href="#">Idea Management</a></li>
+              <li class="drop-down"><a href="">Enhance Knowledge</a>
+              	<ul>
+              	<li><a href="enKnow/java/Java_Basics">Java</a></li>
+              	<li><a href="enKnow/spring/Spring_Core">Spring</a></li>
+              	<li><a href="enKnow/springAdv/Spring_Boot">Spring Advanced</a></li>
+              	<li><a href="enKnow/hibernate/Hibernate_Basics">Hibernate</a></li>
+              	</ul>
+              </li>
               <li class="drop-down"><a href="">Covid-19 Updates</a>
               	<ul>
               	<li><a href="/indiaCovid"">India & States</a></li>
               	<li><a href="/countryCovid">All Countries</a></li>
-              	<li><a href="/worldCovid"">Whole World</a></li>
+              	<li><a href="/worldCovid">Whole World</a></li>
               	</ul>
               </li>
-              <li><a href="#">Idea Management</a></li>
-              <li><a href="#">Enhance Knowledge</a></li>
               <li><a href="/weather">Weather Updates</a></li>
               <li><a href="/news">Latest News</a></li>
               <li><a href="/cooking">Cooking Recipes</a></li>
@@ -477,7 +484,7 @@
           <div class="col-lg-4 col-md-6 mt-5 mt-md-0">
             <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="100">
               <div class="icon"><i class="las la la-mortar-board" style="color: #e9bf06;"></i></div>
-              <h4 class="title"><a href="">Enhance Knowledge</a></h4>
+              <h4 class="title"><a href="enKnow/java/Java_Basics">Enhance Knowledge</a></h4>
               <p class="description"> To know what you know and what you do not know, that is true knowledge. Join us.</p>
             </div>
           </div>

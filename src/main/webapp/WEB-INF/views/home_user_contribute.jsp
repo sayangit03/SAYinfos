@@ -158,17 +158,13 @@ if(session.getAttribute("uNm")==null){
               <div class="form-row">
                 <div class="col-md-6 form-group">
                 <select id="contriDomain" name="contriDomain" class="form-control">
-        			<option value="#">Select Domain</option>
-        			<option value="java">Java</option>
-        			<option value="spring">Spring</option>
-        			<option value="hibernate">Hibernate</option>
-        			<option value="javascript">Javascript</option>
-        			<option value="dotnet">Dot Net</option>
-        			<option value="Cooking Recipe">Cooking Recipe</option>
+        			
       			</select>
                 </div>
                 <div class="col-md-6 form-group">
-                  <input type="text" class="form-control" name="contriTopic" id="contriTopic" placeholder="Topic" />
+                  <select id="contriTopic" name="contriTopic" class="form-control">
+                  
+                  </select>
                 </div>
               </div>
               <div class="form-group">
@@ -257,6 +253,47 @@ if(session.getAttribute("uNm")==null){
 	  }
 	  document.getElementById("contributionForm").submit();
   }
+  
+  
+  window.onload = function() {
+	  // provs is an object but you can think of it as a lookup table
+	  var provs = {
+	        'Java': ['Java_Basics', 'Exception_Handling', 'Java_Concurrency', 'Java_Collection', 'Other'],
+	        'Spring': ['Spring_Core', 'Spring_MVC', 'Spring_AOP', 'Spring_Data', 'Spring_Security', 'Other'],
+	        'Spring Advanced': ['Spring_Boot', 'Spring_Cloud', 'Spring_Microservices', 'Other'],
+	        'AWS': ['Elastic_Beanstalk', 'AWS_RDS', 'EC2', 'AWS_ECS', 'Route_53', 'Load_Balancer', 'AWS_Certificate_Manager', 'Security_Group', 'Other'],
+	        'Restful Webservices': ['Restful_Webservices'],
+	        'Docker': ['Docker_All'],
+	        'Jenkins': ['Jenkins_All'],
+	        'Hibernate': ['Hibernate_Basics', 'Hibernate_Advanced', 'Other'],
+	        'Design Patterns': ['Design_Pattern_All', 'Other'],
+	        'Cooking Recipe': ['Breakfast', 'Lunch', 'Snacks', 'Dinner'],
+	        'Other': ['Other']
+	      },
+	      // just grab references to the two drop-downs
+	      prov_select = document.querySelector('#contriDomain'),
+	      town_select = document.querySelector('#contriTopic');
+
+	  // populate the provinces drop-down
+	  setOptions(prov_select, Object.keys(provs));
+	  // populate the town drop-down
+	  setOptions(town_select, provs[prov_select.value]);
+	  
+	  // attach a change event listener to the provinces drop-down
+	  prov_select.addEventListener('change', function() {
+	    // get the towns in the selected province
+	    setOptions(town_select, provs[prov_select.value]);
+	  });
+	    
+	  function setOptions(dropDown, options) {
+	    // clear out any existing values
+	    dropDown.innerHTML = '';
+	    // insert the new options into the drop-down
+	    options.forEach(function(value) {
+	      dropDown.innerHTML += '<option name="' + value + '">' + value + '</option>';
+	    });
+	  }  
+	};
   </script>
 
 </body>

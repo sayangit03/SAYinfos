@@ -1,0 +1,57 @@
+{"properties": [
+  {
+    "name": "covid.world.host",
+    "type": "java.lang.String",
+    "description": "A description for 'covid.world.host'"
+  },
+  {
+    "name": "covid.world.key",
+    "type": "java.lang.String",
+    "description": "A description for 'covid.world.key'"
+  },
+  {
+    "name": "covid.world.url",
+    "type": "java.lang.String",
+    "description": "A description for 'covid.world.url'"
+  },
+  {
+    "name": "covid.country.host",
+    "type": "java.lang.String",
+    "description": "A description for 'covid.country.host'"
+  },
+  {
+    "name": "covid.country.key",
+    "type": "java.lang.String",
+    "description": "A description for 'covid.country.key'"
+  },
+  {
+    "name": "covid.country.url",
+    "type": "java.lang.String",
+    "description": "A description for 'covid.country.url'"
+  },
+  {
+    "name": "covid.india.main",
+    "type": "java.lang.String",
+    "description": "A description for 'covid.india.main'"
+  },
+  {
+    "name": "covid.india.other",
+    "type": "java.lang.String",
+    "description": "A description for 'covid.india.other'"
+  },
+  {
+    "name": "news.key",
+    "type": "java.lang.String",
+    "description": "A description for 'news.key'"
+  },
+  {
+    "name": "weather.key",
+    "type": "java.lang.String",
+    "description": "A description for 'weather.key'"
+  },
+  {
+    "name": "microservice.user.service",
+    "type": "java.lang.String",
+    "description": "A description for 'microservice.user.service'"
+  }
+]}

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>News</title>
+  <title>Enhance Knowledge</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
@@ -62,20 +62,24 @@
 .btn-primary1:hover {
   background: #fc8129;
 }
-
 .containerForm {
-  border-radius: 5px;
+  border-radius: 34px;
   background-color: #f2f2f2;
-  padding: 20px;
+  
+  margin: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 16px;
+  padding-bottom: 0.1px;
+  font-style: italic;
 }
 
-  .sent-message1 {
-  display: none;
-  color: #fff;
-  background: #18d26e;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
+.line {
+  content: "";
+  height: 1px;
+  display: block;
+  background: #fd9042;
+  margin: 4px 10px;
 }
   </style>
 </head>
@@ -94,6 +98,37 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
+          <li class="drop-down"><a href="">Java</a>
+          <ul>
+          	<li><a href="enKnow/java/Java_Basics">Java Basics</a></li>
+            <li><a href="enKnow/java/Exception_Handling">Exception Handling</a></li>
+            <li><a href="enKnow/java/Java_Concurrency">Java Concurrency</a></li>
+            <li><a href="enKnow/java/Java_Collection">Java Collection</a></li>
+          </ul>
+          </li>
+          <li class="drop-down"><a href="">Spring</a>
+          <ul>
+          	<li><a href="enKnow/spring/Spring_Core">Spring Core</a></li>
+            <li><a href="enKnow/spring/Spring_MVC">Spring MVC</a></li>
+            <li><a href="enKnow/spring/Spring_AOP">Spring AOP</a></li>
+            <li><a href="enKnow/spring/Spring_Data">Spring Data</a></li>
+            <li><a href="enKnow/spring/Spring_Security">Spring Security</a></li>
+          </ul>
+          </li>
+          <li class="drop-down"><a href="">Spring Advanced</a>
+          <ul>
+          	<li><a href="enKnow/springAdv/Spring_Boot">Spring Boot</a></li>
+          	<li><a href="enKnow/springAdv/Spring_Cloud">Spring Cloud</a></li>
+          	<li><a href="enKnow/springAdv/Spring_Microservices">Microservices</a></li>
+          </ul>
+          </li>
+          <li class="drop-down"><a href="">Hibernate</a>
+          <ul>
+          	<li><a href="enKnow/hibernate/Hibernate_Basics">Hibernate Basics</a></li>
+          	<li><a href="enKnow/hibernate/Hibernate_Advanced">Hibernate Advanced</a></li>
+          </ul>
+          </li>
+          
           <li class="drop-down"><a href="">Services</a>
           <ul>
               
@@ -108,9 +143,9 @@
               </li>
               <li class="drop-down"><a href="">Covid-19 Updates</a>
               	<ul>
-              	<li><a href="/indiaCovid">India & States</a></li>
+              	<li><a href="/indiaCovid"">India & States</a></li>
               	<li><a href="/countryCovid">All Countries</a></li>
-              	<li><a href="/worldCovid">Whole World</a></li>
+              	<li><a href="/worldCovid"">Whole World</a></li>
               	</ul>
               </li>
               <li><a href="/weather">Weather Updates</a></li>
@@ -119,7 +154,6 @@
           </ul>
           </li>
           <li class="active"><a href="/">Home</a></li>
-          
 
         </ul>
       </nav><!-- .nav-menu -->
@@ -145,70 +179,92 @@
     </svg>
 </section>
 
-  <main id="main">
-   
-    <!-- ======= Services Section ======= -->
-    <section id="faq" class="faq">
-      <div class="container">
-      <div class="section-title" data-aos="zoom-out">
-          <h2>Service</h2>
-          <p>Top Headlines</p>
+<main id="main">
+
+<section id="faq" class="faq">
+<div class="container">
+    <div class="section-title" data-aos="zoom-out">
+          <h2>Mission ${domain }</h2>
+          <p>${topic }</p>
         </div>
-        
-        <div class="containerForm" data-aos="fade-left">
-        <div class="col-lg-12 mt-6 mt-lg-1">
-        <form action="/news" method="get" role="form" class="php-email-form" id="searchForm">
-        <div class="form-row">
-                <div class="col-md-12 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Powered by http://newsapi.org"/>
-                </div>
-         </div>
-         <div class="mb-3">
-                <!-- <div class="loading">Sending message..</div>
-                <div class="error-message"></div> -->
-                <div class="sent-message1" id = "myDIV1">Searching..</div>
-              </div>
-         <div class="text-center"><input type="button" class="btn-primary1" onclick="search()" value="Search"></div>
-        </form>
-        </div>
-        </div></br>
-    
-<div data-aos="fade-up">
+       
+<div data-aos="fade-left">
 <ul class="faq-list">
-<c:forEach items="${articleList}" var="article"> 
-          
+<c:forEach items="${knowledgeList}" var="contri" varStatus="loop"> 
             <c:choose>
-            <c:when test="${article.getId()==1 }">
+            <c:when test="${loop.count==1 }">
             <li>
-            <a data-toggle="collapse" class="" href="#f${article.getId() }">${article.getId() }. ${article.getTitle() } <i class="icofont-simple-up"></i></a>
-            <div id="f${article.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
-                ${article.getDescription() }
-                <%-- </br><a href="${article.getUrl() }" target="_blank">Full article is here.</a> --%>
+            <a data-toggle="collapse" class="" href="#f${contri.getId() }">${loop.count }. ${contri.getContriQuestion() } by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
+            <div id="f${contri.getId() }" class="collapse show" data-parent=".faq-list">
+            </br><p style="white-space: pre-line; padding-left: 5px;">${contri.getContriAnswer() }</p>
+             <p class="line"></p>
+            <p style="color: #ef6603; padding-left: 5px;">Comments</p>
+            <div style="padding-left: 30px;">
+            <ul style=" list-style: none;">
+            <c:forEach items="${contri.getCmntList() }" var="cmnt">
+            <li>
+            <div class="containerForm" id="c${contri.getId() }${cmnt.getId() }">
+             <p style="white-space: pre-line; font-size: 13.2px;"><b>${cmnt.getCmntName() }</b>&nbsp;&nbsp; ${cmnt.getCmntDate() }</br> ${cmnt.getCmntBody() }</p>
+             </div>
+             </li>
+            </c:forEach>
+            
+            <li>
+            <form action="/makeComment" method="post" role="form" class="php-email-form" id="commentForm${contri.getId() }">
+              <input type="hidden" name="domain" class="form-control" id="domain" value="${contri.getContriDomain() }"/>
+              <input type="hidden" name="topic" class="form-control" id="topic" value="${contri.getContriTopic() }"/>
+              <input type="hidden" name="questionNum" class="form-control" id="questionNum" value="${contri.getId() }"/>
+              </br><input type="text" name="cmntName" class="form-control" id="cmntName" placeholder="Your Name" style=""/></br>
+              <textarea class="form-control" name="cmntBody" id="cmntBody" placeholder="Your Comment" style="white-space: pre-wrap;"></textarea></br>
+              <input type="button" class="btn-primary1" onclick="comment('${contri.getId() }')" value="Comment" style="line-height: normal;">
+           </form>
+           </li>
+           </ul>
+            </div>
             </div>
             </li>
             </c:when>
             <c:otherwise>
             <li>
-            <a data-toggle="collapse" class="collapsed" href="#f${article.getId() }">${article.getId() }. ${article.getTitle() } <i class="icofont-simple-up"></i></a>
-            <div id="f${article.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
-                ${article.getDescription() }
-               <%--  </br><a href="${article.getUrl() }" target="_blank">Full article is here.</a> --%>
+            <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${loop.count }. ${contri.getContriQuestion() } by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
+            <div id="f${contri.getId() }" class="collapse" data-parent=".faq-list">
+            </br><p style="white-space: pre-line; padding-left: 5px;">${contri.getContriAnswer() }</p>
+            <p class="line"></p>
+            <p style="color: #ef6603; padding-left: 5px;">Comments</p>
+            <div style="padding-left: 30px;">
+            <ul style=" list-style: none;">
+            <c:forEach items="${contri.getCmntList() }" var="cmnt">
+            <li>
+            <div class="containerForm" id="c${contri.getId() }${cmnt.getId() }">
+             <p style="white-space: pre-line; font-size: 13.2px;"><b>${cmnt.getCmntName() }</b>&nbsp;&nbsp; ${cmnt.getCmntDate() }</br> ${cmnt.getCmntBody() }</p>
+             </div>
+             </li>
+            </c:forEach>
+            <li>
+            <form action="/makeComment" method="post" role="form" class="php-email-form" id="commentForm${contri.getId() }">
+              <input type="hidden" name="domain" class="form-control" id="domain" value="${contri.getContriDomain() }"/>
+              <input type="hidden" name="topic" class="form-control" id="topic" value="${contri.getContriTopic() }"/>
+              <input type="hidden" name="questionNum" class="form-control" id="questionNum" value="${contri.getId() }"/>
+              </br><input type="text" name="cmntName" class="form-control" id="cmntName" placeholder="Your Name" style=""/></br>
+              <textarea class="form-control" name="cmntBody" id="cmntBody" placeholder="Your Comment" style="white-space: pre-wrap;"></textarea></br>
+              <input type="button" class="btn-primary1" onclick="comment('${contri.getId() }')" value="Comment" style="line-height: normal;">
+           </form>
+           </li>
+           </ul>
             </div>
+            </div>        
             </li>
             </c:otherwise>
             </c:choose>
 </c:forEach>
 </ul>
-</div>   
+</div>
 
 </div>
-</section><!-- End Services Section -->
+</section>
 
-
-
-
-
-  </main><!-- End #main -->
+</br></br>
+</main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
@@ -241,7 +297,7 @@
   <script src="assets/vendor/venobox/venobox.min.js"></script>
   <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="assets/vendor/TweenMax/TweenMax.min.js"></script>
-  <script src="assets/vendor/wavify/wavify.js"></script>
+  <!-- <script src="assets/vendor/wavify/wavify.js"></script> -->
   <script src="assets/vendor/aos/aos.js"></script>
 
   <!-- Template Main JS File -->
@@ -254,17 +310,12 @@
       window.history.pushState(null, "", window.location.href);
       };
   }); */
-  
-  function search(){
-	  //alert("ok");
-	  var x = document.getElementById("myDIV1");
-	  if (x.style.display === "none") {
-		  x.style.display = "none";
-	  } else {
-		  x.style.display = "block";
-	  }
-	  document.getElementById("searchForm").submit();
+  function comment(id){
+	  var form = 'commentForm'+id;
+	  document.getElementById(form).submit();
   }
+  function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+  $(document).on("keydown", disableF5);
   </script>
 
 </body>
