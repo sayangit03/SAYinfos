@@ -115,7 +115,7 @@
         </div>
       
       
-      
+<div data-aos="fade-left">
 <!-- <h1>Privacy Policy for SAYinfos.com</h1> -->
 
 <p>SAYinfos, accessible from https://www.sayinfos.com, is completely a personal, non-profit, not-commercial, open and crowd source website. This website is made out of sheer interest towards learning and implementing something new. You can download the code-base or contribute on top of this development <a href="https://github.com/sayangit03" target="_blank">here in GIT.</a> 
@@ -199,8 +199,7 @@ All the services mentioned in home page are created primarily for personal purpo
 <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.</p>
 
 <p>SAYinfos does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
-      
-      
+</div>    
        
 </div>
 </section>

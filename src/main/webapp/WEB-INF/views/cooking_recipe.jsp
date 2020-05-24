@@ -175,7 +175,7 @@
             <c:choose>
             <c:when test="${contri.getId()==1 }">
             <li>
-            <a data-toggle="collapse" class="" href="#f${contri.getId() }">${contri.getId() }. ${contri.getContriQuestion() } by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="" href="#f${contri.getId() }">${contri.getId() }. ${contri.getContriQuestion() } - A preparation by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri.getContriAnswer() }
             </div>
@@ -183,7 +183,7 @@
             </c:when>
             <c:otherwise>
             <li>
-            <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${contri.getId() }. ${contri.getContriQuestion() } by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${contri.getId() }. ${contri.getContriQuestion() } - A preparation by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri.getContriAnswer() }
             </div>
@@ -202,7 +202,7 @@
             <c:choose>
             <c:when test="${contri1.getId()==1 }">
             <li>
-            <a data-toggle="collapse" class="" href="#f1${contri1.getId() }">${contri1.getId() }. ${contri1.getContriQuestion() } by ${contri1.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="" href="#f1${contri1.getId() }">${contri1.getId() }. ${contri1.getContriQuestion() } - A preparation by ${contri1.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f1${contri1.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri1.getContriAnswer() }
             </div>
@@ -210,7 +210,7 @@
             </c:when>
             <c:otherwise>
             <li>
-            <a data-toggle="collapse" class="collapsed" href="#f1${contri1.getId() }">${contri1.getId() }. ${contri1.getContriQuestion() } by ${contri1.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="collapsed" href="#f1${contri1.getId() }">${contri1.getId() }. ${contri1.getContriQuestion() } - A preparation by ${contri1.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f1${contri1.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri1.getContriAnswer() }
             </div>
@@ -229,7 +229,7 @@
             <c:choose>
             <c:when test="${contri2.getId()==1 }">
             <li>
-            <a data-toggle="collapse" class="" href="#f2${contri2.getId() }">${contri2.getId() }. ${contri2.getContriQuestion() } by ${contri2.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="" href="#f2${contri2.getId() }">${contri2.getId() }. ${contri2.getContriQuestion() } - A preparation by ${contri2.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f2${contri2.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri2.getContriAnswer() }
             </div>
@@ -237,7 +237,7 @@
             </c:when>
             <c:otherwise>
             <li>
-            <a data-toggle="collapse" class="collapsed" href="#f2${contri2.getId() }">${contri2.getId() }. ${contri2.getContriQuestion() } by ${contri2.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="collapsed" href="#f2${contri2.getId() }">${contri2.getId() }. ${contri2.getContriQuestion() } - A preparation by ${contri2.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f2${contri2.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri2.getContriAnswer() }
             </div>
@@ -256,7 +256,7 @@
             <c:choose>
             <c:when test="${contri3.getId()==1 }">
             <li>
-            <a data-toggle="collapse" class="" href="#f3${contri3.getId() }">${contri3.getId() }. ${contri3.getContriQuestion() } by ${contri3.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="" href="#f3${contri3.getId() }">${contri3.getId() }. ${contri3.getContriQuestion() } - A preparation by ${contri3.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f3${contri3.getId() }" class="collapse show" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri3.getContriAnswer() }
             </div>
@@ -264,7 +264,7 @@
             </c:when>
             <c:otherwise>
             <li>
-            <a data-toggle="collapse" class="collapsed" href="#f3${contri3.getId() }">${contri3.getId() }. ${contri3.getContriQuestion() } by ${contri3.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="collapsed" href="#f3${contri3.getId() }">${contri3.getId() }. ${contri3.getContriQuestion() } - A preparation by ${contri3.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f3${contri3.getId() }" class="collapse" data-parent=".faq-list" style="white-space: pre-line;">
                 ${contri3.getContriAnswer() }
             </div>

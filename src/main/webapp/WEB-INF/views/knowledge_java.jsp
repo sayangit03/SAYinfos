@@ -192,23 +192,24 @@
 <ul class="faq-list">
 <c:forEach items="${knowledgeList}" var="contri" varStatus="loop"> 
             <c:choose>
-            <c:when test="${loop.count==1 }">
+            <c:when test="${cmntFlag && questionNumber == contri.getId() }">
             <li>
             <a data-toggle="collapse" class="" href="#f${contri.getId() }">${loop.count }. ${contri.getContriQuestion() } by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse show" data-parent=".faq-list">
             </br><p style="white-space: pre-line; padding-left: 5px;">${contri.getContriAnswer() }</p>
              <p class="line"></p>
-            <p style="color: #ef6603; padding-left: 5px;">Comments</p>
-            <div style="padding-left: 30px;">
+            <a style="color: #ef6603; padding-left: 5px;" data-toggle="collapse" class="" href="#cm${contri.getId() }">Comment</a>
+            <p></p>
+            <p class="line"></p>
+            <div style="padding-left: 30px;" id="cm${contri.getId() }" class="collapse show">
             <ul style=" list-style: none;">
-            <c:forEach items="${contri.getCmntList() }" var="cmnt">
+            <c:forEach items="${contri.getCmntList() }" var="cmnt" varStatus="loopC">
             <li>
-            <div class="containerForm" id="c${contri.getId() }${cmnt.getId() }">
-             <p style="white-space: pre-line; font-size: 13.2px;"><b>${cmnt.getCmntName() }</b>&nbsp;&nbsp; ${cmnt.getCmntDate() }</br> ${cmnt.getCmntBody() }</p>
+            <div class="containerForm" id="c${contri.getId() }${loopC.count }">
+             <p style="white-space: pre-line; font-size: 13.2px;"><b>${cmnt.getCmntName() }</b>&nbsp;&nbsp;<fmt:formatDate value="${cmnt.getCmntDate() }" pattern="HH:mm dd-MM-yyyy"/></br> ${cmnt.getCmntBody() }</p>
              </div>
              </li>
             </c:forEach>
-            
             <li>
             <form action="/makeComment" method="post" role="form" class="php-email-form" id="commentForm${contri.getId() }">
               <input type="hidden" name="domain" class="form-control" id="domain" value="${contri.getContriDomain() }"/>
@@ -230,13 +231,15 @@
             <div id="f${contri.getId() }" class="collapse" data-parent=".faq-list">
             </br><p style="white-space: pre-line; padding-left: 5px;">${contri.getContriAnswer() }</p>
             <p class="line"></p>
-            <p style="color: #ef6603; padding-left: 5px;">Comments</p>
-            <div style="padding-left: 30px;">
+            <a style="color: #ef6603; padding-left: 5px;" data-toggle="collapse" class="collapsed" href="#cm${contri.getId() }">Comment</a>
+            <p></p>
+            <p class="line"></p>
+            <div style="padding-left: 30px;" id="cm${contri.getId() }" class="collapse">
             <ul style=" list-style: none;">
             <c:forEach items="${contri.getCmntList() }" var="cmnt">
             <li>
             <div class="containerForm" id="c${contri.getId() }${cmnt.getId() }">
-             <p style="white-space: pre-line; font-size: 13.2px;"><b>${cmnt.getCmntName() }</b>&nbsp;&nbsp; ${cmnt.getCmntDate() }</br> ${cmnt.getCmntBody() }</p>
+             <p style="white-space: pre-line; font-size: 13.2px;"><b>${cmnt.getCmntName() }</b>&nbsp;&nbsp;<fmt:formatDate value="${cmnt.getCmntDate() }" pattern="HH:mm dd-MM-yyyy"/></br> ${cmnt.getCmntBody() }</p>
              </div>
              </li>
             </c:forEach>

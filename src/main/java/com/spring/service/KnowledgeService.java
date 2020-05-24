@@ -25,12 +25,13 @@ public class KnowledgeService {
 		return knowledgeContri;
 	}
 	
-	public void saveComment(Comment cmnt) {
+	public int saveComment(Comment cmnt) {
 		if(cmnt.getCmntName()==null || cmnt.getCmntName()=="") {
 			cmnt.setCmntName("Anonymous");
 		}
 		cmnt.setCmntDate(new Date());
-		commentRepository.save(cmnt);
+		Comment comm = commentRepository.save(cmnt);
+		return comm.getId();
 	}
 	
 	public List<Comment> fetchComments(String questionNum){
