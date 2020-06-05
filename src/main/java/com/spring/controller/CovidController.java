@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -44,33 +46,37 @@ public class CovidController {
 
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	Logger logger = LoggerFactory.getLogger(CovidController.class);
 
 	@RequestMapping("/worldCovid")
 	public String getCovid19Resource(ModelMap mpdelMap) {
+		logger.info("START CONTROLLER:: Covid19 results for world");
 		Covid covid = new Covid();
 		covid = cResource.getCovid19ResourceService();
 		mpdelMap.addAttribute("covid", covid);
+		logger.info("END CONTROLLER:: Covid19 results for world");
 		return "covid19_result";
 	}
 
 	@RequestMapping("/covid19Display")
 	public String covidDisp() {
-		System.out.println("COVID 19 Display.");
-
 		return "covid19";
 	}
 
 	@RequestMapping("/countryCovid")
 	public String getCountryWiseCovidDisp(ModelMap modelMap) {
+		logger.info("START CONTROLLER:: Covid19 results for all countries");
 		List<List<CountryCovid>> listCCList = new ArrayList<>();
 		listCCList = cResource.getCountryCovid19ResourceService();
 		modelMap.addAttribute("listccList", listCCList);
-
+		logger.info("END CONTROLLER:: Covid19 results for all countries");
 		return "covid19Country_result";
 	}
 
 	@GetMapping("/indiaCovid")
 	public String getIndiaCovidResult(ModelMap modelMap) {
+		logger.info("START CONTROLLER:: Covid19 results for India");
 		List<IndiaCovid> indCovidList = cResource.getIndiaCovid();
 		for(IndiaCovid ind : indCovidList) {
 			for(District dis : ind.getDistrictData()) {
@@ -92,21 +98,40 @@ public class CovidController {
 					ind.setDeaths(region.getDeaths());
 					ind.setRevives(region.getDischarged());
 				}
+				if(ind.getState().equals("Dadra and Nagar Haveli and Daman and Diu") && region.getLoc().equals("Dadar Nagar Haveli")) {
+					ind.setActive(region.getTotalConfirmed());
+					ind.setDeaths(region.getDeaths());
+					ind.setRevives(region.getDischarged());
+				}
+				if(ind.getState().contains("Unassigned")) {
+					ind.setState("Other States");	
+					if(ind.getDistrictData().size()>0) {
+						ind.setActive(ind.getDistrictData().get(0).getActive());
+						ind.setDeaths(ind.getDistrictData().get(0).getDeceased());
+						ind.setRevives(ind.getDistrictData().get(0).getRecovered());
+					}
+					else {
+						ind.setActive("N/A");
+						ind.setDeaths("N/A");
+						ind.setRevives("N/A");
+					}
+				}
 			}
 		}
-		if(ico.getData().getSummary().getTotal()!=null) {
-			modelMap.addAttribute("indActive", ico.getData().getSummary().getTotal());
-			modelMap.addAttribute("indDeath", ico.getData().getSummary().getDeaths());
-			modelMap.addAttribute("indRevive", ico.getData().getSummary().getDischarged());
-		}
-		else {
+		if(ico.getData().getUnofficialSummary().get(0).getTotal()!=null) {
 			modelMap.addAttribute("indActive", ico.getData().getUnofficialSummary().get(0).getTotal());
 			modelMap.addAttribute("indDeath", ico.getData().getUnofficialSummary().get(0).getDeaths());
 			modelMap.addAttribute("indRevive", ico.getData().getUnofficialSummary().get(0).getRecovered());
 		}
+		else {
+			modelMap.addAttribute("indActive", ico.getData().getSummary().getTotal());
+			modelMap.addAttribute("indDeath", ico.getData().getSummary().getDeaths());
+			modelMap.addAttribute("indRevive", ico.getData().getSummary().getDischarged());
+		}
 
 
 		modelMap.addAttribute("indCovidList", indCovidList);
+		logger.info("END CONTROLLER:: Covid19 results for India");
 		return "covid19_india";
 	}
 

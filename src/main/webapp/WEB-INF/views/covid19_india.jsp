@@ -107,7 +107,7 @@
   <main id="main">
 
     <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
+    <section id="faq" class="faq">
       <div class="container">
 
         <div class="section-title" data-aos="zoom-out">
@@ -116,7 +116,7 @@
         </div>
 
 
-<table class="table table-bordered" style="text-align: center;" data-aos="fade-left">
+<table class="table table-bordered" style="text-align: center; font-size: 15px; font-family: Open Sans, sans-serif;" data-aos="fade-left">
     <thead style="background-color:#F5F5F5;">
       <tr>
         <th style="color: blue;">Total</th>
@@ -134,15 +134,15 @@
 </table>
    
 
-<div id="accordion" data-aos="fade-left">
+<div id="accordion" data-aos="fade-left" style="">
 <c:forEach items="${indCovidList}" var="india">
   <div class="card">
     <div class="card-header" id="heading-1">
       <h5 class="mb-0">
         <a role="button" data-toggle="collapse" href="#ind${india.getStatecode() }" aria-expanded="true" aria-controls="collapse-1">
-          ${india.getState() } 	
+         <p style="font-size: 15px; font-family: Open Sans, sans-serif; font-weight: bold;"> ${india.getState() } 	</p>
         </a>
-   </br></br><table class="table table-bordered" style="text-align: center; font-size: 16px;">
+   <table class="table table-bordered" style="text-align: center; font-size: 15px; font-family: Open Sans, sans-serif;">
     <thead style="background-color:#F5F5F5;">
       <tr>
         <th style="color: blue;">Total</th>
@@ -169,13 +169,13 @@
             <div class="card-header" id="heading-1-1">
               <h5 class="mb-0">
                 <a class="collapsed" role="button" data-toggle="collapse" href="#c${district.getDistrictId() }" aria-expanded="false" aria-controls="collapse">
-                  ${district.getDistrict() } #${district.getConfirmed() }
+                  <p style="font-size: 15px; font-family: Open Sans, sans-serif; font-weight: bold;">${district.getDistrict() } #${district.getConfirmed() }</p>
                 </a>
               </h5>
             </div>
             <div id="c${district.getDistrictId() }" class="collapse" data-parent="#accordion-1" aria-labelledby="heading-1-1">
               <div class="card-body">
-  <table class="table table-bordered" style="text-align: center;">
+  <table class="table table-bordered" style="text-align: center; font-size: 15px;">
     <thead style="background-color:#F5F5F5;">
       <tr>
         <th style="color: blue;">Active</th>

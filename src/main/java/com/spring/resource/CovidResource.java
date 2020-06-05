@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
@@ -38,8 +40,10 @@ public class CovidResource {
 	@Autowired
 	Environment env;
 	
+	Logger logger = LoggerFactory.getLogger(CovidResource.class);
+	
 	public Covid getCovid19ResourceService() {
-		System.out.println("Service called for world covid 19 results..");
+		logger.info("START SERVICE:: For world covid 19 results.");
 		Covid covidFinal;
 		try {
 			HttpHeaders httpHeaders = new HttpHeaders();
@@ -51,7 +55,7 @@ public class CovidResource {
 				url = env.getProperty("covid.world.url");
 			}
 			else {
-				System.out.println("here 2 "+name);
+				logger.info("SERVICE:: Future development for search by country name: "+name);
 			}
 			HttpEntity<String> req = new HttpEntity<String>(httpHeaders);
 			Covid[] covids = restTemplate.exchange(url, HttpMethod.GET, req, Covid[].class).getBody();
@@ -64,11 +68,12 @@ public class CovidResource {
 			// TODO: handle exception
 			covidFinal = null;
 		}
+		logger.info("END SERVICE:: For world covid 19 results.");
 		return covidFinal;
 	}
 	
 	public List<List<CountryCovid>> getCountryCovid19ResourceService() {
-		System.out.println("Service called for country covid 19 results..");
+		logger.info("START SERVICE:: For country covid 19 results.");
 		List<List<CountryCovid>> listCCList = new ArrayList<>();
 		List<CountryCovid> countryCovidList = new ArrayList<>();
 		try {
@@ -119,7 +124,7 @@ public class CovidResource {
 				}
 				countryCovidList.add(cCovid);
 			}
-			System.out.println("Total countries: "+countryCovidList.size());
+			logger.info("SERVICE:: Total countries: "+countryCovidList.size());
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,7 +144,7 @@ public class CovidResource {
 			else {
 				totalCount = countryCovidList.size();
 			}
-			System.out.println("Total country list to show: "+totalCount);
+			logger.info("SERVICE:: Total country list to show: "+totalCount);
 			for(int i=0; i<=totalCount-1; i++) {
 
 				if(i%2==0) {
@@ -155,16 +160,21 @@ public class CovidResource {
 		else {
 			listCCList = null;
 		}
+		logger.info("END SERVICE:: For country covid 19 results.");
 		return listCCList;
 		
 	}
 	
 	public List<IndiaCovid> getIndiaCovid(){
+		logger.info("START SERVICE:: For India covid 19 results. URL1");
 		IndiaCovid[] arr = restTemplate.getForObject(env.getProperty("covid.india.main"), IndiaCovid[].class);
+		logger.info("END SERVICE:: For India covid 19 results. URL1");
 		return Arrays.asList(arr);
 	}
 	public IndiaCovidOther getIndiaCovidOther(){
+		logger.info("START SERVICE:: For India covid 19 results. URL2");
 		IndiaCovidOther ico = restTemplate.getForObject(env.getProperty("covid.india.other"), IndiaCovidOther.class);
+		logger.info("END SERVICE:: For India covid 19 results. URL2");
 		return ico;
 	}
 
