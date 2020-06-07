@@ -60,7 +60,7 @@
           <li class="drop-down"><a href="">Services</a>
           <ul>
               
-              <li><a href="#">Idea Management</a></li>
+              <li><a href="/ideaMgmt">Idea Management</a></li>
               <li class="drop-down"><a href="">Enhance Knowledge</a>
               	<ul>
               	<li><a href="enKnow/java/Java_Basics">Java</a></li>

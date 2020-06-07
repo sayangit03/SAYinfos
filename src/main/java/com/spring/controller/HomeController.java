@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mashape.unirest.request.HttpRequest;
 import com.spring.beans.Covid;
@@ -32,29 +33,37 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(ModelMap modelMap, HttpServletRequest req, Model model) {
 		System.out.println("Hello from home controller " +model.asMap().get("loginFlag"));
+
+		if(model.asMap().get("serviceFlag")!=null) {
+			modelMap.addAttribute("serviceFlag1", 0);
+			System.out.println("serviceFlag1 here");
+		}
+		else {
+			modelMap.addAttribute("serviceFlag1", 1);
+		}
 		
-			if(model.asMap().get("fEmail")!=null) {
-				System.out.println("home if");
-				String emailfFlag = model.asMap().get("fEmail").toString();
-				if(emailfFlag.equals("notokreg"))
-					modelMap.addAttribute("emailfFlag1", 0);
-				else
-					modelMap.addAttribute("emailfFlag1", 1);
-			}
+		if(model.asMap().get("fEmail")!=null) {
+			System.out.println("home if");
+			String emailfFlag = model.asMap().get("fEmail").toString();
+			if(emailfFlag.equals("notokreg"))
+				modelMap.addAttribute("emailfFlag1", 0);
 			else
-			{
-				System.out.println("home email else");
-				modelMap.addAttribute("emailfFlag1", 2);
-			}
-			
-			if(model.asMap().get("loginFlag")!=null) {
-				System.out.println("Login failed........");
-				modelMap.addAttribute("isOk", 0);
-			}
-			else {
-				modelMap.addAttribute("isOk", 2);
-			}
-		
+				modelMap.addAttribute("emailfFlag1", 1);
+		}
+		else
+		{
+			System.out.println("home email else");
+			modelMap.addAttribute("emailfFlag1", 2);
+		}
+
+		if(model.asMap().get("loginFlag")!=null) {
+			System.out.println("Login failed........");
+			modelMap.addAttribute("isOk", 0);
+		}
+		else {
+			modelMap.addAttribute("isOk", 2);
+		}
+
 		//modelMap.addAttribute("isOk",1);
 		return "index";
 	}
@@ -67,15 +76,26 @@ public class HomeController {
 		mailService.sendEmail(email.getEmail(), "Confirmation on Email Reception", "Hi "+email.getName()+", \n\nThanks for your response. We will get back to you after inital review. \n\n\n\n-SAYinfos");
 		//return "index";
 	}
-	
+
 	@RequestMapping("/birthday")
 	public String happyBirthday() {
 		return "birthday";
 	}
-	
+
 	@RequestMapping(value = "/privacyPolicy")
 	public String privacyPolicy() {
 		return "privacy_policy";
+	}
+
+	@RequestMapping(value = "/closedService")
+	public String serviceNotification(RedirectAttributes redirectAtt) {
+		redirectAtt.addFlashAttribute("serviceFlag", 0);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/websiteClosed")
+	public String serveClosedWebsitePage() {
+		return "proxy_home";
 	}
 
 

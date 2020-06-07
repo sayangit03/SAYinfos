@@ -84,6 +84,7 @@ if(session.getAttribute("uNm")==null){
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
+          <li class="active"><a href="/cpanel">Control Panel</a></li>
           <li class="active"><a href="#mycontribution">My Contribution</a></li>
           <li class="active"><a href="/contribute">Contribute</a></li>
           <li class="active"><a href="/mylogout">Logout</a></li>

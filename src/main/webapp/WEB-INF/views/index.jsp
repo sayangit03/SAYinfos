@@ -105,7 +105,7 @@
           <li><a href="#about">About</a></li>
           <li class="drop-down"><a href="">Services</a>
           <ul>
-              <li><a href="#">Idea Management</a></li>
+              <li><a href="/ideaMgmt">Idea Management</a></li>
               <li class="drop-down"><a href="">Enhance Knowledge</a>
               	<ul>
               	<li><a href="enKnow/java/Java_Basics">Java</a></li>
@@ -194,6 +194,16 @@
     <div class="modal-content">
     <div class="modal-body" align="center">
           <p>Wrong credentials!</p>
+        </div>
+    </div>
+    </div>
+    </div>
+    
+     <div class="modal fade" id="servicefail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-body" align="center">
+          <p>The service you are trying to access is temporarily closed!</p>
         </div>
     </div>
     </div>
@@ -622,6 +632,7 @@
   </footer><!-- End Footer -->
 <fmt:parseNumber var = "loginFlag" type = "number" value = "${isOk}" />
 <fmt:parseNumber var = "isOkEmail" type = "number" value = "${emailfFlag1}" />
+<fmt:parseNumber var = "isOkService" type = "number" value = "${serviceFlag1}" />
 <%//request.getSession().invalidate();%>
   <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 
@@ -694,10 +705,14 @@
 	  $('[data-toggle="tooltip"]').tooltip();
 	  var loginFlag = ${loginFlag};
 	  var okEmail = ${isOkEmail};
+	  var okService = ${isOkService};
 	  //var okName = ${isOkName};
 	  //alert(">>>>> "+loginFlag);
 	  if(loginFlag==0)
 	  	$("#loginfail").modal({backdrop: true});
+	  
+	  if(okService==0)
+		  	$("#servicefail").modal({backdrop: true});
 	  
 	 if(okEmail==0)
 	 	$("#emailfail").modal({backdrop: true});

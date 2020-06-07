@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import com.spring.resource.CovidResource;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.spring.controller", "com.spring.resource", "com.spring.service"})
+@ComponentScan(basePackages = {"com.spring.controller", "com.spring.resource", "com.spring.service", "com.spring.filter"})
 @EnableJpaRepositories("com.spring.repository")
 @EntityScan("com.spring.beans")
 public class MyWebApplication03Application extends SpringBootServletInitializer {

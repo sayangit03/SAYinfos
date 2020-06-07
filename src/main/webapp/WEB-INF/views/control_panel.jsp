@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Contribution Edit</title>
+  <title>Home</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
@@ -42,14 +43,6 @@
   .borderless td, .borderless th {
     border: none;
 }
-  .sent-message1 {
-  display: none;
-  color: #fff;
-  background: #18d26e;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-}
 
 .btn-primary1
 {
@@ -69,13 +62,7 @@
 .btn-primary1:hover {
   background: #fc8129;
 }
-
-.containerForm {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-</style>
+  </style>
 </head>
 
 <body>
@@ -85,7 +72,6 @@ if(session.getAttribute("uNm")==null){
 	response.sendRedirect("/");
 }
 %>
-
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
     <div class="container d-flex align-items-center">
@@ -98,17 +84,10 @@ if(session.getAttribute("uNm")==null){
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-        <li class="active"><a href="/cpanel">Control Panel</a></li>
-        <c:choose>
-        <c:when test="${sessionScope.flashUser}">
-        <li class="active"><a href="/ssoLogin">Profile</a></li>
-        </c:when>
-        <c:otherwise>
           <li class="active"><a href="/mylogin">Profile</a></li>
-        </c:otherwise>
-        </c:choose>
+          <li class="active"><a href="/contribute">Contribute</a></li>
           <li class="active"><a href="/mylogout">Logout</a></li>
-          
+
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -140,70 +119,49 @@ if(session.getAttribute("uNm")==null){
       <div class="container">
       <div class="section-title" data-aos="zoom-out">
           <h2>Welcome <c:out value="${sessionScope.usrFullName}" /></h2>
-          <p>Contribution Edit Page</p>
-        </div>
+          <p>Service Control Panel</p>
+        </div> 
 
-
-<div class="containerForm" data-aos="fade-left">
-<div class="col-lg-12 mt-6 mt-lg-1">
-
-            <form action="/editContribution" method="post" role="form" class="php-email-form" id="contributionForm">
-            <div class="form-row">
-            <div class="col-md-4 form-group">
-            <input type="text" name="id" class="form-control" id="id" value="${contri.getId()}"/>
-            </div>
-            <div class="col-md-4 form-group">
-            <input type="text" name="userUniqueName" class="form-control" id="userUniqueName" value="${contri.getUserUniqueName()}"/>
-            </div>
-            <div class="col-md-4 form-group">
-            <input type="text" name="contriStatus" class="form-control" id="contriStatus" value="${contri.isContriStatus()}"/>
-            </div>
-            </div>
-              <div class="form-row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="userName" class="form-control" id="userName" value="${contri.getUserName()}"/>
-                </div>
-                <div class="col-md-6 form-group">
-                <input type="text" name="emailId" class="form-control" id="emailId" value="${contri.getEmailId()}"/>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-6 form-group">
-                <input id="contriDomain" name="contriDomain" class="form-control" value="${contri.getContriDomain()}" />
-                </div>
-                <div class="col-md-6 form-group">
-                  <input type="text" class="form-control" name="contriTopic" id="contriTopic" value="${contri.getContriTopic()}"/>
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="contriQuestion" id="contriQuestion" value="${contri.getContriQuestion()}"/>
-                <div class="validate"></div>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="contriAnswer" id="contriAnswer" rows="7" style="white-space: pre-wrap;" >${contri.getContriAnswer()}</textarea>
-                <div class="validate"></div>
-              </div>
-              <div class="mb-3">
-                <!-- <div class="loading">Sending message..</div>
-                <div class="error-message"></div> -->
-                <div class="sent-message1" id = "myDIV1">Thank you for making an edit!</div>
-              </div>
-              <div class="text-center"><input type="button" class="btn-primary1" onclick="contribution()" value="Save"></div>
-            </form>
-
-          </div>
-</div>
-
-
-
-
+<table class="table table-bordered table-stripped" data-aos="fade-left">
+    <thead style="background-color:#F5F5F5;">
+      <tr>
+        <th>Service Name</th>
+        <th>URI</th>
+        <th>Hits</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+   <c:forEach items="${allServicesList}" var="allServices"> 
+   <fmt:formatDate var="regDt" pattern = "dd-MM-yyyy" value = "${userDetails.getRegDate() }" />
+      <tr style="height: 30px;">
+      <td style="word-break: break-all;">${ allServices.getServiceName() }</td>
+      <td style="word-break: break-all;">${ allServices.getServiceURI() }</td>
+      <td style="word-break: break-all;">${ allServices.getServiceHits() }</td>
+      <c:choose>
+      <c:when test="${allServices.isServiceStatus() }">
+      <td style="word-break: break-all; color: green;">${ allServices.isServiceStatus() }</td>
+      </c:when>
+      <c:otherwise>
+      <td style="word-break: break-all; color: red;">${ allServices.isServiceStatus() }</td>
+      </c:otherwise>
+      </c:choose>
+      <c:choose>
+      <c:when test="${allServices.isServiceStatus() }">
+      <td style="word-break: break-all;"><a href="/stopService/${ allServices.getId() }">Stop</a></td>
+      </c:when>
+      <c:otherwise>
+      <td style="word-break: break-all;"><a href="/startService/${ allServices.getId() }">Start</a></td>
+      </c:otherwise>
+      </c:choose>
+      </tr>
+    </c:forEach>
+    </tbody>
+  </table>
       </div>
     </section><!-- End Services Section -->
-
-
-
-
-
+    
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -221,7 +179,7 @@ if(session.getAttribute("uNm")==null){
         &copy; Copyright <strong><span>SAYinfos</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-        Designed by <a href="#">Sayantan M</a>
+        Designed by <a href="#">Sayantan M <%-- <c:out value="${sessionScope.pWd}" /> --%></a>
       </div>
     </div>
   </footer><!-- End Footer -->
@@ -241,8 +199,7 @@ if(session.getAttribute("uNm")==null){
   <script src="assets/vendor/aos/aos.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script type="text/javascript">
+  <script src="assets/js/main.js">
   //disable back button
   $(document).ready(function() {
       window.history.pushState(null, "", window.location.href);        
@@ -250,17 +207,6 @@ if(session.getAttribute("uNm")==null){
       window.history.pushState(null, "", window.location.href);
       };
   });
-  
-  function contribution(){
-	  //alert("ok");
-	  var x = document.getElementById("myDIV1");
-	  if (x.style.display === "none") {
-		  x.style.display = "none";
-	  } else {
-		  x.style.display = "block";
-	  }
-	  document.getElementById("contributionForm").submit();
-  }
   </script>
 
 </body>
