@@ -42,6 +42,14 @@ public class HomeController {
 			modelMap.addAttribute("serviceFlag1", 1);
 		}
 		
+		if(model.asMap().get("accessFlag")!=null) {
+			modelMap.addAttribute("accessFlag1", 0);
+			System.out.println("accessFlag1 here");
+		}
+		else {
+			modelMap.addAttribute("accessFlag1", 1);
+		}
+		
 		if(model.asMap().get("fEmail")!=null) {
 			System.out.println("home if");
 			String emailfFlag = model.asMap().get("fEmail").toString();
@@ -96,6 +104,12 @@ public class HomeController {
 	@RequestMapping(value = "/websiteClosed")
 	public String serveClosedWebsitePage() {
 		return "proxy_home";
+	}
+	
+	@RequestMapping(value = "/unauthorizedAccess")
+	public String unauthorizedAccessMsg(RedirectAttributes redirectAtt) {
+		redirectAtt.addFlashAttribute("accessFlag", 0);
+		return "redirect:/";
 	}
 
 

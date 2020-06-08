@@ -209,6 +209,16 @@
     </div>
     </div>
     
+    <div class="modal fade" id="accessfail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-body" align="center">
+          <p>Unauthorized Access!</p>
+        </div>
+    </div>
+    </div>
+    </div>
+    
     <main id="main">
      <div class="modal fade" id="emailRegSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -633,6 +643,7 @@
 <fmt:parseNumber var = "loginFlag" type = "number" value = "${isOk}" />
 <fmt:parseNumber var = "isOkEmail" type = "number" value = "${emailfFlag1}" />
 <fmt:parseNumber var = "isOkService" type = "number" value = "${serviceFlag1}" />
+<fmt:parseNumber var = "isOkAccess" type = "number" value = "${accessFlag1}" />
 <%//request.getSession().invalidate();%>
   <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 
@@ -706,6 +717,7 @@
 	  var loginFlag = ${loginFlag};
 	  var okEmail = ${isOkEmail};
 	  var okService = ${isOkService};
+	  var okAccess = ${isOkAccess};
 	  //var okName = ${isOkName};
 	  //alert(">>>>> "+loginFlag);
 	  if(loginFlag==0)
@@ -713,6 +725,9 @@
 	  
 	  if(okService==0)
 		  	$("#servicefail").modal({backdrop: true});
+	  
+	  if(okAccess==0)
+		  	$("#accessfail").modal({backdrop: true});
 	  
 	 if(okEmail==0)
 	 	$("#emailfail").modal({backdrop: true});

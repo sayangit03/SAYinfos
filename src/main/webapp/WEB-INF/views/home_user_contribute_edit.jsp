@@ -82,7 +82,7 @@
 <%
 //out.print(session.getAttribute("uNm"));
 if(session.getAttribute("uNm")==null){
-	response.sendRedirect("/");
+	response.sendRedirect("/unauthorizedAccess");
 }
 %>
 

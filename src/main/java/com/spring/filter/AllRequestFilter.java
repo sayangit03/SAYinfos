@@ -37,6 +37,8 @@ public class AllRequestFilter implements Filter {
 		logger.info("FILTER:: Requested URI: "+servletReq.getRequestURI());
 		logger.info("FILTER:: Requested servlet path: "+servletReq.getServletPath());
 		logger.info("FILTER:: Requested servlet context: "+servletReq.getServletContext());
+		servletReq.setAttribute("reqURI1", servletReq.getRequestURI());
+		
 		
 		if(servletReq.getRequestURI().startsWith("/assets")) {
 			chain.doFilter(request, response);
@@ -44,7 +46,22 @@ public class AllRequestFilter implements Filter {
 		else {
 			List<AllServices> requestedURIList = allServiceRepo.findByServiceURI(servletReq.getRequestURI());
 			if(requestedURIList==null || requestedURIList.size()==0) {
-				chain.doFilter(request, response);
+				if(servletReq.getRequestURI().startsWith("/startService") || servletReq.getRequestURI().startsWith("/stopService")
+						|| servletReq.getRequestURI().startsWith("/approveAdmin") || servletReq.getRequestURI().startsWith("/approveUser")
+						|| servletReq.getRequestURI().startsWith("/approveContri")) {
+					if(servletReq.getSession().getAttribute("uNm")!=null && servletReq.getSession().getAttribute("userRole").toString().equals("Admin")) {
+						logger.info("FILTER:: Restricted URI: "+servletReq.getRequestURI());
+						logger.info("FILTER:: Restricted URI access granted to: "+servletReq.getSession().getAttribute("uNm").toString());
+						chain.doFilter(request, response);
+					}
+					else {
+						//servletReq.getSession().invalidate();
+						servletRes.sendRedirect("/unauthorizedAccess");
+					}
+				}
+				else {
+					chain.doFilter(request, response);
+				}
 			}
 			else if(requestedURIList.size()>0 && requestedURIList.get(0).isServiceStatus()) {
 				chain.doFilter(request, response);
