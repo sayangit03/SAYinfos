@@ -118,7 +118,7 @@
 <div data-aos="fade-left">
 <!-- <h1>Privacy Policy for SAYinfos.com</h1> -->
 
-<p>SAYinfos, accessible from https://www.sayinfos.com, is completely a personal, non-profit, not-commercial, open and crowd source website. This website is made out of sheer interest towards learning and implementing something new. You can download the code-base or contribute on top of this development <a href="https://github.com/sayangit03" target="_blank">here in GIT.</a> 
+<p>SAYinfos, accessible from https://www.sayinfos.com, is completely a personal, non-profit, not-commercial, open and crowd sourced website. This website is made out of sheer interest towards learning and implementing something new. You can download the code-base or contribute on top of this development <a href="https://github.com/sayangit03" target="_blank">here in GIT.</a> 
 All the services mentioned in home page are created primarily for personal purpose. You can use it if you find it good enough. This website neither promote the available services to anyone, nor the website contains any promotion/advertise.</p>
 
 <p>One of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by SAYinfos and how we use it.</p>
@@ -136,7 +136,9 @@ All the services mentioned in home page are created primarily for personal purpo
 <p>The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.</p>
 <p>If you contact us directly, we may receive additional information about you such as your name, email address, phone number, and the contents of the message you may send us, and any other information you may choose to provide.</p>
 <p style="text-decoration: underline;">When you register for an Account, we ask you to provide only name and email id. Location and phone number is optional.</p>
-<p style="text-decoration: underline;">When you perform login with Google authentication, we only collect your name and email id, that too if you make any contribution by submitting question and answers or recipes</p>
+<p style="text-decoration: underline;">When you perform login with Google authentication, we only collect your name and email id, that too if you make any contribution by submitting question and answers or recipes.</p>
+
+<p style="text-decoration: underline;">If you roam around the website without signing in, we don't collect any data (like your IP address or browser information) from you.</p>
 
 <h2>How we use your information</h2>
 
