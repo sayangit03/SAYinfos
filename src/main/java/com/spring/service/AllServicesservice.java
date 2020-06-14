@@ -18,6 +18,7 @@ public class AllServicesservice {
 	public List<AllServices> getAllServices() {
 		
 		
+		
 		/*
 		 * AllServices allservice = new AllServices();
 		 * allservice.setServiceName("Idea Management"); allservice.setServiceHits(0);
@@ -26,22 +27,23 @@ public class AllServicesservice {
 		 * 
 		 * AllServices allservice1 = new AllServices();
 		 * allservice1.setServiceName("EK Java"); allservice1.setServiceHits(0);
-		 * allservice1.setServiceURI("/Java_Basics");
+		 * allservice1.setServiceURI("/enKnow/java/Java_Basics");
 		 * allservice1.setServiceStatus(true); allServiceRepo.save(allservice1);
 		 * 
 		 * AllServices allservice2 = new AllServices();
 		 * allservice2.setServiceName("EK Spring"); allservice2.setServiceHits(0);
-		 * allservice2.setServiceURI("/Spring_Core");
+		 * allservice2.setServiceURI("/enKnow/java/Spring_Core");
 		 * allservice2.setServiceStatus(true); allServiceRepo.save(allservice2);
 		 * 
 		 * AllServices allservice3 = new AllServices();
 		 * allservice3.setServiceName("EK Spring Advanced");
-		 * allservice3.setServiceURI("/Spring_Boot"); allservice3.setServiceHits(0);
-		 * allservice3.setServiceStatus(true); allServiceRepo.save(allservice3);
+		 * allservice3.setServiceURI("/enKnow/java/Spring_Boot");
+		 * allservice3.setServiceHits(0); allservice3.setServiceStatus(true);
+		 * allServiceRepo.save(allservice3);
 		 * 
 		 * AllServices allservice4 = new AllServices();
 		 * allservice4.setServiceName("EK Hibernate"); allservice4.setServiceHits(0);
-		 * allservice4.setServiceURI("/Hibernate_Basics");
+		 * allservice4.setServiceURI("/enKnow/java/Hibernate_Basics");
 		 * allservice4.setServiceStatus(true); allServiceRepo.save(allservice4);
 		 * 
 		 * AllServices allservice5 = new AllServices();
@@ -93,6 +95,12 @@ public class AllServicesservice {
 		 * allservice14.setServiceName("SAYinfos Website");
 		 * allservice14.setServiceURI("/"); allservice14.setServiceHits(0);
 		 * allservice14.setServiceStatus(true); allServiceRepo.save(allservice14);
+		 * 
+		 * AllServices allservice15 = new AllServices();
+		 * allservice15.setServiceName("All Knowledge");
+		 * allservice15.setServiceURI("/enhanceKnowledge");
+		 * allservice15.setServiceHits(0); allservice15.setServiceStatus(true);
+		 * allServiceRepo.save(allservice14);
 		 */
 		
 		

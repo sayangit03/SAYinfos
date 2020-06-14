@@ -68,7 +68,9 @@ public class ContributionController {
 		 * if(list!=null && list.size()>0) { for(int i=0; i<list.size(); i++) {
 		 * list.get(i).setId(i+1); } }
 		 */
-		String name =  model.asMap().get("name").toString();
+		String name = null;
+		if(model.asMap().get("name")!=null)
+			name =  model.asMap().get("name").toString();
 		modelMap.addAttribute("contriList", list);
 		modelMap.addAttribute("name", name);
 		return "user_contribution";
