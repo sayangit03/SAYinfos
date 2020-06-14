@@ -102,7 +102,7 @@ public class AllServicesservice {
 	
 	public boolean stopService(int id) {
 		Optional<AllServices> allService = allServiceRepo.findById(id);
-		if(!allService.isEmpty()) {
+		if(allService.isPresent()) {
 			allService.get().setServiceStatus(false);
 			allServiceRepo.save(allService.get());
 			
@@ -113,7 +113,7 @@ public class AllServicesservice {
 	
 	public boolean startService(int id) {
 		Optional<AllServices> allService = allServiceRepo.findById(id);
-		if(!allService.isEmpty()) {
+		if(allService.isPresent()) {
 			allService.get().setServiceStatus(true);
 			allServiceRepo.save(allService.get());
 			
