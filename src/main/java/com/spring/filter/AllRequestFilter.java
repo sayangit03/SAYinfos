@@ -31,12 +31,11 @@ public class AllRequestFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		logger.info("FILTER:: Filtration started.");
+		//logger.info("FILTER:: Filtration started.");
 		HttpServletRequest servletReq = (HttpServletRequest) request;
 		HttpServletResponse servletRes = (HttpServletResponse) response;
-		logger.info("FILTER:: Requested URI: "+servletReq.getRequestURI());
-		logger.info("FILTER:: Requested servlet path: "+servletReq.getServletPath());
-		logger.info("FILTER:: Requested servlet context: "+servletReq.getServletContext());
+		//logger.info("FILTER:: Requested servlet path: "+servletReq.getServletPath());
+		//logger.info("FILTER:: Requested servlet context: "+servletReq.getServletContext());
 		servletReq.setAttribute("reqURI1", servletReq.getRequestURI());
 		
 		
@@ -44,6 +43,7 @@ public class AllRequestFilter implements Filter {
 			chain.doFilter(request, response);
 		}
 		else {
+			logger.info("FILTER:: Requested URI: "+servletReq.getRequestURI());
 			List<AllServices> requestedURIList = allServiceRepo.findByServiceURI(servletReq.getRequestURI());
 			if(requestedURIList==null || requestedURIList.size()==0) {
 				if(servletReq.getRequestURI().startsWith("/startService") || servletReq.getRequestURI().startsWith("/stopService")
@@ -75,7 +75,7 @@ public class AllRequestFilter implements Filter {
 				}
 			}
 		}
-		logger.info("FILTER:: Filtration ended.");
+		//logger.info("FILTER:: Filtration ended.");
 		
 	}
 
