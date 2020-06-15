@@ -43,7 +43,7 @@ public class AllRequestFilter implements Filter {
 			chain.doFilter(request, response);
 		}
 		else {
-			logger.info("FILTER:: Requested URI: "+servletReq.getRequestURI());
+			logger.info("FILTER:: Requested URI: "+servletReq.getRequestURI()+" Login? "+servletReq.getSession().getAttribute("uNm"));
 			List<AllServices> requestedURIList = allServiceRepo.findByServiceURI(servletReq.getRequestURI());
 			if(requestedURIList==null || requestedURIList.size()==0) {
 				if(servletReq.getRequestURI().startsWith("/startService") || servletReq.getRequestURI().startsWith("/stopService")
