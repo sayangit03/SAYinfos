@@ -2,8 +2,6 @@ package com.spring.beans;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotEmpty;
-
 public class User {
 	
 	//@NotEmpty(message = "Name cannot be empty.")
