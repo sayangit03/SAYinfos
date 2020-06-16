@@ -11,6 +11,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -18,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.spring.resource.CovidResource;
 
+//@Profile("dev")
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.spring.controller", "com.spring.resource", "com.spring.service", "com.spring.filter"})
 @EnableJpaRepositories("com.spring.repository")

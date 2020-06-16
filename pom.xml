@@ -88,7 +88,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>Webapp01</finalName>
+					<finalName>ROOT</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
