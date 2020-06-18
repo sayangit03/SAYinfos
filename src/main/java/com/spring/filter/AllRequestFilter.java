@@ -40,7 +40,7 @@ public class AllRequestFilter implements Filter {
 		
 		
 		if(servletReq.getRequestURI().startsWith("/assets")) {
-			chain.doFilter(request, response);
+			chain.doFilter(request, new SendRedirectOverloadedResponse(servletReq, servletRes));
 		}
 		else {
 			logger.info("FILTER:: Requested URI: "+servletReq.getRequestURI()+" Login? "+servletReq.getSession().getAttribute("uNm"));
@@ -52,7 +52,7 @@ public class AllRequestFilter implements Filter {
 					if(servletReq.getSession().getAttribute("uNm")!=null && servletReq.getSession().getAttribute("userRole").toString().equals("Admin")) {
 						logger.info("FILTER:: Restricted URI: "+servletReq.getRequestURI());
 						logger.info("FILTER:: Restricted URI access granted to: "+servletReq.getSession().getAttribute("uNm").toString());
-						chain.doFilter(request, response);
+						chain.doFilter(request, new SendRedirectOverloadedResponse(servletReq, servletRes));
 					}
 					else {
 						//servletReq.getSession().invalidate();
@@ -60,11 +60,11 @@ public class AllRequestFilter implements Filter {
 					}
 				}
 				else {
-					chain.doFilter(request, response);
+					chain.doFilter(request, new SendRedirectOverloadedResponse(servletReq, servletRes));
 				}
 			}
 			else if(requestedURIList.size()>0 && requestedURIList.get(0).isServiceStatus()) {
-				chain.doFilter(request, response);
+				chain.doFilter(request, new SendRedirectOverloadedResponse(servletReq, servletRes));
 			}
 			else {
 				if(servletReq.getRequestURI().equals("/")) {

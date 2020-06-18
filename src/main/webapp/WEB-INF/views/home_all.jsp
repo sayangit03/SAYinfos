@@ -179,8 +179,8 @@ if(session.getAttribute("uNm")==null){
    <c:forEach items="${flashUserList}" var="flashUserDetails"> 
       <tr style="height: 30px;">
         <td><a href="/userContri/${ flashUserDetails.getEmailId() }/${flashUserDetails.getUserName()}"><b>${ flashUserDetails.getUserName() }</b></a></td>
-        <td>${ flashUserDetails.getEmailId()}</td>
-        <td>${ flashUserDetails.getUserUniqueName()}</td>
+        <td style="word-break: break-all;">${ flashUserDetails.getEmailId()}</td>
+        <td style="word-break: break-all;">${ flashUserDetails.getUserUniqueName()}</td>
       </tr>
     </c:forEach>
     </tbody>
