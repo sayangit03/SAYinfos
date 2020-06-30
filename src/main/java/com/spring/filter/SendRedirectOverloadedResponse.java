@@ -63,11 +63,10 @@ class SendRedirectOverloadedResponse extends HttpServletResponseWrapper
 		StringBuffer str = request.getRequestURL();
 		String url = str.toString();
 		String uri = request.getRequestURI();
-		Log.info("requesturl:" + url);
-		Log.info("uri:" + uri);
+		if(!url.contains("assets"))
+			Log.info("Request URL:" + url);
 		int offset = url.indexOf(uri);
 		String prefix = url.substring(0,offset);
-		Log.info("prefix:" + prefix);
 		return prefix;
 	}
 }
