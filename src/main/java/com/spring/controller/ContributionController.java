@@ -35,16 +35,16 @@ public class ContributionController {
 			contriService.saveContribution(contri);
 		}
 		if((boolean) session.getAttribute("flashUser")) {
-			return "redirect:ssoLogin";
+			return "redirect:/ssoLogin";
 		}
-		return "redirect:mylogin";
+		return "redirect:/mylogin";
 	}
 	
 	@RequestMapping(value = "/editContribution")
 	public String editContribution(Contribution contri) {
 		boolean result = contriService.saveEditedContribution(contri);
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> "+result);
-		return "redirect:mylogin";
+		return "redirect:/mylogin";
 	}
 
 	@RequestMapping(value = "/userContri/{email}/{name}")
@@ -102,7 +102,7 @@ public class ContributionController {
 	@RequestMapping(value = "/redirectToLogin")
 	public String redirectAfterApproveOrEdit() {
 		System.out.println("k");
-		return "redirect:mylogin";
+		return "redirect:/mylogin";
 	}
 	
 }
