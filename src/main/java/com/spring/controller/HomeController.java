@@ -1,13 +1,10 @@
 package com.spring.controller;
 
-import java.util.Arrays;
-
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.mashape.unirest.request.HttpRequest;
-import com.spring.beans.Covid;
 import com.spring.beans.Email;
 import com.spring.resource.MailService;
 
@@ -29,14 +24,15 @@ public class HomeController {
 
 	@Autowired
 	MailService mailService;
+	
+	private static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping("/")
 	public String home(ModelMap modelMap, HttpServletRequest req, Model model) {
-		System.out.println("Hello from home controller " +model.asMap().get("loginFlag"));
+		logger.info("************** Hello from home controller **************");
 
 		if(model.asMap().get("serviceFlag")!=null) {
 			modelMap.addAttribute("serviceFlag1", 0);
-			System.out.println("serviceFlag1 here");
 		}
 		else {
 			modelMap.addAttribute("serviceFlag1", 1);
@@ -44,14 +40,12 @@ public class HomeController {
 		
 		if(model.asMap().get("accessFlag")!=null) {
 			modelMap.addAttribute("accessFlag1", 0);
-			System.out.println("accessFlag1 here");
 		}
 		else {
 			modelMap.addAttribute("accessFlag1", 1);
 		}
 		
 		if(model.asMap().get("fEmail")!=null) {
-			System.out.println("home if");
 			String emailfFlag = model.asMap().get("fEmail").toString();
 			if(emailfFlag.equals("notokreg"))
 				modelMap.addAttribute("emailfFlag1", 0);
@@ -60,7 +54,6 @@ public class HomeController {
 		}
 		else
 		{
-			System.out.println("home email else");
 			modelMap.addAttribute("emailfFlag1", 2);
 		}
 

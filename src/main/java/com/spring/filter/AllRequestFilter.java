@@ -44,6 +44,8 @@ public class AllRequestFilter implements Filter {
 		}
 		else {
 			logger.info("FILTER:: Requested URI: "+servletReq.getRequestURI()+" Login? "+servletReq.getSession().getAttribute("uNm"));
+			logger.info("FILTER:: Details of client -> IP: "+ servletReq.getRemoteAddr());
+			logger.info("FILTER:: Details of client -> User: "+ servletReq.getRemoteUser());
 			List<AllServices> requestedURIList = allServiceRepo.findByServiceURI(servletReq.getRequestURI());
 			if(requestedURIList==null || requestedURIList.size()==0) {
 				if(servletReq.getRequestURI().startsWith("/startService") || servletReq.getRequestURI().startsWith("/stopService")
