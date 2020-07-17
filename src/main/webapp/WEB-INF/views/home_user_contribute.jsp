@@ -98,14 +98,16 @@ if(session.getAttribute("uNm")==null){
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-        <c:choose>
-        <c:when test="${sessionScope.flashUser}">
-        <li class="active"><a href="/ssoLogin">Profile</a></li>
-        </c:when>
-        <c:otherwise>
+        
+        <c:if test="${sessionScope.flashUserSSO}">
+          <li class="active"><a href="/ssoLogin">Profile</a></li>
+        </c:if>
+        <c:if test="${sessionScope.flashUserOTP}">
+          <li class="active"><a href="/myOTPLogin">Profile</a></li>
+        </c:if>
+        <c:if test="${sessionScope.flashUser}">
           <li class="active"><a href="/mylogin">Profile</a></li>
-        </c:otherwise>
-        </c:choose>
+        </c:if>
           <li class="active"><a href="/mylogout">Logout</a></li>
           
         </ul>

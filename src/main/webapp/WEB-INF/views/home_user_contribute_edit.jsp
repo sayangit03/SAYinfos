@@ -99,14 +99,9 @@ if(session.getAttribute("uNm")==null){
       <nav class="nav-menu d-none d-lg-block">
         <ul>
         <li class="active"><a href="/cpanel">Control Panel</a></li>
-        <c:choose>
-        <c:when test="${sessionScope.flashUser}">
-        <li class="active"><a href="/ssoLogin">Profile</a></li>
-        </c:when>
-        <c:otherwise>
+        
           <li class="active"><a href="/mylogin">Profile</a></li>
-        </c:otherwise>
-        </c:choose>
+       
           <li class="active"><a href="/mylogout">Logout</a></li>
           
         </ul>

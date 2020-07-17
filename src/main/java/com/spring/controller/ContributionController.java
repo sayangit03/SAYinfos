@@ -34,8 +34,11 @@ public class ContributionController {
 			contri.setContriStatus(false);
 			contriService.saveContribution(contri);
 		}
-		if((boolean) session.getAttribute("flashUser")) {
+		if(session.getAttribute("flashUserSSO") !=null && (boolean) session.getAttribute("flashUserSSO")) {
 			return "redirect:/ssoLogin";
+		}
+		if(session.getAttribute("flashUserOTP")!=null && (boolean) session.getAttribute("flashUserOTP")) {
+			return "redirect:/myOTPLogin";
 		}
 		return "redirect:/mylogin";
 	}

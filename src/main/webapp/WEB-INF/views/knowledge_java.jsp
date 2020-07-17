@@ -194,7 +194,7 @@
             <c:choose>
             <c:when test="${cmntFlag && questionNumber == contri.getId() }">
             <li>
-            <a data-toggle="collapse" class="" href="#f${contri.getId() }">${loop.count }. ${contri.getContriQuestion() } by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="" href="#f${contri.getId() }">${loop.count }. ${contri.getContriQuestion() } <i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse show" data-parent=".faq-list">
             </br><p style="white-space: pre-line; padding-left: 5px;">${contri.getContriAnswer() }</p>
              <p class="line"></p>
@@ -227,7 +227,7 @@
             </c:when>
             <c:otherwise>
             <li>
-            <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${loop.count }. ${contri.getContriQuestion() } by ${contri.getUserName() } <i class="icofont-simple-up"></i></a>
+            <a data-toggle="collapse" class="collapsed" href="#f${contri.getId() }">${loop.count }. ${contri.getContriQuestion() } <i class="icofont-simple-up"></i></a>
             <div id="f${contri.getId() }" class="collapse" data-parent=".faq-list">
             </br><p style="white-space: pre-line; padding-left: 5px;">${contri.getContriAnswer() }</p>
             <p class="line"></p>

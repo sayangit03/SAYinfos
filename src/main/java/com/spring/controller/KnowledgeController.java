@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -36,8 +37,13 @@ public class KnowledgeController {
 			cmntId = (int) model.asMap().get("cmntId");
 		}
 
-		List<Contribution> knowledgeList = knowledgeService.getKnowledges(topic);
-
+		List<Contribution> knowledgeListTemp = knowledgeService.getKnowledges(topic);
+		List<Contribution> knowledgeList = new ArrayList<>();
+		for(Contribution c : knowledgeListTemp) {
+			if(c.isContriStatus()) {
+				knowledgeList.add(c);
+			}
+		}
 		for(Contribution c : knowledgeList) {
 			List<Comment> cmntList = knowledgeService.fetchComments(String.valueOf(c.getId()));
 			c.setCmntList(cmntList);

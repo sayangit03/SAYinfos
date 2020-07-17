@@ -137,19 +137,19 @@ if(session.getAttribute("uNm")==null){
         <td><b>${ usrFullNameTbl}</b></br></br>
         <c:choose>
         <c:when test="${flashUser }">
-        ${uNm }
+        ${fn:substring(userPhn, 0, 5)}-${fn:substring(userPhn, 5, fn:length(userPhn))}
         </c:when>
         <c:otherwise>
-        ${fn:substring(userPhn, 0, 5)}-${fn:substring(userPhn, 5, fn:length(userPhn))}
+        ${uNm }
         </c:otherwise>
         </c:choose>
         </td>
         <c:choose>
         <c:when test="${flashUser }">
-        <td></br>N/A</td>
+        <td></br>${ userLoc }</td>
         </c:when>
         <c:otherwise>
-        <td></br>${ userLoc }</td>
+        <td></br>N/A</td>
         </c:otherwise>
         </c:choose>
         <td style="word-break: break-all;"></br>${ userEml}</td>

@@ -83,6 +83,14 @@
   padding: 15px;
   font-weight: 600;
 }
+
+.line {
+  content: "";
+  height: 1px;
+  display: block;
+  background: #fd9042;
+  margin: 4px 10px;
+}
   </style>
 </head>
 
@@ -287,14 +295,53 @@
       <div class="sent-message1" id = "myDIVLogin">Please wait. You will be redirected to your home page. </div></br>
         <input type="button" class="btn-primary1" onclick="myFunctionLogin()" id="submitLogin" value="Login">
       </div>
+      <p align="center">Want to contribute Q&A?</p>
+      <div class="form-row">
+      <div class="col-md-6 form-group">
       <div class="modal-footer d-flex justify-content-center">
       <a href="/ssoLogin">Login With Google</a>
+      </div>
+      </div>
+      <div class="col-md-6 form-group">
+      <div class="modal-footer d-flex justify-content-center">
+      <a href="#header" data-toggle="modal" data-target="#otpLoginModal" data-dismiss="modal">Login With OTP</a>
+      </div>
+      </div>
       </div>
       </form>
     </div>
   </div>
 </div>
-  
+<div class="modal fade" id="otpLoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">OTP Login</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" align="center">
+      <form action="/generateOTP" method="post" role="form" class="php-email-form" id="OTPGenerationForm">
+           <input type="text" class="form-control" name="otpEmailId" id="otpEmailId" placeholder="Enter Email Id" onkeyup="myFunctionValidateOTPGen()"/><br>
+           <input type="submit" class="btn-primary1" onclick="myFunctionLoginOTPShowTextBox()" id="submitOTPGen" value="Get OTP">
+      </form>
+      <form action="/myOTPLogin" method="post" role="form" class="php-email-form" id="OTPLoginForm">
+      	   <div id="OTPBox" style="display: none"><br><input type="text" class="form-control" name="OTPBoxVal" id="OTPBoxVal" placeholder="Enter OTP"/><br>
+      	   
+      	   <div class="sent-message1" id = "myDIVLoginOTP" style="margin-bottom: 22px">Please wait. You will be redirected to your home page. </div>
+      	   <input type="button" class="btn-primary1" onclick="myFunctionLoginOTP()" id="submitOTPLogin" value="Login"></div>
+      </form>
+      </div>
+      
+     <!-- <div class="modal-footer d-flex justify-content-center">
+      <div class="sent-message1" id = "myDIVLoginOTP">Please wait. You will be redirected to your home page. </div></br>
+        <input type="button" class="btn-primary1" onclick="myFunctionLoginOTP()" id="submitLogin" value="Login">
+      </div> -->
+    </div>
+    </div>
+</div>
   
 <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -363,6 +410,19 @@
       <div class="sent-message1" id = "myDIV">Please wait while we validate your data.</div></br>
         <!-- <button class="btn-primary1" onclick="myFunction()" id="submitSignup" >Sign up</button> -->
         <input type="button" class="btn-primary1" onclick="myFunction()" id="submitSignup" value="Sign Up">
+      </div>
+      <p align="center">Want to contribute Q&A?</p>
+      <div class="form-row">
+      <div class="col-md-6 form-group">
+      <div class="modal-footer d-flex justify-content-center">
+      <a href="/ssoLogin">Login With Google</a>
+      </div>
+      </div>
+      <div class="col-md-6 form-group">
+      <div class="modal-footer d-flex justify-content-center">
+      <a href="#header" data-toggle="modal" data-target="#otpLoginModal" data-dismiss="modal">Login With OTP</a>
+      </div>
+      </div>
       </div>
       <!-- </fieldset> -->
       </form>
@@ -691,6 +751,25 @@
 	  }
 	  document.getElementById("loginForm").submit();
 	}
+  
+  function myFunctionLoginOTPShowTextBox() {
+	  var x = document.getElementById("OTPBox");
+	  if (x.style.display === "none") {
+		  x.style.display = "block";
+		  
+	  }
+	}
+  
+  function myFunctionLoginOTP() {
+	  var x = document.getElementById("myDIVLoginOTP");
+	  if (x.style.display === "none") {
+		  x.style.display = "none";
+	  } else {
+		  x.style.display = "block";
+	  }
+	  document.getElementById("OTPLoginForm").submit();
+	}
+  
   function myFunction2() {
 	  var x = document.getElementById("myDIV2");
 	  if (x.style.display === "none") {
@@ -763,6 +842,20 @@
           document.getElementById('submitLogin').disabled = true;
       } else {
       		document.getElementById('submitLogin').disabled = false;
+      }
+  }
+  
+  document.addEventListener("DOMContentLoaded", function(event) {
+      document.getElementById('submitOTPGen').disabled = "true";
+  });
+  function myFunctionValidateOTPGen() {
+      var emailInput = document.getElementById('otpEmailId').value;
+      var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      
+      if (!emailInput.match(mailformat)) {
+          document.getElementById('submitOTPGen').disabled = true;
+      } else {
+      		document.getElementById('submitOTPGen').disabled = false;
       }
   }
   </script>
