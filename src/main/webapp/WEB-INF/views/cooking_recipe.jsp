@@ -68,7 +68,7 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
+  <header id="header" class="fixed-top d-flex align-items-center  header-transparent " style="background: rgba(42, 44, 57, 0.9);">
     <div class="container d-flex align-items-center">
 
       <div class="logo mr-auto">

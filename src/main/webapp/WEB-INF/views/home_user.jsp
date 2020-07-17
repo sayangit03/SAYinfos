@@ -73,7 +73,7 @@ if(session.getAttribute("uNm")==null){
 }
 %>
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
+  <header id="header" class="fixed-top d-flex align-items-center  header-transparent " style="background: rgba(42, 44, 57, 0.9);">
     <div class="container d-flex align-items-center">
 
       <div class="logo mr-auto">
@@ -126,7 +126,7 @@ if(session.getAttribute("uNm")==null){
 <table class="table table-bordered" data-aos="fade-left">
     <thead style="background-color:#F5F5F5;">
       <tr>
-        <th>Name</th>
+        <th>Alias</th>
         <th>Location</th>
         <th>Email</th>
         <th>Status</th>
