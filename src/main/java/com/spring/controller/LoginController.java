@@ -48,7 +48,7 @@ public class LoginController {
 
 	private String otpEmailIdGlobal;
 
-	LoadingCache<String, Integer> otpCache = CacheBuilder.newBuilder().maximumSize(100).expireAfterWrite(300, TimeUnit.SECONDS)
+	LoadingCache<String, Integer> otpCache = CacheBuilder.newBuilder().maximumSize(100).expireAfterWrite(90, TimeUnit.SECONDS)
 			.build(new CacheLoader<String, Integer>(){
 				public Integer load(String key) {
 					return 0;

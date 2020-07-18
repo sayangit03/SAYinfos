@@ -296,6 +296,7 @@
         <input type="button" class="btn-primary1" onclick="myFunctionLogin()" id="submitLogin" value="Login">
       </div>
       <p align="center">Want to contribute Q&A?</p>
+      
       <div class="form-row">
       <div class="col-md-6 form-group">
       <div class="modal-footer d-flex justify-content-center">
@@ -322,14 +323,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" align="center">
+      <div class="modal-body" align="center" style="margin-bottom: 15px;">
       <form action="/generateOTP" method="post" role="form" class="php-email-form" id="OTPGenerationForm">
            <input type="text" class="form-control" name="otpEmailId" id="otpEmailId" placeholder="Enter Email Id" onkeyup="myFunctionValidateOTPGen()"/><br>
            <input type="submit" class="btn-primary1" onclick="myFunctionLoginOTPShowTextBox()" id="submitOTPGen" value="Get OTP">
       </form>
       <form action="/myOTPLogin" method="post" role="form" class="php-email-form" id="OTPLoginForm">
-      	   <div id="OTPBox" style="display: none"><br><input type="text" class="form-control" name="OTPBoxVal" id="OTPBoxVal" placeholder="Enter OTP"/><br>
-      	   
+      	   <div id="OTPBox" style="display: none; margin-top: 0;"><br><input type="text" class="form-control" name="OTPBoxVal" id="OTPBoxVal" placeholder="Enter OTP"/><br>
+      	   <div align="center"><p id="mins"></p><p id="end"></p></div>
       	   <div class="sent-message1" id = "myDIVLoginOTP" style="margin-bottom: 22px">Please wait. You will be redirected to your home page. </div>
       	   <input type="button" class="btn-primary1" onclick="myFunctionLoginOTP()" id="submitOTPLogin" value="Login"></div>
       </form>
@@ -753,11 +754,46 @@
 	}
   
   function myFunctionLoginOTPShowTextBox() {
+	//The data/time we want to countdown to
+	
+	  var countDownDate = new Date().getTime()+90000;
+
+	  // Run myfunc every second
+	  var myfunc = setInterval(function() {
+	  var now = new Date().getTime();
+	  var timeleft = countDownDate - now;
+	      
+	  // Calculating the days, hours, minutes and seconds left
+	  var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+	  var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	  var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+	  var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+	  if (seconds < 10 && seconds >= 0) {seconds = "0" + seconds};
+	      
+	  // Result is output to the specific element
+	  document.getElementById("mins").innerHTML = "0"+minutes + " : "+seconds  
+	      
+	  // Display the message when countdown is over
+	  if (minutes==0 && seconds==0) {
+		  document.getElementById("mins").innerHTML = "Time up! Please try again."
+	  }
+	  if (timeleft < 0) {
+	      clearInterval(myfunc);
+	      document.getElementById("mins").innerHTML = ""
+	      location.reload();
+	  }
+	  }, 100);
+	  
 	  var x = document.getElementById("OTPBox");
 	  if (x.style.display === "none") {
 		  x.style.display = "block";
 		  
 	  }
+	  
+	  var x1 = document.getElementById("submitOTPGen");
+	  x1.style.display = "none";
+	  
+	  //document.getElementById("submitOTPGen").disabled = true;
 	}
   
   function myFunctionLoginOTP() {
@@ -858,7 +894,7 @@
       		document.getElementById('submitOTPGen').disabled = false;
       }
   }
-  </script>
+</script>
 
 </body>
 

@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.spring.beans.AllServices;
-import com.spring.repository.AllServiceRepository;
+import com.spring.service.AllServicesservice;
 
 @Controller
 public class AllRequestFilter implements Filter {
@@ -25,7 +25,7 @@ public class AllRequestFilter implements Filter {
 	private static Logger logger = LoggerFactory.getLogger(AllRequestFilter.class);
 	
 	@Autowired
-	AllServiceRepository allServiceRepo;
+	AllServicesservice allServService;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -46,7 +46,7 @@ public class AllRequestFilter implements Filter {
 			logger.info("FILTER:: Requested URI: "+servletReq.getRequestURI()+" Login? "+servletReq.getSession().getAttribute("uNm"));
 			logger.info("FILTER:: Details of client -> IP: "+ servletReq.getRemoteAddr());
 			logger.info("FILTER:: Details of client -> User: "+ servletReq.getRemoteUser());
-			List<AllServices> requestedURIList = allServiceRepo.findByServiceURI(servletReq.getRequestURI());
+			List<AllServices> requestedURIList = allServService.findByServiceURI(servletReq.getRequestURI());
 			if(requestedURIList==null || requestedURIList.size()==0) {
 				if(servletReq.getRequestURI().startsWith("/startService") || servletReq.getRequestURI().startsWith("/stopService")
 						|| servletReq.getRequestURI().startsWith("/approveAdmin") || servletReq.getRequestURI().startsWith("/approveUser")

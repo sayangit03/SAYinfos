@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
@@ -24,6 +25,7 @@ import com.spring.resource.CovidResource;
 @ComponentScan(basePackages = {"com.spring.controller", "com.spring.resource", "com.spring.service", "com.spring.filter"})
 @EnableJpaRepositories("com.spring.repository")
 @EntityScan("com.spring.beans")
+@EnableCaching
 public class MyWebApplication03Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
