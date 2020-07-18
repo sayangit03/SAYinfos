@@ -178,7 +178,7 @@
           <div class="col-lg-3 col-md-6 mt-5">
             <div class="icon-box" data-aos="zoom-in-left">
             <div class="icon"><img src="http://openweathermap.org/img/wn/${forecastList.get(0).getForeWeatherList().get(0).getIcon()}@2x.png"></img></div>
-              <h4 class="title">${forecastList.get(0).getDtTxt()}</h4>
+              <h4 class="title" style="text-align: left; font-size: 15px; font-family: Open Sans, sans-serif; font-weight: bold;">${forecastList.get(0).getDtTxt()}</h4>
               <p class="description">${forecastList.get(0).getMainfore().getTemp()}&#8451; with ${forecastList.get(0).getForeWeatherList().get(0).getDescription()}</p>
               <p class="description">Feels like ${forecastList.get(0).getMainfore().getFeels_like()}&#8451;</p>
               <p class="description">Maximum ${forecastList.get(0).getMainfore().getTemp_max()}&#8451;</p>
@@ -189,7 +189,7 @@
           <div class="col-lg-3 col-md-6 mt-5 ">
             <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="100">
             <div class="icon"><img src="http://openweathermap.org/img/wn/${forecastList.get(1).getForeWeatherList().get(0).getIcon()}@2x.png"></img></div>
-              <h4 class="title">${forecastList.get(1).getDtTxt()}</h4>
+              <h4 class="title" style="text-align: left; font-size: 15px; font-family: Open Sans, sans-serif; font-weight: bold;">${forecastList.get(1).getDtTxt()}</h4>
               <p class="description">${forecastList.get(1).getMainfore().getTemp()}&#8451; with ${forecastList.get(1).getForeWeatherList().get(0).getDescription()}</p>
               <p class="description">Feels like ${forecastList.get(1).getMainfore().getFeels_like()}&#8451;</p>
               <p class="description">Maximum ${forecastList.get(1).getMainfore().getTemp_max()}&#8451;</p>
@@ -201,7 +201,7 @@
           <div class="col-lg-3 col-md-6 mt-5  ">
             <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="200">
             <div class="icon"><img src="http://openweathermap.org/img/wn/${forecastList.get(2).getForeWeatherList().get(0).getIcon()}@2x.png"></img></div>
-              <h4 class="title">${forecastList.get(2).getDtTxt()}</h4>
+              <h4 class="title" style="text-align: left; font-size: 15px; font-family: Open Sans, sans-serif; font-weight: bold;">${forecastList.get(2).getDtTxt()}</h4>
               <p class="description">${forecastList.get(2).getMainfore().getTemp()}&#8451; with ${forecastList.get(2).getForeWeatherList().get(0).getDescription()}</p>
               <p class="description">Feels like ${forecastList.get(2).getMainfore().getFeels_like()}&#8451;</p>
               <p class="description">Maximum ${forecastList.get(2).getMainfore().getTemp_max()}&#8451;</p>
@@ -212,7 +212,7 @@
           <div class="col-lg-3 col-md-6 mt-5">
             <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="300">
             <div class="icon"><img src="http://openweathermap.org/img/wn/${forecastList.get(3).getForeWeatherList().get(0).getIcon()}@2x.png"></img></div>
-              <h4 class="title">${forecastList.get(3).getDtTxt()}</h4>
+              <h4 class="title" style="text-align: left; font-size: 15px; font-family: Open Sans, sans-serif; font-weight: bold;">${forecastList.get(3).getDtTxt()}</h4>
               <p class="description">${forecastList.get(3).getMainfore().getTemp()}&#8451; with ${forecastList.get(3).getForeWeatherList().get(0).getDescription()}</p>
               <p class="description">Feels like ${forecastList.get(3).getMainfore().getFeels_like()}&#8451;</p>
               <p class="description">Maximum ${forecastList.get(3).getMainfore().getTemp_max()}&#8451;</p>
