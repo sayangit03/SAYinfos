@@ -136,9 +136,7 @@ All the services mentioned in home page are created primarily for personal purpo
 <p>The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.</p>
 <p>If you contact us directly, we may receive additional information about you such as your name, email address, phone number, and the contents of the message you may send us, and any other information you may choose to provide.</p>
 <p style="text-decoration: underline;">When you register for an Account, we ask you to provide only name and email id. Location and phone number is optional.</p>
-<p style="text-decoration: underline;">When you perform login with Google authentication, we only collect your name and email id, that too if you make any contribution by submitting question and answers or recipes.</p>
-
-<p style="text-decoration: underline;">If you roam around the website without signing in, we don't collect any data (like your IP address or browser information) from you.</p>
+<p style="text-decoration: underline;">When you perform login with OTP verification, we only collect your email id, that too if you make any contribution by submitting question and answers or recipes.</p>
 
 <h2>How we use your information</h2>
 

@@ -628,7 +628,7 @@
               <div class="email">
                 <i class="icofont-envelope"></i>
                 <h4>Email:</h4>
-                <p>imsayan.91@gmail.com</p>
+                <p>sayinfos.com@gmail.com</p>
               </div>
 
               <div class="phone">
