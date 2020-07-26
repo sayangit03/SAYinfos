@@ -185,7 +185,7 @@ public class LoginController {
 		//Thread.sleep(12000);
 
 		if(otpEmailId!=null && otpEmailId.length()>0)
-			mailService.sendEmail(otpEmailId, "SAYinfos - OTP Generated", "Here is your OTP to login to SAYinfos: \n"+otp);
+			mailService.sendEmail(otpEmailId, "SAYinfos - OTP Generated", "Here is your OTP to login to SAYinfos: \n"+otp+"\n\n\n\n-SAYinfos");
 	}
 	
 	@RequestMapping(value = "/myOTPLogin")

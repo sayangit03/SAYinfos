@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
 import com.spring.resource.CovidResource;
@@ -25,7 +26,8 @@ import com.spring.resource.CovidResource;
 @ComponentScan(basePackages = {"com.spring.controller", "com.spring.resource", "com.spring.service", "com.spring.filter"})
 @EnableJpaRepositories("com.spring.repository")
 @EntityScan("com.spring.beans")
-@EnableCaching
+//@EnableCaching
+@EnableScheduling
 public class MyWebApplication03Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

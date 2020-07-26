@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -24,6 +25,9 @@ public class HomeController {
 
 	@Autowired
 	MailService mailService;
+	
+	@Value("${mail.toaddress}")
+	String toAddress;
 	
 	private static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -73,8 +77,8 @@ public class HomeController {
 	public void sendMail(Email email) {
 
 		System.out.println("Sending Mail.. "+ email.getEmail());
-		mailService.sendEmail("sayman.eye@gmail.com", email.getSubject(), email.getMessage()+"\n\nName: "+email.getName()+"\n\nEmail Id: "+email.getEmail());
-		mailService.sendEmail(email.getEmail(), "Confirmation on Email Reception", "Hi "+email.getName()+", \n\nThanks for your response. We will get back to you after inital review. \n\n\n\n-SAYinfos");
+		mailService.sendEmail(toAddress, email.getSubject(), email.getMessage()+"\n\nName: "+email.getName()+"\nEmail Id: "+email.getEmail());
+		mailService.sendEmail(email.getEmail(), "Confirmation on Email Reception", "Hello "+email.getName()+", \n\nThanks for your response. We will get back to you after inital review. \n\n\n\n-SAYinfos");
 		//return "index";
 	}
 
