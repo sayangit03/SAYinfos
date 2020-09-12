@@ -1,3 +1,6 @@
+/**
+ * Project SAYinfos
+ */
 package com.spring.controller;
 
 import org.apache.catalina.Context;
@@ -8,22 +11,16 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
-import com.spring.resource.CovidResource;
-
 //@Profile("dev")
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.spring.controller", "com.spring.resource", "com.spring.service", "com.spring.filter"})
+@ComponentScan(basePackages = { "com.spring.controller", "com.spring.resource", "com.spring.service",
+		"com.spring.filter" })
 @EnableJpaRepositories("com.spring.repository")
 @EntityScan("com.spring.beans")
 //@EnableCaching
@@ -43,7 +40,7 @@ public class SAYinfosMainApplication extends SpringBootServletInitializer {
 		return new RestTemplate();
 	}
 
-	//Stop scanning the Manifest file i.e. .MF file
+	// Stop scanning the Manifest file i.e. .MF file
 	@Bean
 	public TomcatServletWebServerFactory tomcatFactory() {
 		return new TomcatServletWebServerFactory() {
