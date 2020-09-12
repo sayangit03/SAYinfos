@@ -28,14 +28,14 @@ import com.spring.resource.CovidResource;
 @EntityScan("com.spring.beans")
 //@EnableCaching
 @EnableScheduling
-public class MyWebApplication03Application extends SpringBootServletInitializer {
+public class SAYinfosMainApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MyWebApplication03Application.class, args);
+		SpringApplication.run(SAYinfosMainApplication.class, args);
 	}
 
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(MyWebApplication03Application.class);
+		return builder.sources(SAYinfosMainApplication.class);
 	}
 
 	@Bean

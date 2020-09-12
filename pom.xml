@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring.web</groupId>
-	<artifactId>MyWebApplication3</artifactId>
+	<artifactId>sayinfos-main</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>MyWebApplication03</name>
+	<name>sayinfos-main</name>
 	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 
