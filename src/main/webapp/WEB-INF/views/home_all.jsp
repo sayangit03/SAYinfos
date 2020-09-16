@@ -141,7 +141,14 @@ if(session.getAttribute("uNm")==null){
         <td></br>${ userDetails.getUserAdrs() }</td>
         <td style="word-break: break-all;"></br>${ userDetails.getUserEmail() }</td>
         <c:if test="${userDetails.getUserStatus() }">
-        <td><b style="color: green;">Active ${ userDetails.getUserRole() }</b></br></br><a href="" data-toggle="dropdown">Remove User</a></td>
+        <c:choose>
+        <c:when test="${userDetails.getUserEmail().equals('sayman.eye@gmail.com') }">
+        <td></br><b style="color: green;">Owner & ${ userDetails.getUserRole() }</b></td>
+        </c:when>
+        <c:otherwise>
+        <td><b style="color: green;">Active ${ userDetails.getUserRole() }</b></br></br><a href="/removeLogin/${ userDetails.getUserEmail() }">Remove User</a></td>
+        </c:otherwise>
+        </c:choose>        
         </c:if>
         <c:if test="${!userDetails.getUserStatus() }">
         <td><b style="color: red;">Not Active</b></br></br><div class="dropdown">
