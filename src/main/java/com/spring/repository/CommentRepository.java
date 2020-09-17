@@ -2,11 +2,10 @@ package com.spring.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.spring.beans.Comment;
-import com.spring.beans.Contribution;
 
-public interface CommentRepository extends JpaRepository<Comment, Integer> {
+public interface CommentRepository extends MongoRepository<Comment, Integer> {
 	List<Comment> findByQuestionNum(String questionNum);
 }

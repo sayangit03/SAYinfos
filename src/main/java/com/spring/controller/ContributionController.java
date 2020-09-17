@@ -26,37 +26,39 @@ public class ContributionController {
 	@RequestMapping(value = "/makeContribution")
 	public String makeContribution(Contribution contri, HttpSession session) {
 		System.out.println("In contribution controller | making contribution");
-		if(session.getAttribute("uNm")!=null && session.getAttribute("userEml")!=null) {
+		if (session.getAttribute("uNm") != null && session.getAttribute("userEml") != null) {
 			contri.setUserUniqueName(session.getAttribute("uNm").toString());
 			contri.setEmailId(session.getAttribute("userEml").toString());
 			contri.setUserName(session.getAttribute("usrFullNameTbl").toString());
 			contri.setContriDate(new Date());
 			contri.setContriStatus(false);
+
 			contriService.saveContribution(contri);
 		}
-		if(session.getAttribute("flashUserSSO") !=null && (boolean) session.getAttribute("flashUserSSO")) {
+		if (session.getAttribute("flashUserSSO") != null && (boolean) session.getAttribute("flashUserSSO")) {
 			return "redirect:/ssoLogin";
 		}
-		if(session.getAttribute("flashUserOTP")!=null && (boolean) session.getAttribute("flashUserOTP")) {
+		if (session.getAttribute("flashUserOTP") != null && (boolean) session.getAttribute("flashUserOTP")) {
 			return "redirect:/myOTPLogin";
 		}
 		return "redirect:/mylogin";
 	}
-	
+
 	@RequestMapping(value = "/editContribution")
 	public String editContribution(Contribution contri) {
 		boolean result = contriService.saveEditedContribution(contri);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> "+result);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> " + result);
 		return "redirect:/mylogin";
 	}
 
 	@RequestMapping(value = "/userContri/{email}/{name}")
-	public String checkContribution(@PathVariable String email,@PathVariable String name, RedirectAttributes redirectAtt) {
-		System.out.println(">>>>>>> "+email);
+	public String checkContribution(@PathVariable String email, @PathVariable String name,
+			RedirectAttributes redirectAtt) {
+		System.out.println(">>>>>>> " + email);
 
-		List<Contribution> list = new ArrayList<>(); 
+		List<Contribution> list = new ArrayList<>();
 		list = contriService.getUserContributions(email);
-		System.out.println("Contribution by user: "+list.size());
+		System.out.println("Contribution by user: " + list.size());
 		redirectAtt.addFlashAttribute("contriList", list);
 		redirectAtt.addFlashAttribute("name", name);
 		return "redirect:/contributionsByUser";
@@ -64,7 +66,7 @@ public class ContributionController {
 
 	@RequestMapping(value = "/contributionsByUser")
 	public String checkContributionFinal(ModelMap modelMap, Model model) {
-		
+
 		List<Contribution> list = new ArrayList<>();
 		list = (List<Contribution>) model.asMap().get("contriList");
 		/*
@@ -72,28 +74,28 @@ public class ContributionController {
 		 * list.get(i).setId(i+1); } }
 		 */
 		String name = null;
-		if(model.asMap().get("name")!=null)
-			name =  model.asMap().get("name").toString();
+		if (model.asMap().get("name") != null)
+			name = model.asMap().get("name").toString();
 		modelMap.addAttribute("contriList", list);
 		modelMap.addAttribute("name", name);
 		return "user_contribution";
 	}
-	
+
 	@RequestMapping(value = "/approveContri/{id}")
 	public String approveContri(@PathVariable int id) {
-		System.out.println("Contri id: "+id);
+		System.out.println("Contri id: " + id);
 		contriService.approveContriById(id);
 		return "redirect:/redirectToLogin";
 	}
-	
+
 	@RequestMapping(value = "/editContri/{id}")
 	public String editContri(@PathVariable int id, RedirectAttributes redirectAtt) {
-		System.out.println("Contri id: "+id);
+		System.out.println("Contri id: " + id);
 		Contribution contri = contriService.editContriById(id);
 		redirectAtt.addFlashAttribute("contri", contri);
 		return "redirect:/contriById";
 	}
-	
+
 	@RequestMapping(value = "/contriById")
 	public String redirectToEditContriPage(Model model, ModelMap modelMap) {
 		Contribution contri = new Contribution();
@@ -101,11 +103,11 @@ public class ContributionController {
 		modelMap.addAttribute("contri", contri);
 		return "home_user_contribute_edit";
 	}
-	
+
 	@RequestMapping(value = "/redirectToLogin")
 	public String redirectAfterApproveOrEdit() {
 		System.out.println("k");
 		return "redirect:/mylogin";
 	}
-	
+
 }

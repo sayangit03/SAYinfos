@@ -1,7 +1,6 @@
 package com.spring.controller;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
@@ -18,18 +17,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.spring.beans.Contribution;
-import com.spring.beans.User;
+import com.spring.beans.FlashUser;
 import com.spring.beans.UserDetails;
 import com.spring.beans.UserLogin;
 import com.spring.beans.UserRegDetails;
@@ -48,8 +45,8 @@ public class LoginController {
 
 	private String otpEmailIdGlobal;
 
-	LoadingCache<String, Integer> otpCache = CacheBuilder.newBuilder().maximumSize(100).expireAfterWrite(90, TimeUnit.SECONDS)
-			.build(new CacheLoader<String, Integer>(){
+	LoadingCache<String, Integer> otpCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterWrite(90, TimeUnit.SECONDS).build(new CacheLoader<String, Integer>() {
 				public Integer load(String key) {
 					return 0;
 				}
@@ -58,10 +55,11 @@ public class LoginController {
 	private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
 	@RequestMapping(value = "/mylogin")
-	public String performLogin(ModelMap modelMap, UserLogin user, RedirectAttributes redirectAtt,HttpSession session, HttpServletRequest req) {
-		LOG.info("Logging in user with unique name: "+user.getUniqueName()+" | "+session.getAttribute("uNm"));
-		if(session.getAttribute("uNm")!=null && session.getAttribute("pWd")!=null) {
-			if(user.getUniqueName()==null && user.getUserPwd()==null) {
+	public String performLogin(ModelMap modelMap, UserLogin user, RedirectAttributes redirectAtt, HttpSession session,
+			HttpServletRequest req) {
+		LOG.info("Logging in user with unique name: " + user.getUniqueName() + " | " + session.getAttribute("uNm"));
+		if (session.getAttribute("uNm") != null && session.getAttribute("pWd") != null) {
+			if (user.getUniqueName() == null && user.getUserPwd() == null) {
 				user.setUniqueName(session.getAttribute("uNm").toString());
 				user.setUserPwd(session.getAttribute("pWd").toString());
 			}
@@ -76,12 +74,12 @@ public class LoginController {
 
 		List<UserDetails> usrLoginDetails = loginService.getAllApprovedUserDetails();
 		List<UserRegDetails> usrRegDetails = loginService.getAllRegUserDetails();
-		for(UserRegDetails rUsr : usrRegDetails) {
-			for(UserDetails lUsr : usrLoginDetails) {
-				if(rUsr.getUserEmail().equals(lUsr.getUserEmail())) {
+		for (UserRegDetails rUsr : usrRegDetails) {
+			for (UserDetails lUsr : usrLoginDetails) {
+				if (rUsr.getUserEmail().equals(lUsr.getUserEmail())) {
 					rUsr.setUserRole(lUsr.getLogin().getUserRole());
 				}
-				if(lUsr.getLogin().getUniqueName().equals(user.getUniqueName())) {
+				if (lUsr.getLogin().getUniqueName().equals(user.getUniqueName())) {
 					userFullName = lUsr.getLogin().getUserName();
 					userRole = lUsr.getLogin().getUserRole();
 					userLoc = lUsr.getUserAdrs();
@@ -92,16 +90,15 @@ public class LoginController {
 		}
 
 		List<Contribution> contriList = loginService.getContributions(userEml);
-		if(contriList!=null && contriList.size()>0) {
-			for(int i=0; i<contriList.size(); i++) {
-				contriList.get(i).setId(i+1);
+		if (contriList != null && contriList.size() > 0) {
+			for (int i = 0; i < contriList.size(); i++) {
+				contriList.get(i).setId(i + 1);
 			}
 		}
 
-		List<Contribution> flashUserList =  loginService.getByFlashUserUniqueName();
+		List<FlashUser> flashUserList = loginService.getByFlashUserUniqueName();
 
-
-		if(userFullName!=null && userRole!=null) {
+		if (userFullName != null && userRole != null) {
 			modelMap.addAttribute("usrFullName", userFullName.substring(0, userFullName.indexOf(' ')));
 			modelMap.addAttribute("usrFullNameTbl", userFullName);
 			modelMap.addAttribute("userRole", userRole);
@@ -112,7 +109,6 @@ public class LoginController {
 			modelMap.addAttribute("contriList", contriList);
 			modelMap.addAttribute("flashUserList", flashUserList);
 
-
 			session.setAttribute("uNm", user.getUniqueName());
 			session.setAttribute("pWd", user.getUserPwd());
 			session.setAttribute("usrFullName", userFullName.substring(0, userFullName.indexOf(' ')));
@@ -121,12 +117,11 @@ public class LoginController {
 			session.setAttribute("userEml", userEml);
 			session.setAttribute("flashUser", true);
 		}
-		LOG.info("User Name: "+userFullName+" | User Role: "+userRole);
-		if(isOkToLoginFlag && userRole.equals("Admin")) {
-			LOG.info("oktologin unique name: "+user.getUniqueName());
+		LOG.info("User Name: " + userFullName + " | User Role: " + userRole);
+		if (isOkToLoginFlag && userRole.equals("Admin")) {
+			LOG.info("oktologin unique name: " + user.getUniqueName());
 			return "home_all";
-		}
-		else if(isOkToLoginFlag && userRole.equals("User")) {
+		} else if (isOkToLoginFlag && userRole.equals("User")) {
 			return "home_user";
 		}
 		redirectAtt.addFlashAttribute("loginFlag", 0);
@@ -134,37 +129,51 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/ssoLogin")
-	public String ssoLogin(OAuth2Authentication authentication, Principal principal, HttpSession session, ModelMap modelMap) {
-		LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
+	public String ssoLogin(OAuth2Authentication authentication, Principal principal, HttpSession session,
+			ModelMap modelMap) {
+		LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication
+				.getUserAuthentication().getDetails();
 
 		LOG.info((String) properties.get("name"));
 		LOG.info((String) properties.get("email"));
 		LOG.info(authentication.getUserAuthentication().getAuthorities().toString());
 
 		List<Contribution> contriList = loginService.getContributions(properties.get("email").toString());
-		if(contriList!=null && contriList.size()>0) {
-			for(int i=0; i<contriList.size(); i++) {
-				contriList.get(i).setId(i+1);
+		if (contriList != null && contriList.size() > 0) {
+			for (int i = 0; i < contriList.size(); i++) {
+				contriList.get(i).setId(i + 1);
 			}
 		}
 
 		String userFullName = properties.get("name").toString();
-		//session.setAttribute("usrFullName", userFullName.substring(0, userFullName.indexOf(' ')));
-		session.setAttribute("usrFullName", properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
-		session.setAttribute("uNm", "flash-sso@"+properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
-		//session.setAttribute("usrFullNameTbl", properties.get("name").toString());
-		session.setAttribute("usrFullNameTbl", properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
-		//session.setAttribute("userRole", authentication.getUserAuthentication().getAuthorities().toString().substring(1, authentication.getUserAuthentication().getAuthorities().toString().length()-1));
+		// session.setAttribute("usrFullName", userFullName.substring(0,
+		// userFullName.indexOf(' ')));
+		session.setAttribute("usrFullName",
+				properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
+		session.setAttribute("uNm", "flash-sso@"
+				+ properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
+		// session.setAttribute("usrFullNameTbl", properties.get("name").toString());
+		session.setAttribute("usrFullNameTbl",
+				properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
+		// session.setAttribute("userRole",
+		// authentication.getUserAuthentication().getAuthorities().toString().substring(1,
+		// authentication.getUserAuthentication().getAuthorities().toString().length()-1));
 		session.setAttribute("userRole", "SSO-USER");
 		session.setAttribute("userEml", properties.get("email").toString());
 		session.setAttribute("flashUserSSO", true);
 
-		//modelMap.addAttribute("usrFullName", userFullName.substring(0, userFullName.indexOf(' ')));
-		modelMap.addAttribute("usrFullName", properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
-		modelMap.addAttribute("uNm", "flash-sso@"+properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
-		//modelMap.addAttribute("usrFullNameTbl", properties.get("name").toString());
-		modelMap.addAttribute("usrFullNameTbl", properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
-		//modelMap.addAttribute("userRole", authentication.getUserAuthentication().getAuthorities().toString().substring(1, authentication.getUserAuthentication().getAuthorities().toString().length()-1));
+		// modelMap.addAttribute("usrFullName", userFullName.substring(0,
+		// userFullName.indexOf(' ')));
+		modelMap.addAttribute("usrFullName",
+				properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
+		modelMap.addAttribute("uNm", "flash-sso@"
+				+ properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
+		// modelMap.addAttribute("usrFullNameTbl", properties.get("name").toString());
+		modelMap.addAttribute("usrFullNameTbl",
+				properties.get("email").toString().substring(0, properties.get("email").toString().indexOf('@')));
+		// modelMap.addAttribute("userRole",
+		// authentication.getUserAuthentication().getAuthorities().toString().substring(1,
+		// authentication.getUserAuthentication().getAuthorities().toString().length()-1));
 		modelMap.addAttribute("userRole", "SSO-USER");
 		modelMap.addAttribute("flashUserSSO", true);
 		modelMap.addAttribute("contriList", contriList);
@@ -172,8 +181,8 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/generateOTP")
-	public void generteOTP(@RequestParam String otpEmailId) throws ExecutionException, InterruptedException{
-		LOG.info("OTP Generation :: Starting for email id: "+otpEmailId);
+	public void generteOTP(@RequestParam String otpEmailId) throws ExecutionException, InterruptedException {
+		LOG.info("OTP Generation :: Starting for email id: " + otpEmailId);
 
 		otpEmailIdGlobal = otpEmailId;
 
@@ -182,48 +191,50 @@ public class LoginController {
 
 		otpCache.put(otpEmailId, otp);
 
-		//Thread.sleep(12000);
+		// Thread.sleep(12000);
 
-		if(otpEmailId!=null && otpEmailId.length()>0)
-			mailService.sendEmail(otpEmailId, "SAYinfos - OTP Generated", "Here is your OTP to login to SAYinfos: \n"+otp+"\n\n\n\n-SAYinfos");
+		if (otpEmailId != null && otpEmailId.length() > 0)
+			mailService.sendEmail(otpEmailId, "SAYinfos - OTP Generated",
+					"Here is your OTP to login to SAYinfos: \n" + otp + "\n\n\n\n-SAYinfos");
 	}
-	
+
 	@RequestMapping(value = "/myOTPLogin")
-	public String performOTPLogin(@RequestParam(value = "OTPBoxVal", required = false) String OTPBoxVal, HttpSession session, RedirectAttributes redirectAtt, ModelMap modelMap) throws ExecutionException{
-		LOG.info("OTP login: Started with OTP: "+OTPBoxVal);
+	public String performOTPLogin(@RequestParam(value = "OTPBoxVal", required = false) String OTPBoxVal,
+			HttpSession session, RedirectAttributes redirectAtt, ModelMap modelMap) throws ExecutionException {
+		LOG.info("OTP login: Started with OTP: " + OTPBoxVal);
 		boolean isOkOTPLogin = false;
 		String userFullNameOTP = null;
 		String retrievedOTP = otpCache.get(otpEmailIdGlobal).toString();
-		LOG.info("OTP login: Retrieved OTP: "+retrievedOTP);
-		LOG.info("OTP login: Retrieved email id: "+otpEmailIdGlobal);
-		if(session.getAttribute("flashUserOTP")!=null)
+		LOG.info("OTP login: Retrieved OTP: " + retrievedOTP);
+		LOG.info("OTP login: Retrieved email id: " + otpEmailIdGlobal);
+		if (session.getAttribute("flashUserOTP") != null)
 			isOkOTPLogin = (boolean) session.getAttribute("flashUserOTP");
-		if(session.getAttribute("userFullNameOTP")!=null)
+		if (session.getAttribute("userFullNameOTP") != null)
 			userFullNameOTP = (String) session.getAttribute("userFullNameOTP");
-		
-		if((OTPBoxVal!=null && retrievedOTP!=null && OTPBoxVal.equals(retrievedOTP)) || isOkOTPLogin) {
+
+		if ((OTPBoxVal != null && retrievedOTP != null && OTPBoxVal.equals(retrievedOTP)) || isOkOTPLogin) {
 			otpCache.invalidate(otpEmailIdGlobal);
 			String userFullName = null;
-			if(otpEmailIdGlobal!=null)
+			if (otpEmailIdGlobal != null)
 				userFullName = otpEmailIdGlobal;
-			if(userFullNameOTP!=null)
+			if (userFullNameOTP != null)
 				userFullName = userFullNameOTP;
 			List<Contribution> contriList = loginService.getContributions(otpEmailIdGlobal);
-			if(contriList!=null && contriList.size()>0) {
-				for(int i=0; i<contriList.size(); i++) {
-					contriList.get(i).setId(i+1);
+			if (contriList != null && contriList.size() > 0) {
+				for (int i = 0; i < contriList.size(); i++) {
+					contriList.get(i).setId(i + 1);
 				}
 			}
 			session.setAttribute("userFullNameOTP", userFullName);
 			session.setAttribute("usrFullName", userFullName.substring(0, userFullName.indexOf('@')));
-			session.setAttribute("uNm", "flash-otp@"+userFullName.substring(0, userFullName.indexOf('@')));
+			session.setAttribute("uNm", "flash-otp@" + userFullName.substring(0, userFullName.indexOf('@')));
 			session.setAttribute("usrFullNameTbl", userFullName.substring(0, userFullName.indexOf('@')));
 			session.setAttribute("userRole", "OTP-USER");
 			session.setAttribute("userEml", userFullName);
 			session.setAttribute("flashUserOTP", true);
 
 			modelMap.addAttribute("usrFullName", userFullName.substring(0, userFullName.indexOf('@')));
-			modelMap.addAttribute("uNm", "flash-otp@"+userFullName.substring(0, userFullName.indexOf('@')));
+			modelMap.addAttribute("uNm", "flash-otp@" + userFullName.substring(0, userFullName.indexOf('@')));
 			modelMap.addAttribute("usrFullNameTbl", userFullName.substring(0, userFullName.indexOf('@')));
 			modelMap.addAttribute("userRole", "OTP-USER");
 			modelMap.addAttribute("flashUserOTP", true);

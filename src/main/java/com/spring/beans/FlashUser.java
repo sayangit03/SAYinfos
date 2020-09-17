@@ -1,6 +1,5 @@
 package com.spring.beans;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -8,22 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document(value = "service")
+@Document(value = "flashuser")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AllServices {
+public class FlashUser {
 
-	@Id
 	private int id;
-
-	private String serviceName;
-
-	private String serviceURI;
-
-	private int serviceHits;
-
-	private boolean serviceStatus;
-
+	private String userName;
+	private String emailId;
+	private String userUniqueName;
 }

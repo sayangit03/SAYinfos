@@ -20,25 +20,26 @@ public class KnowledgeService {
 
 	@Autowired
 	ContributionRepository contriRepo;
-	
+
 	@Autowired
 	CommentRepository commentRepository;
-	
+
 	public List<Contribution> getKnowledges(String topic) {
 		List<Contribution> knowledgeContri = contriRepo.findByContriTopic(topic);
 		return knowledgeContri;
 	}
-	
+
 	public int saveComment(Comment cmnt) {
-		if(cmnt.getCmntName()==null || cmnt.getCmntName()=="") {
+		cmnt.setId((int) commentRepository.count() + 1);
+		if (cmnt.getCmntName() == null || cmnt.getCmntName() == "") {
 			cmnt.setCmntName("Anonymous");
 		}
 		cmnt.setCmntDate(new Date());
 		Comment comm = commentRepository.save(cmnt);
 		return comm.getId();
 	}
-	
-	public List<Comment> fetchComments(String questionNum){
+
+	public List<Comment> fetchComments(String questionNum) {
 		List<Comment> commentList = commentRepository.findByQuestionNum(questionNum);
 		for (Comment comment : commentList) {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

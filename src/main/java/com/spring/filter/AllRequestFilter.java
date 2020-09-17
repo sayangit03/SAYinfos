@@ -30,57 +30,61 @@ public class AllRequestFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+
 		// TODO Auto-generated method stub
-		//logger.info("FILTER:: Filtration started.");
+		// logger.info("FILTER:: Filtration started.");
 		HttpServletRequest servletReq = (HttpServletRequest) request;
 		HttpServletResponse servletRes = (HttpServletResponse) response;
-		//logger.info("FILTER:: Requested servlet path: "+servletReq.getServletPath());
-		//logger.info("FILTER:: Requested servlet context: "+servletReq.getServletContext());
+		// logger.info("FILTER:: Requested servlet path: "+servletReq.getServletPath());
+		// logger.info("FILTER:: Requested servlet context:
+		// "+servletReq.getServletContext());
 		servletReq.setAttribute("reqURI1", servletReq.getRequestURI());
 		List<AllServices> requestedURIMainList = allServService.findByServiceURI("/");
-		if(!servletReq.getRequestURI().startsWith("/websiteClosed") && !requestedURIMainList.get(0).isServiceStatus()) {
-			if(!servletReq.getRequestURI().startsWith("/assets")) {
-				//System.out.println("okokokok");
+		if (!servletReq.getRequestURI().startsWith("/websiteClosed")
+				&& !requestedURIMainList.get(0).isServiceStatus()) {
+			if (!servletReq.getRequestURI().startsWith("/assets")) {
+				// System.out.println("okokokok");
 				servletRes.sendRedirect("/websiteClosed");
 			}
-			//return;
-		}
-		else {
-			if(servletReq.getRequestURI().startsWith("/assets")) {
+			// return;
+		} else {
+			if (servletReq.getRequestURI().startsWith("/assets")) {
 				chain.doFilter(request, new SendRedirectOverloadedResponse(servletReq, servletRes));
-			}
-			else {
-				logger.info("FILTER:: Requested URI: "+servletReq.getRequestURI()+" Login? "+servletReq.getSession().getAttribute("uNm"));
-				//logger.info("FILTER:: Details of client -> IP: "+ servletReq.getRemoteAddr());
-				//logger.info("FILTER:: Details of client -> User: "+ servletReq.getRemoteUser());
+			} else {
+				logger.info("FILTER:: Requested URI: " + servletReq.getRequestURI() + " Login? "
+						+ servletReq.getSession().getAttribute("uNm"));
+				// logger.info("FILTER:: Details of client -> IP: "+
+				// servletReq.getRemoteAddr());
+				// logger.info("FILTER:: Details of client -> User: "+
+				// servletReq.getRemoteUser());
 				List<AllServices> requestedURIList = allServService.findByServiceURI(servletReq.getRequestURI());
-				if(requestedURIList==null || requestedURIList.size()==0) {
-					if(servletReq.getRequestURI().startsWith("/startService") || servletReq.getRequestURI().startsWith("/stopService")
-							|| servletReq.getRequestURI().startsWith("/approveAdmin") || servletReq.getRequestURI().startsWith("/approveUser")
+				if (requestedURIList == null || requestedURIList.size() == 0) {
+					if (servletReq.getRequestURI().startsWith("/startService")
+							|| servletReq.getRequestURI().startsWith("/stopService")
+							|| servletReq.getRequestURI().startsWith("/approveAdmin")
+							|| servletReq.getRequestURI().startsWith("/approveUser")
 							|| servletReq.getRequestURI().startsWith("/approveContri")) {
-						if(servletReq.getSession().getAttribute("uNm")!=null && servletReq.getSession().getAttribute("userRole").toString().equals("Admin")) {
-							logger.info("FILTER:: Restricted URI: "+servletReq.getRequestURI());
-							logger.info("FILTER:: Restricted URI access granted to: "+servletReq.getSession().getAttribute("uNm").toString());
+						if (servletReq.getSession().getAttribute("uNm") != null
+								&& servletReq.getSession().getAttribute("userRole").toString().equals("Admin")) {
+							logger.info("FILTER:: Restricted URI: " + servletReq.getRequestURI());
+							logger.info("FILTER:: Restricted URI access granted to: "
+									+ servletReq.getSession().getAttribute("uNm").toString());
 							chain.doFilter(request, new SendRedirectOverloadedResponse(servletReq, servletRes));
-						}
-						else {
-							//servletReq.getSession().invalidate();
+						} else {
+							// servletReq.getSession().invalidate();
 							servletRes.sendRedirect("/unauthorizedAccess");
 						}
-					}
-					else {
+					} else {
 						chain.doFilter(request, new SendRedirectOverloadedResponse(servletReq, servletRes));
 					}
-				}
-				else if(requestedURIList.size()>0 && requestedURIList.get(0).isServiceStatus()) {
+				} else if (requestedURIList.size() > 0 && requestedURIList.get(0).isServiceStatus()) {
 					chain.doFilter(request, new SendRedirectOverloadedResponse(servletReq, servletRes));
-				}
-				else {
+				} else {
 					servletRes.sendRedirect("/closedService");
 				}
 			}
 		}
-		//logger.info("FILTER:: Filtration ended.");
+		// logger.info("FILTER:: Filtration ended.");
 
 	}
 

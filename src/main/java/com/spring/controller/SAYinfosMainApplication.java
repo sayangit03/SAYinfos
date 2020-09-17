@@ -13,7 +13,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.spring.controller", "com.spring.resource", "com.spring.service",
 		"com.spring.filter" })
-@EnableJpaRepositories("com.spring.repository")
+@EnableMongoRepositories("com.spring.repository")
 @EntityScan("com.spring.beans")
 //@EnableCaching
 @EnableScheduling
