@@ -460,7 +460,7 @@
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0">
             <p>
-              This website is made out of sheer interest towards learning something new. This website does not promote anything and does not contain any advertise. It is also a personal website where all the services are implemented to make a proof of concept for new learnings. The source code is available on GIT. <a href="https://github.com/sayangit03" target="_blank">Click here</a> to access it. We would love to have your contributions here.</br> Reach me for more details.
+              This website is made out of sheer interest towards learning something new. This website does not promote anything and does not contain any advertise. It is also a personal website where all the services are implemented to make a proof of concept for new learnings. The source code is available on GIT. <a href="https://github.com/sayangit03" target="_blank">Click here</a> to access it. We would love to have your contributions here.</br> Reach us for more details.
             </p>
             <p style="font: italic; color: #ef6603;">**Cookies used only to track the user session while logged in. Cookies expire when the browsing session ends**</p>
             <!-- <a href="#" class="btn-learn-more">Learn More</a> -->
