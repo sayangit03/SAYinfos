@@ -1,12 +1,10 @@
 package com.spring.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,6 +13,7 @@ import com.spring.beans.FlashUser;
 import com.spring.beans.UserDetails;
 import com.spring.beans.UserLogin;
 import com.spring.beans.UserRegDetails;
+import com.spring.feign.service.FeignUserAndLoginService;
 import com.spring.repository.ContributionRepository;
 import com.spring.repository.FlashUserRepository;
 
@@ -36,39 +35,47 @@ public class LoginService {
 	@Autowired
 	FlashUserRepository flashUserRepo;
 
+	@Autowired
+	FeignUserAndLoginService feignLogin;
+
 	public boolean doLogin(UserLogin user) {
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/getUserDetails/user/"+user.getUniqueName()+"/pwd/"+user.getUserPwd();
-		String url = env.getProperty("microservice.user.service") + "/getUserDetails/user/" + user.getUniqueName()
-				+ "/pwd/" + user.getUserPwd();
-		ResponseEntity<Boolean> isLoginOk = restTemplate.getForEntity(url, boolean.class);
+		// String url = env.getProperty("microservice.user.service") +
+		// "/getUserDetails/user/" + user.getUniqueName()+ "/pwd/" + user.getUserPwd();
+		// ResponseEntity<Boolean> isLoginOk = restTemplate.getForEntity(url,
+		// boolean.class);
 		// log.info("ok from login service login>>>>>>>
 		// "+isLoginOk.getBody()+""+url);
-		return isLoginOk.getBody();
+		// return isLoginOk.getBody();
+		return feignLogin.doLoginFeign(user.getUniqueName(), user.getUserPwd());
 	}
 
 	public List<UserDetails> getAllApprovedUserDetails() {
 		log.info("ok from login service for all approved users");
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/getUserDetails";
-		String url = env.getProperty("microservice.user.service") + "/getUserDetails";
-
+		// String url = env.getProperty("microservice.user.service") +
+		// "/getUserDetails";
 		// restTemplate.exchange(url, HttpMethod.GET, UserDetails[].class);
-		ResponseEntity<UserDetails[]> details = restTemplate.getForEntity(url, UserDetails[].class);
+		// ResponseEntity<UserDetails[]> details = restTemplate.getForEntity(url,
+		// UserDetails[].class);
 		// log.info(Arrays.asList(details.getBody()).get(0).getLogin().getUniqueName());
 
-		return Arrays.asList(details.getBody());
+		// return Arrays.asList(details.getBody());
+		return feignLogin.getFeignAllApprovedUserDetails();
 	}
 
 	public List<UserRegDetails> getAllRegUserDetails() {
 		log.info("ok from login service for all registered users");
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/getRegUserDetails";
-		String url = env.getProperty("microservice.user.service") + "/getRegUserDetails";
-
-		ResponseEntity<UserRegDetails[]> regDetails = restTemplate.getForEntity(url, UserRegDetails[].class);
-
-		return Arrays.asList(regDetails.getBody());
+		// String url = env.getProperty("microservice.user.service") +
+		// "/getRegUserDetails";
+		// ResponseEntity<UserRegDetails[]> regDetails = restTemplate.getForEntity(url,
+		// UserRegDetails[].class);
+		// return Arrays.asList(regDetails.getBody());
+		return feignLogin.getFeignAllRegUserDetails();
 	}
 
 	public List<Contribution> getContributions(String emailId) {

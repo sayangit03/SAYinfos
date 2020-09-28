@@ -2,14 +2,11 @@ package com.spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.spring.beans.User;
+import com.spring.feign.service.FeignUserAndLoginService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,22 +20,25 @@ public class UserService {
 	@Autowired
 	Environment env;
 
+	@Autowired
+	FeignUserAndLoginService feignUser;
+
 	public String registerUser(User user) {
 
 		user.setStatus(false);
-		log.info("ok from service " + user.getName() + " | " + user.getEmail() + " | " + user.getLocation() + " | "
-				+ user.getPhone() + " | " + user.getPassword() + " | " + user.isStatus());
+		log.info("Registration started for: " + user.getName() + " | " + user.getEmail() + " | " + user.getLocation()
+				+ " | " + user.getPhone() + " | " + user.getPassword() + " | " + user.isStatus());
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/userRegistration";
-		String url = env.getProperty("microservice.user.service") + "/userRegistration";
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
+		// String url = env.getProperty("microservice.user.service") +
+		// "/userRegistration";
+		// HttpHeaders headers = new HttpHeaders();
+		// headers.setContentType(MediaType.APPLICATION_JSON);
 		// headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		// HttpEntity<User> httpEntity = new HttpEntity<>(user, headers);
 
-		HttpEntity<User> httpEntity = new HttpEntity<>(user, headers);
+		String res = feignUser.doFeignRegisterUser(user);
 
-		String res = restTemplate.postForObject(url, httpEntity, String.class);
 		log.info(res);
 		if (res.contains("Done")) {
 			return "okreg";
@@ -52,14 +52,16 @@ public class UserService {
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveAdmin/"+email;
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveAdmin/"+email;
-		String url = env.getProperty("microservice.user.service") + "/approveAdmin/" + email;
+		// String url = env.getProperty("microservice.user.service") + "/approveAdmin/"
+		// + email;
+		// ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
 
-		ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
-		log.info("Approving admin | " + res.getBody());
-		if (res != null && res.getBody() != null && res.getBody().toString().startsWith("Approved")) {
-			return res.getBody().replace("Approved", "");
+		String res = feignUser.doFeignApproveAdmin(email);
+		log.info("Approving admin | " + res);
+		if (res != null && res.startsWith("Approved")) {
+			return res.replace("Approved", "");
 		}
-		return res.getBody();
+		return res;
 	}
 
 	public String approveUser(String email) {
@@ -68,19 +70,23 @@ public class UserService {
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveAdmin/"+email;
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveUser/"+email;
-		String url = env.getProperty("microservice.user.service") + "/approveUser/" + email;
+		// String url = env.getProperty("microservice.user.service") + "/approveUser/" +
+		// email;
+		// ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
 
-		ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
-		log.info("Approving user | " + res.getBody());
-		if (res != null && res.getBody() != null && res.getBody().toString().startsWith("Approved")) {
-			return res.getBody().replace("Approved", "");
+		String res = feignUser.doFeignApproveUser(email);
+		log.info("Approving user | " + res);
+		if (res != null && res.toString().startsWith("Approved")) {
+			return res.replace("Approved", "");
 		}
-		return res.getBody();
+		return res;
 	}
 
 	public String removeLogin(String email) {
-		String url = env.getProperty("microservice.user.service") + "/removeUserFromLogin/" + email;
-		ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
-		return res.getBody();
+		log.info("web user service remove user from login: " + email);
+		// String url = env.getProperty("microservice.user.service") +
+		// "/removeUserFromLogin/" + email;
+		// ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
+		return feignUser.doFeignRemoveUserFromLogin(email);
 	}
 }
