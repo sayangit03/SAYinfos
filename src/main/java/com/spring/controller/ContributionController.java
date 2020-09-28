@@ -17,7 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.beans.Contribution;
 import com.spring.service.ContributionService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class ContributionController {
 
 	@Autowired
@@ -25,7 +28,7 @@ public class ContributionController {
 
 	@RequestMapping(value = "/makeContribution")
 	public String makeContribution(Contribution contri, HttpSession session) {
-		System.out.println("In contribution controller | making contribution");
+		log.info("In contribution controller | making contribution");
 		if (session.getAttribute("uNm") != null && session.getAttribute("userEml") != null) {
 			contri.setUserUniqueName(session.getAttribute("uNm").toString());
 			contri.setEmailId(session.getAttribute("userEml").toString());
@@ -47,18 +50,18 @@ public class ContributionController {
 	@RequestMapping(value = "/editContribution")
 	public String editContribution(Contribution contri) {
 		boolean result = contriService.saveEditedContribution(contri);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> " + result);
+		log.info("Sving edited contribution: " + result);
 		return "redirect:/mylogin";
 	}
 
 	@RequestMapping(value = "/userContri/{email}/{name}")
 	public String checkContribution(@PathVariable String email, @PathVariable String name,
 			RedirectAttributes redirectAtt) {
-		System.out.println(">>>>>>> " + email);
+		log.info("Fetching contribution for: " + email);
 
 		List<Contribution> list = new ArrayList<>();
 		list = contriService.getUserContributions(email);
-		System.out.println("Contribution by user: " + list.size());
+		log.info("Total contribution by user: " + list.size());
 		redirectAtt.addFlashAttribute("contriList", list);
 		redirectAtt.addFlashAttribute("name", name);
 		return "redirect:/contributionsByUser";
@@ -83,14 +86,14 @@ public class ContributionController {
 
 	@RequestMapping(value = "/approveContri/{id}")
 	public String approveContri(@PathVariable int id) {
-		System.out.println("Contri id: " + id);
+		log.info("Appoving | Contri id: " + id);
 		contriService.approveContriById(id);
 		return "redirect:/redirectToLogin";
 	}
 
 	@RequestMapping(value = "/editContri/{id}")
 	public String editContri(@PathVariable int id, RedirectAttributes redirectAtt) {
-		System.out.println("Contri id: " + id);
+		log.info("Editing | Contri id: " + id);
 		Contribution contri = contriService.editContriById(id);
 		redirectAtt.addFlashAttribute("contri", contri);
 		return "redirect:/contriById";
@@ -106,7 +109,7 @@ public class ContributionController {
 
 	@RequestMapping(value = "/redirectToLogin")
 	public String redirectAfterApproveOrEdit() {
-		System.out.println("k");
+		log.info("Redirecting to login");
 		return "redirect:/mylogin";
 	}
 
