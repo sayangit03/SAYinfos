@@ -11,7 +11,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.spring.beans.User;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserService {
 
 	@Autowired
@@ -23,8 +26,8 @@ public class UserService {
 	public String registerUser(User user) {
 
 		user.setStatus(false);
-		System.out.println("ok from service " + user.getName() + " | " + user.getEmail() + " | " + user.getLocation()
-				+ " | " + user.getPhone() + " | " + user.getPassword() + " | " + user.isStatus());
+		log.info("ok from service " + user.getName() + " | " + user.getEmail() + " | " + user.getLocation() + " | "
+				+ user.getPhone() + " | " + user.getPassword() + " | " + user.isStatus());
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/userRegistration";
 		String url = env.getProperty("microservice.user.service") + "/userRegistration";
@@ -36,7 +39,7 @@ public class UserService {
 		HttpEntity<User> httpEntity = new HttpEntity<>(user, headers);
 
 		String res = restTemplate.postForObject(url, httpEntity, String.class);
-		System.out.println(res);
+		log.info(res);
 		if (res.contains("Done")) {
 			return "okreg";
 		}
@@ -44,7 +47,7 @@ public class UserService {
 	}
 
 	public String approveAdmin(String email) {
-		System.out.println("web user service approve email: " + email);
+		log.info("web user service approve admin email: " + email);
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveAdmin/"+email;
 		// String url =
@@ -52,7 +55,7 @@ public class UserService {
 		String url = env.getProperty("microservice.user.service") + "/approveAdmin/" + email;
 
 		ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
-		System.out.println(res.getBody());
+		log.info("Approving admin | " + res.getBody());
 		if (res != null && res.getBody() != null && res.getBody().toString().startsWith("Approved")) {
 			return res.getBody().replace("Approved", "");
 		}
@@ -60,7 +63,7 @@ public class UserService {
 	}
 
 	public String approveUser(String email) {
-		System.out.println("web user service approve email: " + email);
+		log.info("web user service approve user email: " + email);
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/approveAdmin/"+email;
 		// String url =
@@ -68,7 +71,7 @@ public class UserService {
 		String url = env.getProperty("microservice.user.service") + "/approveUser/" + email;
 
 		ResponseEntity<String> res = restTemplate.getForEntity(url, String.class);
-		System.out.println(res.getBody());
+		log.info("Approving user | " + res.getBody());
 		if (res != null && res.getBody() != null && res.getBody().toString().startsWith("Approved")) {
 			return res.getBody().replace("Approved", "");
 		}

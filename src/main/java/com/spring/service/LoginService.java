@@ -18,7 +18,10 @@ import com.spring.beans.UserRegDetails;
 import com.spring.repository.ContributionRepository;
 import com.spring.repository.FlashUserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class LoginService {
 
 	@Autowired
@@ -39,26 +42,26 @@ public class LoginService {
 		String url = env.getProperty("microservice.user.service") + "/getUserDetails/user/" + user.getUniqueName()
 				+ "/pwd/" + user.getUserPwd();
 		ResponseEntity<Boolean> isLoginOk = restTemplate.getForEntity(url, boolean.class);
-		// System.out.println("ok from login service login>>>>>>>
+		// log.info("ok from login service login>>>>>>>
 		// "+isLoginOk.getBody()+""+url);
 		return isLoginOk.getBody();
 	}
 
 	public List<UserDetails> getAllApprovedUserDetails() {
-		System.out.println("ok from login service");
+		log.info("ok from login service for all approved users");
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/getUserDetails";
 		String url = env.getProperty("microservice.user.service") + "/getUserDetails";
 
 		// restTemplate.exchange(url, HttpMethod.GET, UserDetails[].class);
 		ResponseEntity<UserDetails[]> details = restTemplate.getForEntity(url, UserDetails[].class);
-		// System.out.println(Arrays.asList(details.getBody()).get(0).getLogin().getUniqueName());
+		// log.info(Arrays.asList(details.getBody()).get(0).getLogin().getUniqueName());
 
 		return Arrays.asList(details.getBody());
 	}
 
 	public List<UserRegDetails> getAllRegUserDetails() {
-		System.out.println("ok from login service");
+		log.info("ok from login service for all registered users");
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/getRegUserDetails";
 		String url = env.getProperty("microservice.user.service") + "/getRegUserDetails";
@@ -72,14 +75,14 @@ public class LoginService {
 		List<Contribution> list = new ArrayList<>();
 		// list = contriRepo.findByUserUniqueName(uniqueName);
 		list = contriRepo.findByEmailId(emailId);
-		System.out.println("Total questions " + list.size());
+		log.info("Total questions: " + list.size());
 		return list;
 	}
 
 	public List<FlashUser> getByFlashUserUniqueName() {
 		List<FlashUser> list = new ArrayList<>();
 		list = flashUserRepo.findAll();
-		System.out.println(list.size());
+		log.info("Flash user count: " + list.size());
 		return list;
 	}
 
