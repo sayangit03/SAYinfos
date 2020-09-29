@@ -39,8 +39,11 @@ public class UserService {
 
 		String res = feignUser.doFeignRegisterUser(user);
 
+		if (res == null) {
+			return "NULL";
+		}
 		log.info(res);
-		if (res.contains("Done")) {
+		if (res != null && res.contains("Done")) {
 			return "okreg";
 		}
 		return "notokreg";

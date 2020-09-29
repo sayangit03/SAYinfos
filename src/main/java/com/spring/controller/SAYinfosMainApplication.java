@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,12 +22,13 @@ import org.springframework.web.client.RestTemplate;
 //@Profile("dev")
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.spring.controller", "com.spring.resource", "com.spring.service",
-		"com.spring.filter" })
+		"com.spring.filter", "com.spring.fallback.service" })
 @EnableMongoRepositories("com.spring.repository")
 @EntityScan("com.spring.beans")
 //@EnableCaching
 @EnableScheduling
 @EnableFeignClients("com.spring.feign.service")
+@EnableHystrix
 public class SAYinfosMainApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

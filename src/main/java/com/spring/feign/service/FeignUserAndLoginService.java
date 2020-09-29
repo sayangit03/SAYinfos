@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.spring.beans.User;
 import com.spring.beans.UserDetails;
 import com.spring.beans.UserRegDetails;
+import com.spring.fallback.service.FallbackUserService;
 
-@FeignClient(name = "user-service", url = "${microservice.user.service}")
+@FeignClient(name = "user-service", url = "${microservice.user.service}", fallback = FallbackUserService.class)
 public interface FeignUserAndLoginService {
 
 	@GetMapping("/getUserDetails/user/{uniqueName}/pwd/{userPwd}")

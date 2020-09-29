@@ -33,8 +33,11 @@ import com.spring.beans.UserRegDetails;
 import com.spring.resource.MailService;
 import com.spring.service.LoginService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @SessionAttributes("user")
+@Slf4j
 public class LoginController {
 
 	@Autowired
@@ -74,21 +77,27 @@ public class LoginController {
 
 		List<UserDetails> usrLoginDetails = loginService.getAllApprovedUserDetails();
 		List<UserRegDetails> usrRegDetails = loginService.getAllRegUserDetails();
-		for (UserRegDetails rUsr : usrRegDetails) {
-			for (UserDetails lUsr : usrLoginDetails) {
-				if (rUsr.getUserEmail().equals(lUsr.getUserEmail())) {
-					rUsr.setUserRole(lUsr.getLogin().getUserRole());
-				}
-				if (lUsr.getLogin().getUniqueName().equals(user.getUniqueName())) {
-					userFullName = lUsr.getLogin().getUserName();
-					userRole = lUsr.getLogin().getUserRole();
-					userLoc = lUsr.getUserAdrs();
-					userEml = lUsr.getUserEmail();
-					userPhn = lUsr.getUserPhnNum();
+		if (usrLoginDetails != null && usrRegDetails != null) {
+			for (UserRegDetails rUsr : usrRegDetails) {
+				for (UserDetails lUsr : usrLoginDetails) {
+					if (rUsr.getUserEmail().equals(lUsr.getUserEmail())) {
+						rUsr.setUserRole(lUsr.getLogin().getUserRole());
+					}
+					if (lUsr.getLogin().getUniqueName().equals(user.getUniqueName())) {
+						userFullName = lUsr.getLogin().getUserName();
+						userRole = lUsr.getLogin().getUserRole();
+						userLoc = lUsr.getUserAdrs();
+						userEml = lUsr.getUserEmail();
+						userPhn = lUsr.getUserPhnNum();
+					}
 				}
 			}
+		} else {
+			log.info("Fallback method called. User lists are null.");
+			log.info("Redirecting to home page..");
+			redirectAtt.addFlashAttribute("serviceFlag", 0);
+			return "redirect:/";
 		}
-
 		List<Contribution> contriList = loginService.getContributions(userEml);
 		if (contriList != null && contriList.size() > 0) {
 			for (int i = 0; i < contriList.size(); i++) {

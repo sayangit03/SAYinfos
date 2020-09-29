@@ -38,6 +38,8 @@ public class LoginService {
 	@Autowired
 	FeignUserAndLoginService feignLogin;
 
+	// @HystrixCommand(commandKey = "userServiceCall", fallbackMethod =
+	// "doLoginFallback")
 	public boolean doLogin(UserLogin user) {
 		// String url =
 		// "http://user-service-sayinfos.us-east-2.elasticbeanstalk.com/getUserDetails/user/"+user.getUniqueName()+"/pwd/"+user.getUserPwd();
@@ -51,6 +53,8 @@ public class LoginService {
 		return feignLogin.doLoginFeign(user.getUniqueName(), user.getUserPwd());
 	}
 
+	// @HystrixCommand(commandKey = "userServiceCall", fallbackMethod =
+	// "getAllApprovedUserDetailsFallback")
 	public List<UserDetails> getAllApprovedUserDetails() {
 		log.info("ok from login service for all approved users");
 		// String url =
@@ -66,6 +70,8 @@ public class LoginService {
 		return feignLogin.getFeignAllApprovedUserDetails();
 	}
 
+	// @HystrixCommand(commandKey = "userServiceCall", fallbackMethod =
+	// "getAllRegUserDetailsFallback")
 	public List<UserRegDetails> getAllRegUserDetails() {
 		log.info("ok from login service for all registered users");
 		// String url =
@@ -93,4 +99,18 @@ public class LoginService {
 		return list;
 	}
 
+	public boolean doLoginFallback(UserLogin user) {
+		log.info("Fallback method for login");
+		return false;
+	}
+
+	public List<UserDetails> getAllApprovedUserDetailsFallback() {
+		log.info("Fallback method for approved user details");
+		return null;
+	}
+
+	public List<UserRegDetails> getAllRegUserDetailsFallback() {
+		log.info("Fallback method for registered user details");
+		return null;
+	}
 }

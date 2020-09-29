@@ -3,6 +3,7 @@ package com.spring.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,13 +31,34 @@ public class UserController {
 	@Autowired
 	MailService mailService;
 
+	@Value("${mail.toaddress}")
+	String toAddress;
+
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String regUser(User user, ModelMap modelMap, HttpServletRequest req, BindingResult br) {
+	public String regUser(User user, ModelMap modelMap, HttpServletRequest req, BindingResult br,
+			RedirectAttributes redirectAtt) {
 		log.info("Hello from user controller.");
 		String flag = null;
 
-		if (user != null)
+		if (user != null) {
 			flag = uServ.registerUser(user);
+		}
+		if (flag.equals("NULL")) {
+			log.info("Fallback method called. User registration returned null.");
+			log.info("Redirecting to home page..");
+			redirectAtt.addFlashAttribute("serviceFlag", 0);
+			return "redirect:/";
+		}
+		if (flag.equals("okreg")) {
+			log.info("Registration successful..");
+			try {
+				mailService.sendEmail(toAddress, "New User Registered",
+						"A new user is registered with SAYinfos. Please check the details in portal and take necessary actions.\n\nUser Name: "
+								+ user.getName() + "\n\n\n\n-SAYinfos");
+			} catch (Exception e) {
+				log.info("Registration mail not sent");
+			}
+		}
 		req.setAttribute(user.getEmail(), flag);
 		/*
 		 * if(br.hasErrors()) { return "index"; }
@@ -83,6 +105,7 @@ public class UserController {
 		log.info("from ok validation email= " + isOkRegFlag);
 		req.getSession().setAttribute("ok", isOkRegFlag);
 		redirectAtt.addFlashAttribute("fEmail", isOkRegFlag);
+
 		return "redirect:/";
 	}
 

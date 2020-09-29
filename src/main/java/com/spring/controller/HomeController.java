@@ -17,7 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.beans.Email;
 import com.spring.resource.MailService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class HomeController {
 
 	@Autowired
@@ -25,61 +28,58 @@ public class HomeController {
 
 	@Autowired
 	MailService mailService;
-	
+
 	@Value("${mail.toaddress}")
 	String toAddress;
-	
+
 	private static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping("/")
 	public String home(ModelMap modelMap, HttpServletRequest req, Model model) {
 		logger.info("************** Hello from home controller **************");
 
-		if(model.asMap().get("serviceFlag")!=null) {
+		if (model.asMap().get("serviceFlag") != null) {
 			modelMap.addAttribute("serviceFlag1", 0);
-		}
-		else {
+		} else {
 			modelMap.addAttribute("serviceFlag1", 1);
 		}
-		
-		if(model.asMap().get("accessFlag")!=null) {
+
+		if (model.asMap().get("accessFlag") != null) {
 			modelMap.addAttribute("accessFlag1", 0);
-		}
-		else {
+		} else {
 			modelMap.addAttribute("accessFlag1", 1);
 		}
-		
-		if(model.asMap().get("fEmail")!=null) {
+
+		if (model.asMap().get("fEmail") != null) {
 			String emailfFlag = model.asMap().get("fEmail").toString();
-			if(emailfFlag.equals("notokreg"))
+			if (emailfFlag.equals("notokreg"))
 				modelMap.addAttribute("emailfFlag1", 0);
 			else
 				modelMap.addAttribute("emailfFlag1", 1);
-		}
-		else
-		{
+		} else {
 			modelMap.addAttribute("emailfFlag1", 2);
 		}
 
-		if(model.asMap().get("loginFlag")!=null) {
-			System.out.println("Login failed........");
+		if (model.asMap().get("loginFlag") != null) {
+			log.info("Login failed........");
 			modelMap.addAttribute("isOk", 0);
-		}
-		else {
+		} else {
 			modelMap.addAttribute("isOk", 2);
 		}
 
-		//modelMap.addAttribute("isOk",1);
+		// modelMap.addAttribute("isOk",1);
 		return "index";
 	}
 
 	@RequestMapping(value = "/mail", method = RequestMethod.POST)
 	public void sendMail(Email email) {
 
-		System.out.println("Sending Mail.. "+ email.getEmail());
-		mailService.sendEmail(toAddress, email.getSubject(), email.getMessage()+"\n\nName: "+email.getName()+"\nEmail Id: "+email.getEmail());
-		mailService.sendEmail(email.getEmail(), "Confirmation on Email Reception", "Hello "+email.getName()+", \n\nThanks for your response. We will get back to you after inital review. \n\n\n\n-SAYinfos");
-		//return "index";
+		log.info("Sending Mail.. " + email.getEmail());
+		mailService.sendEmail(toAddress, email.getSubject(),
+				email.getMessage() + "\n\nName: " + email.getName() + "\nEmail Id: " + email.getEmail());
+		mailService.sendEmail(email.getEmail(), "Confirmation on Email Reception", "Hello " + email.getName()
+				+ ", \n\nThanks for your response. We will get back to you after inital review. \n\n\n\n-SAYinfos");
+		// return "index";
 	}
 
 	@RequestMapping("/birthday")
@@ -97,18 +97,17 @@ public class HomeController {
 		redirectAtt.addFlashAttribute("serviceFlag", 0);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/websiteClosed")
 	public String serveClosedWebsitePage() {
 		return "proxy_home";
 	}
-	
+
 	@RequestMapping(value = "/unauthorizedAccess")
 	public String unauthorizedAccessMsg(RedirectAttributes redirectAtt) {
 		redirectAtt.addFlashAttribute("accessFlag", 0);
 		return "redirect:/";
 	}
-
 
 	/*
 	 * @RequestMapping("/") public String getCovid19Resource(ModelMap mpdelMap) {
@@ -122,11 +121,9 @@ public class HomeController {
 	 * HttpEntity<String> req = new HttpEntity<String>(httpHeaders); FamousQuotes[]
 	 * quoteArray = restTemplate.exchange(url, HttpMethod.GET, req,
 	 * FamousQuotes[].class).getBody(); FamousQuotes quote = new FamousQuotes();
-	 * quote = Arrays.asList(quoteArray).get(0);
-	 * System.out.println(quote.getQuote());
+	 * quote = Arrays.asList(quoteArray).get(0); log.info(quote.getQuote());
 	 * 
 	 * return "index"; }
 	 */
-
 
 }
