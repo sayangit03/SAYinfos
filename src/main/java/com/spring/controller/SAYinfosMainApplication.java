@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 @EnableFeignClients("com.spring.feign.service")
 @EnableHystrix
+//@EnableHystrixDashboard
 public class SAYinfosMainApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
