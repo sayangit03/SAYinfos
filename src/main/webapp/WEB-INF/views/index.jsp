@@ -896,6 +896,23 @@
       		document.getElementById('submitOTPGen').disabled = false;
       }
   }
+  
+  
+  (function() {
+		if (!localStorage.getItem('cookieconsent')) {
+			document.body.innerHTML += '\
+			<div class="cookieconsent" style="position:fixed;padding:20px;left:0;bottom:0;background-color:rgba(42, 44, 57, 0.9);color:#fff;text-align:center;width:100%;z-index:99999;">\
+				This site uses cookies to track the user session while logged in. Cookies expire when the browsing session ends. By continuing to use this website, you agree to it. \
+				<a href="#" style="color:#ef6603;">I Understand</a>\
+			</div>\
+			';
+			document.querySelector('.cookieconsent a').onclick = function(e) {
+				e.preventDefault();
+				document.querySelector('.cookieconsent').style.display = 'none';
+				localStorage.setItem('cookieconsent', true);
+			};
+		}
+	})();
 </script>
 
 </body>
