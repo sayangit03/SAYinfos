@@ -93,7 +93,8 @@ public class CustomErrorController implements ErrorController {
 		}
 		reqURIGlobal = reqURI;
 		errorStatusCodeGlobal = errorStatusCode;
-		if (!(reqURI.contains("/websiteClosed") || reqURI.contains("/generateOTP") || reqURI.contains("/mail"))) {
+		if (!(reqURI.contains("/websiteClosed") || reqURI.contains("/generateOTP") || reqURI.contains("/mail")
+				|| reqURI.contains("/hystrix") || reqURI.contains("/favicon.ico"))) {
 			Date date = new Date();
 			errorUriCache.put(reqURI + "@" + date, 1);
 			errorUriCacheFor1Hour.put("[ " + reqURI + " ]@" + date, Integer.valueOf(errorStatusCode));
