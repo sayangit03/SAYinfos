@@ -109,6 +109,11 @@ public class HomeController {
 		return "redirect:/";
 	}
 
+	@RequestMapping("profile")
+	public String developerProfile() {
+		return "developer_profile";
+	}
+
 	/*
 	 * @RequestMapping("/") public String getCovid19Resource(ModelMap mpdelMap) {
 	 * HttpHeaders httpHeaders = new HttpHeaders();

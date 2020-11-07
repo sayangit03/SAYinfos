@@ -699,7 +699,7 @@
         &copy; Copyright <strong><span>SAYinfos</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-        Designed by <a href="#">Sayantan M</a>
+        Designed by <a href="profile">Sayantan M</a>
       </div>
     </div>
   </footer><!-- End Footer -->
