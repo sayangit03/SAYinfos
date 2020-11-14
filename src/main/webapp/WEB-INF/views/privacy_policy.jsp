@@ -118,7 +118,7 @@
 <div data-aos="fade-left">
 <!-- <h1>Privacy Policy for SAYinfos.com</h1> -->
 
-<p>SAYinfos, accessible from https://www.sayinfos.com, is completely a personal, non-profit, not-commercial, open and crowd sourced website. This website is made out of sheer interest towards learning and implementing something new. You can download the code-base or contribute on top of this development <a href="https://github.com/sayangit03" target="_blank">here in GIT.</a> 
+<p>SAYinfos, accessible from <a href="https://www.sayinfos.com">https://www.sayinfos.com</a>, is completely a personal, non-profit, not-commercial, open and crowd sourced website. This website is made out of sheer interest towards learning and implementing something new. You can download the code-base or contribute on top of this development <a href="https://github.com/sayangit03" target="_blank">here in GIT.</a> 
 All the services mentioned in home page are created primarily for personal purpose. You can use it if you find it good enough. This website neither promote the available services to anyone, nor the website contains any promotion/advertise.</p>
 
 <p>One of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by SAYinfos and how we use it.</p>

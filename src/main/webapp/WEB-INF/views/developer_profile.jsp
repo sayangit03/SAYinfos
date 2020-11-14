@@ -38,6 +38,22 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  
+<style type="text/css">
+@media screen and (min-width: 601px) {
+  p.changable {
+    font-size: 72px;
+    letter-spacing: 3px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  p.changable {
+    font-size: 51px;
+    letter-spacing: 3px;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -106,11 +122,6 @@
 
   <main id="main">
 
-<fmt:parseNumber var = "confirmed" type = "number" value = "${covid.getConfirmed()}" />
-<fmt:parseNumber var = "critical" type = "number" value = "${covid.getCritical()}" />
-<fmt:parseNumber var = "deaths" type = "number" value = "${covid.getDeaths()}" />
-<fmt:parseNumber var = "recovered" type = "number" value = "${covid.getRecovered()}" />
-
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
       <div class="container">
@@ -127,11 +138,10 @@
             <div class="col-sm-6">
               <img src="../../images/devimg.jpg" alt="Developer image" width="471" height="656" class="img-fluid" style="border-radius: 9px">
               </div>
-              <div class="col-sm-6" style="vertical-align: middle;">
-              <p style="font-size: 68px; font-weight: 500; letter-spacing: 3px;"><b>Sayantan </b> Mandal</p>
+              <div class="col-sm-6">
+              <p class="changable" style="font-weight: 500;"><b>Sayantan </b> Mandal</p>
               <p style="font-size: 22px; font-weight: 500;">Web Application Developer</p>
               <p style="font-size: 15px; font-weight: 500;">Java | Spring | Microservices | MongoDB | AWS</p>
-              </div>
               </div>
             </div>
           </div>

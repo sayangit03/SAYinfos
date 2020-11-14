@@ -54,9 +54,11 @@ public class CustomErrorController implements ErrorController {
 			for (Map.Entry<String, Integer> e : errorUriCacheFor1Hour.asMap().entrySet()) {
 				mailString.append(e.getKey() + " -> " + e.getValue() + "\n");
 			}
-			mailService.sendEmail(toAddress, "SAYinfos Error Notification",
+			logger.info("Error URLs:\n" + mailString);
+			mailService.sendEmail(toAddress, "SAYinfos Hourly Error Notification",
 					"Hello Admin, \nPlease find the below details of the error occurred in last one hour." + "\n\n"
 							+ mailString.toString() + "\n\n\n\n-SAYinfos");
+			errorUriCacheFor1Hour.invalidateAll();
 		}
 	};
 
@@ -150,10 +152,10 @@ public class CustomErrorController implements ErrorController {
 
 	@Scheduled(fixedDelay = 3600000)
 	public void scheduledSendMailEveryHour() {
-		logger.info("Hourly mailer started with all error reports..");
+		logger.info("Hourly mailer started with all error reports. Cache size: " + errorUriCacheFor1Hour.size());
 		if (errorUriCacheFor1Hour.size() > 0) {
 			new Thread(runnableMailService).start();
-			errorUriCacheFor1Hour.invalidateAll();
+			// errorUriCacheFor1QHour.invalidateAll();
 		}
 	}
 
