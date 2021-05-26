@@ -53,5 +53,10 @@
     "name": "microservice.user.service",
     "type": "java.lang.String",
     "description": "A description for 'microservice.user.service'"
+  },
+  {
+    "name": "microservice.user.service",
+    "type": "java.lang.String",
+    "description": "A description for 'microservice.user.service'"
   }
 ]}
