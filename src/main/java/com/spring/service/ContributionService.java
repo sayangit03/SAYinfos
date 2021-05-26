@@ -28,7 +28,8 @@ public class ContributionService {
 		contriRepo.save(contri);
 
 		System.out.println("=========================>" + existingContri.size());
-		if (existingContri == null || existingContri.size() <= 0) {
+		if ((existingContri == null || existingContri.size() <= 0) && (contri.getUserUniqueName().startsWith("flash"))
+				&& (flashUserRepo.findByUserUniqueName(contri.getUserUniqueName()).size() == 0)) {
 			System.out.println("=========================>" + existingContri.size());
 			FlashUser fu = new FlashUser();
 			fu.setId((int) flashUserRepo.count() + 1);
